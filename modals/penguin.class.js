@@ -24,17 +24,29 @@ class Penguin extends MovableObject {
 
     IMAGES_JUMPING = [
         'img/Penguin/Character09/Jump/AllCharacters-Character09-Jump_00.png',
+        'img/Penguin/Character09/Jump/AllCharacters-Character09-Jump_01.png',
         'img/Penguin/Character09/Jump/AllCharacters-Character09-Jump_02.png',
+        'img/Penguin/Character09/Jump/AllCharacters-Character09-Jump_03.png',
         'img/Penguin/Character09/Jump/AllCharacters-Character09-Jump_04.png',
+        'img/Penguin/Character09/Jump/AllCharacters-Character09-Jump_05.png',
         'img/Penguin/Character09/Jump/AllCharacters-Character09-Jump_06.png',
+        'img/Penguin/Character09/Jump/AllCharacters-Character09-Jump_07.png',
         'img/Penguin/Character09/Jump/AllCharacters-Character09-Jump_08.png',
+        'img/Penguin/Character09/Jump/AllCharacters-Character09-Jump_09.png',
         'img/Penguin/Character09/Jump/AllCharacters-Character09-Jump_10.png',
+        'img/Penguin/Character09/Jump/AllCharacters-Character09-Jump_11.png',
         'img/Penguin/Character09/Jump/AllCharacters-Character09-Jump_12.png',
+        'img/Penguin/Character09/Jump/AllCharacters-Character09-Jump_13.png',
         'img/Penguin/Character09/Jump/AllCharacters-Character09-Jump_14.png',
+        'img/Penguin/Character09/Jump/AllCharacters-Character09-Jump_15.png',
         'img/Penguin/Character09/Jump/AllCharacters-Character09-Jump_16.png',
+        'img/Penguin/Character09/Jump/AllCharacters-Character09-Jump_17.png',
         'img/Penguin/Character09/Jump/AllCharacters-Character09-Jump_18.png',
+        'img/Penguin/Character09/Jump/AllCharacters-Character09-Jump_19.png',
         'img/Penguin/Character09/Jump/AllCharacters-Character09-Jump_20.png',
+        'img/Penguin/Character09/Jump/AllCharacters-Character09-Jump_21.png',
         'img/Penguin/Character09/Jump/AllCharacters-Character09-Jump_22.png',
+        'img/Penguin/Character09/Jump/AllCharacters-Character09-Jump_23.png',
         'img/Penguin/Character09/Jump/AllCharacters-Character09-Jump_24.png'
     ];
 
@@ -53,17 +65,17 @@ class Penguin extends MovableObject {
         setInterval(() => {
             this.walking_sound.pause();
             if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
-                this.x += this.speed;
+                this.moveRight();
                 this.otherDirection = false;
                 this.walking_sound.play();
             }
             if (this.world.keyboard.LEFT && this.x > this.world.level.level_start_x) {
-                this.x -= this.speed;
+                this.moveLeft();
                 this.otherDirection = true;
                 this.walking_sound.play();
             }
-            if (this.world.keyboard.UP || this.speedY > 0) {
-                this.speedY = 20;
+            if (this.world.keyboard.SPACE && !this.isAboveGround()) {
+               this.jump();
             }
             this.world.camera_x = -this.x + 50;
         }, 1000 / 60);
@@ -77,8 +89,5 @@ class Penguin extends MovableObject {
                 }
             }
         }, 50);
-    }
-
-    jump() {
     }
 }

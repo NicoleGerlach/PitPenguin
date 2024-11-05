@@ -19,12 +19,13 @@ class Rabbit extends MovableObject {
         this.loadImages(this.IMAGES_WALKING);
         this.animate();
         this.x = 200 + Math.random() * 500;
-        this.speed = 0.15 + Math.random() * 0.25;
+        this.speed = 0.25 + Math.random() * 0.25;
         this.moveLeft();
     }
 
     animate() {
         setInterval(() => {
+            this.moveLeft();
             this.playAnimation(this.IMAGES_WALKING);
         }, 60);
     }
