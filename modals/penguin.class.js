@@ -39,7 +39,6 @@ class Penguin extends MovableObject {
     ];
 
     walking_sound = new Audio('audio/walking.mp3');
-    // jumping_sound = new Audio('audio/jump02.mp3');
     world;
 
     constructor() {
