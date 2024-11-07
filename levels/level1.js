@@ -1,4 +1,3 @@
-
 const level1 = new Level(
     [
         new Rabbit(),
@@ -75,5 +74,9 @@ const level1 = new Level(
 
         new Coin('img/Coins/1.png', 2200, 260),
         new Coin('img/Coins/1.png', 2260, 260),
+    ],
+    [
+        new Heart('img/Heart/heart.png', -730, 175),
+        new Heart('img/Heart/heart.png', 1250, 150)
     ]
 );

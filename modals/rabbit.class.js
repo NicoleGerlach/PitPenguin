@@ -14,6 +14,13 @@ class Rabbit extends MovableObject {
         'img/Rabbit/Monster5/Moving/Moving_19.png'
     ];
 
+    offset = {
+        top: 45,
+        left: 60,
+        right: 40,
+        bottom: 10
+    }
+
     constructor() {
         super().loadImage('img/Rabbit/Monster5/Moving/Moving_00.png');
         this.loadImages(this.IMAGES_WALKING);
@@ -28,5 +35,13 @@ class Rabbit extends MovableObject {
             this.moveLeft();
             this.playAnimation(this.IMAGES_WALKING);
         }, 60);
+    }
+
+    drawFrame(ctx) {
+        ctx.beginPath();
+        ctx.lineWidth = "5";
+        ctx.strokeStyle = "blue";
+        ctx.rect(this.x + 25, this.y + 45, this.width - 50, this.height - 55);
+        ctx.stroke();
     }
 }

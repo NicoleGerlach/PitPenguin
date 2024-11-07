@@ -1,4 +1,3 @@
-
 class MovableObject {
     x = 0;
     y = 200;
@@ -14,7 +13,7 @@ class MovableObject {
 
     applyGravity() {
         setInterval(() => {
-            if(this.isAboveGround() || this.speedY > 0) {
+            if (this.isAboveGround() || this.speedY > 0) {
                 this.y -= this.speedY;
                 this.speedY -= this.acceleration;
             }
@@ -34,12 +33,14 @@ class MovableObject {
         ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
     }
 
-    drawFrame(ctx) {
-        ctx.beginPath();
-        ctx.lineWidth = "5";
-        ctx.strokeStyle = "blue";
-        ctx.rect(this.x, this.y, this.width, this.height);
-        ctx.stroke();
+    drawFrame() {
+    }
+
+    isColliding(mo) {
+        return this.x + this.width - this.offset.right > mo.x + mo.offset.left &&
+                this.y + this.height - this.offset.bottom > mo.y + mo.offset.top &&
+                this.x + this.offset.left < mo.x + mo.width - mo.offset.right &&
+                this.y + this.offset.top < mo.y + mo.height - mo.offset.bottom;
     }
 
     loadImages(arr) {
