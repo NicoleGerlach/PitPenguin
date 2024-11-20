@@ -52,7 +52,14 @@ const level1 = new Level(
         new BackgroundObject('img/Background/01/layers/l7-mountains02.png', 719 * 3),
         new BackgroundObject('img/Background/01/layers/l8-mountains02.png', 719 * 3),
         new BackgroundObject('img/Background/01/layers/l9-ground02.png', 719 * 3),
-        new BackgroundObject('img/Background/01/layers/l4-stars01.png', 700 * 4)
+        new BackgroundObject('img/Background/01/layers/l4-stars01.png', 700 * 4),
+        new BackgroundObject('img/Background/01/layers/l1-background.png', 719 * 4),
+        new BackgroundObject('img/Background/01/layers/l3-fog.png', 719 * 4),
+        new BackgroundObject('img/Background/01/layers/l4-stars01.png', 700 * 4),
+        new BackgroundObject('img/Background/01/layers/l5-northern-lights02.png', 719 * 4),
+        new BackgroundObject('img/Background/01/layers/l7-mountains01.png', 719 * 4),
+        new BackgroundObject('img/Background/01/layers/l8-mountains01.png', 719 * 4),
+        new BackgroundObject('img/Background/01/layers/l9-ground01.png', 719 * 4)
     ],
     [
         new Poison('img/Poison/Dark-Left.png', -780),

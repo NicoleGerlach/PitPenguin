@@ -11,6 +11,9 @@ class World {
     keyboard;
     camera_x = 0;
     level = level1;
+    StatusBarHeart = new StatusBarHeart();
+    StatusBarCoin = new StatusBarCoin();
+    StatusBarBottle = new StatusBarBottle();
 
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d');
@@ -29,7 +32,8 @@ class World {
         setInterval(() => {
             this.level.enemies.forEach((enemy) => {
                 if (this.penguin.isColliding(enemy)) {
-                    console.log('collision width Character', enemy)
+                    this.penguin.hit();
+                    this.StatusBarHeart.setPercentage(this.penguin.energy);
                 }
             });
         }, 200);
@@ -40,6 +44,11 @@ class World {
         this.ctx.translate(this.camera_x, 0);
         this.addObjectsToMap(this.level.backgroundObjects);
         this.addToMap(this.penguin);
+        this.ctx.translate(-this.camera_x, 0);
+        this.addToMap(this.StatusBarHeart);
+        this.addToMap(this.StatusBarCoin);
+        this.addToMap(this.StatusBarBottle);
+        this.ctx.translate(this.camera_x, 0);
         this.addObjectsToMap(this.level.enemies);
         this.addObjectsToMap(this.level.poison);
         this.addObjectsToMap(this.level.coin);

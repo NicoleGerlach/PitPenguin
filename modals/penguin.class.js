@@ -49,19 +49,19 @@ class Penguin extends MovableObject {
         'img/Penguin/Character09/Jump/AllCharacters-Character09-Jump_24.png'
     ];
     IMAGES_HURT = [
-        'img/Penguin/Character09/Confused/AllCharacters-Character09-Confused_00.png',
-        'img/Penguin/Character09/Confused/AllCharacters-Character09-Confused_02.png',
-        'img/Penguin/Character09/Confused/AllCharacters-Character09-Confused_04.png',
-        'img/Penguin/Character09/Confused/AllCharacters-Character09-Confused_06.png',
-        'img/Penguin/Character09/Confused/AllCharacters-Character09-Confused_08.png',
-        'img/Penguin/Character09/Confused/AllCharacters-Character09-Confused_10.png',
-        'img/Penguin/Character09/Confused/AllCharacters-Character09-Confused_12.png',
-        'img/Penguin/Character09/Confused/AllCharacters-Character09-Confused_14.png',
-        'img/Penguin/Character09/Confused/AllCharacters-Character09-Confused_16.png',
-        'img/Penguin/Character09/Confused/AllCharacters-Character09-Confused_18.png',
-        'img/Penguin/Character09/Confused/AllCharacters-Character09-Confused_20.png',
-        'img/Penguin/Character09/Confused/AllCharacters-Character09-Confused_22.png'
-    ];
+        'img/Penguin/Character09/Confused/All Characters-Character09-Confused_00.png',
+        'img/Penguin/Character09/Confused/All Characters-Character09-Confused_02.png',
+        'img/Penguin/Character09/Confused/All Characters-Character09-Confused_04.png',
+        'img/Penguin/Character09/Confused/All Characters-Character09-Confused_06.png',
+        'img/Penguin/Character09/Confused/All Characters-Character09-Confused_08.png',
+        'img/Penguin/Character09/Confused/All Characters-Character09-Confused_10.png',
+        'img/Penguin/Character09/Confused/All Characters-Character09-Confused_12.png',
+        'img/Penguin/Character09/Confused/All Characters-Character09-Confused_14.png',
+        'img/Penguin/Character09/Confused/All Characters-Character09-Confused_16.png',
+        'img/Penguin/Character09/Confused/All Characters-Character09-Confused_18.png',
+        'img/Penguin/Character09/Confused/All Characters-Character09-Confused_20.png',
+        'img/Penguin/Character09/Confused/All Characters-Character09-Confused_22.png'
+    ]
     IMAGES_DEAD = [
         'img/Penguin/Character09/Dead/AllCharacters-Character09-Dead_00.png',
         'img/Penguin/Character09/Dead/AllCharacters-Character09-Dead_02.png',
@@ -103,6 +103,8 @@ class Penguin extends MovableObject {
         super().loadImage('img/Penguin/Character09/Walk/AllCharacters-Character09-Walk_00.png');
         this.loadImages(this.IMAGES_WALKING);
         this.loadImages(this.IMAGES_JUMPING);
+        this.loadImages(this.IMAGES_HURT);
+        this.loadImages(this.IMAGES_DEAD);
         this.applyGravity();
         this.animate();
     }
@@ -127,7 +129,11 @@ class Penguin extends MovableObject {
         }, 1000 / 60);
 
         setInterval(() => {
-            if (this.isAboveGround()) {
+            if (this.isDead()) {
+                this.playAnimation(this.IMAGES_DEAD);
+            } else if (this.isHurt()) {
+                this.playAnimation(this.IMAGES_HURT);
+            } else if (this.isAboveGround()) {
                 this.playAnimation(this.IMAGES_JUMPING);
             } else {
                 if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
