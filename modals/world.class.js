@@ -11,9 +11,10 @@ class World {
     keyboard;
     camera_x = 0;
     level = level1;
-    StatusBarHeart = new StatusBarHeart();
-    StatusBarCoin = new StatusBarCoin();
-    StatusBarBottle = new StatusBarBottle();
+    statusBarHeart = new StatusBarHeart();
+    statusBarCoin = new StatusBarCoin();
+    statusBarBottle = new StatusBarBottle();
+    throwableObject = [];
 
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d');
@@ -21,38 +22,51 @@ class World {
         this.keyboard = keyboard;
         this.draw();
         this.setWorld();
-        this.checkCollisions();
+        this.run();
     }
 
     setWorld() {
         this.penguin.world = this;
     }
 
-    checkCollisions() {
+    run() {
         setInterval(() => {
-            this.level.enemies.forEach((enemy) => {
-                if (this.penguin.isColliding(enemy)) {
-                    this.penguin.hit();
-                    this.StatusBarHeart.setPercentage(this.penguin.energy);
-                }
-            });
+            this.checkCollisions();
+            this.checkThrowObjects();
         }, 200);
     }
-    
+
+    checkThrowObjects() {
+        if (this.keyboard.D) {
+            let bottle = new ThrowableObject(this.penguin.x + 190, this.penguin.y + 130);
+            this.throwableObject.push(bottle);
+        }
+    }
+
+    checkCollisions() {
+        this.level.enemies.forEach((enemy) => {
+            if (this.penguin.isColliding(enemy)) {
+                this.penguin.hit();
+                this.statusBarHeart.setPercentage(this.penguin.energy);
+            }
+        });
+    }
+
     draw() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
         this.ctx.translate(this.camera_x, 0);
         this.addObjectsToMap(this.level.backgroundObjects);
         this.addToMap(this.penguin);
         this.ctx.translate(-this.camera_x, 0);
-        this.addToMap(this.StatusBarHeart);
-        this.addToMap(this.StatusBarCoin);
-        this.addToMap(this.StatusBarBottle);
+        this.addToMap(this.statusBarHeart);
+        this.addToMap(this.statusBarCoin);
+        this.addToMap(this.statusBarBottle);
         this.ctx.translate(this.camera_x, 0);
         this.addObjectsToMap(this.level.enemies);
         this.addObjectsToMap(this.level.poison);
         this.addObjectsToMap(this.level.coin);
         this.addObjectsToMap(this.level.heart);
+        this.addObjectsToMap(this.throwableObject);
         this.ctx.translate(-this.camera_x, 0);
         let self = this;
         requestAnimationFrame(function () {
