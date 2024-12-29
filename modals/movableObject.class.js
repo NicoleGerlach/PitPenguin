@@ -1,3 +1,4 @@
+
 class MovableObject extends DrawableObject {
     speed = 0.15
     otherDirection = false;
@@ -5,6 +6,8 @@ class MovableObject extends DrawableObject {
     acceleration = 2.5;
     energy = 100;
     lastHit = 0;
+    bottle = 20;
+    coin = 20;
 
     applyGravity() {
         setInterval(() => {
@@ -24,10 +27,11 @@ class MovableObject extends DrawableObject {
     }
 
     isColliding(mo) {
-        return this.x + this.width - this.offset.right > mo.x + mo.offset.left &&
+        return (this.x + this.width - this.offset.right > mo.x + mo.offset.left &&
             this.y + this.height - this.offset.bottom > mo.y + mo.offset.top &&
             this.x + this.offset.left < mo.x + mo.width - mo.offset.right &&
-            this.y + this.offset.top < mo.y + mo.height - mo.offset.bottom;
+            this.y + this.offset.top < mo.y + mo.height - mo.offset.bottom
+        );
     }
 
     hit() {
@@ -48,7 +52,7 @@ class MovableObject extends DrawableObject {
     isDead() {
         return this.energy == 0;
     }
-
+    
     playAnimation(images) {
         let i = this.currentImage % images.length;
         let path = images[i];

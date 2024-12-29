@@ -1,4 +1,5 @@
 
+
 class World {
     penguin = new Penguin();
     enemies = level1.enemies;
@@ -33,6 +34,9 @@ class World {
         setInterval(() => {
             this.checkCollisions();
             this.checkThrowObjects();
+            this.checkCollectingPoison();
+            this.checkCollectingCoin();
+            this.checkCollectingHeart();
         }, 200);
     }
 
@@ -50,6 +54,35 @@ class World {
                 this.statusBarHeart.setPercentage(this.penguin.energy);
             }
         });
+    }
+
+    checkCollectingPoison() {
+        this.level.poison.forEach((poison) => {
+            if (this.penguin.isColliding(poison)) {
+                this.penguin.bottle += 5;
+                this.statusBarBottle.setPercentage(this.penguin.bottle);
+                // this.removeBottle();
+            }
+        })
+    }
+
+    checkCollectingCoin() {
+        this.level.coin.forEach((coin) => {
+            if (this.penguin.isColliding(coin)) {
+                this.penguin.coin += 2;
+                this.statusBarCoin.setPercentage(this.penguin.coin);
+            }
+        })
+    }
+
+    checkCollectingHeart() {
+        this.level.heart.forEach((heart) => {
+            if (this.penguin.isColliding(heart)) {
+                this.penguin.heart += 5;
+                this.penguin.energy += 5;
+                this.statusBarHeart.setPercentage(this.penguin.heart);
+            }
+        })
     }
 
     draw() {
@@ -102,4 +135,8 @@ class World {
         this.ctx.restore();
         mo.x = mo.x * -1;
     }
+
+    // removeBottle(poison) {
+    //     this.level.Poison.splice[poison[i]];
+    // }
 }

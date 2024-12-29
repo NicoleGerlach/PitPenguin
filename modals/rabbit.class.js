@@ -25,8 +25,8 @@ class Rabbit extends MovableObject {
         super().loadImage('img/Rabbit/Monster5/Moving/Moving_00.png');
         this.loadImages(this.IMAGES_WALKING);
         this.animate();
-        this.x = 200 + Math.random() * 500;
-        this.speed = 0.25 + Math.random() * 0.25;
+        this.x = 400 + Math.random() * 500;
+        this.speed = 0.85 + Math.random() * 0.25;
         this.moveLeft();
     }
 
@@ -37,11 +37,11 @@ class Rabbit extends MovableObject {
         }, 60);
     }
 
-    drawFrame(ctx) {
-        ctx.beginPath();
-        ctx.lineWidth = "5";
-        ctx.strokeStyle = "blue";
-        ctx.rect(this.x + 25, this.y + 45, this.width - 50, this.height - 55);
-        ctx.stroke();
-    }
+    // drawFrame(ctx) {
+    //     ctx.beginPath();
+    //     ctx.lineWidth = "5";
+    //     ctx.strokeStyle = "blue";
+    //     ctx.rect(this.x + 25, this.y + 45, this.width - 50, this.height - 55);
+    //     ctx.stroke();
+    // }
 }

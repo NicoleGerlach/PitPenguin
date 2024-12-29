@@ -48,11 +48,11 @@ class Endboss extends MovableObject {
         }, 100);
     }
 
-    drawFrame(ctx) {
-        ctx.beginPath();
-        ctx.lineWidth = "5";
-        ctx.strokeStyle = "blue";
-        ctx.rect(this.x + 150, this.y + 115, this.width - 305, this.height -200);
-        ctx.stroke();
-    }
+    // drawFrame(ctx) {
+    //     ctx.beginPath();
+    //     ctx.lineWidth = "5";
+    //     ctx.strokeStyle = "blue";
+    //     ctx.rect(this.x + 150, this.y + 115, this.width - 305, this.height -200);
+    //     ctx.stroke();
+    // }
 }

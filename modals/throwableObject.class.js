@@ -8,8 +8,12 @@ class ThrowableObject extends MovableObject {
         this.width = 60;
         this.throw(100, 150);
     }
-
-
+    
+    loadImage(path) {
+        this.img = new Image();
+        this.img.src = path;
+    }
+    
     throw() {
         this.speedY = 30
         this.applyGravity();
