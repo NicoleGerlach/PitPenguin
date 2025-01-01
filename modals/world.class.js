@@ -59,11 +59,11 @@ class World {
     checkCollectingPoison() {
         this.level.poison.forEach((poison) => {
             if (this.penguin.isColliding(poison)) {
-                this.penguin.bottle += 5;
+                this.penguin.bottle += 10;
                 this.statusBarBottle.setPercentage(this.penguin.bottle);
-                // this.removeBottle();
+                this.removeBottle(poison);
             }
-        })
+        });
     }
 
     checkCollectingCoin() {
@@ -72,17 +72,22 @@ class World {
                 this.penguin.coin += 2;
                 this.statusBarCoin.setPercentage(this.penguin.coin);
             }
-        })
+        });
     }
 
     checkCollectingHeart() {
         this.level.heart.forEach((heart) => {
             if (this.penguin.isColliding(heart)) {
                 this.penguin.heart += 5;
-                this.penguin.energy += 5;
-                this.statusBarHeart.setPercentage(this.penguin.heart);
+                if (this.penguin.energy < 100) {
+                    this.penguin.energy += 5;
+                    if (this.penguin.energy > 100) {
+                        this.penguin.energy = 100;
+                    }
+                }
+                this.statusBarHeart.setPercentage(this.penguin.energy);
             }
-        })
+        });
     }
 
     draw() {
@@ -136,7 +141,10 @@ class World {
         mo.x = mo.x * -1;
     }
 
-    // removeBottle(poison) {
-    //     this.level.Poison.splice[poison[i]];
-    // }
+    removeBottle(poison) {
+        const indexOfPoison = this.level.poison.indexOf(poison);
+        if (indexOfPoison > -1) {
+            this.level.poison.splice(indexOfPoison, 1);
+        }
+    }
 }

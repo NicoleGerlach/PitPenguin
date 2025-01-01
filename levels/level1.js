@@ -63,10 +63,14 @@ const level1 = new Level(
     ],
     [
         new Poison('img/Poison/Dark-Left.png', -780),
+        new Poison('img/Poison/Dark-Left.png', -400),
+        new Poison('img/Poison/Dark-Left.png', 450),
         new Poison('img/Poison/Dark-Left.png', 700),
         new Poison('img/Poison/Dark-Right.png', 900),
         new Poison('img/Poison/Dark-Right.png', 1250),
-        new Poison('img/Poison/Dark-Left.png', 1800)
+        new Poison('img/Poison/Dark-Left.png', 1800),
+        new Poison('img/Poison/Dark-Left.png', 1500),
+        new Poison('img/Poison/Dark-Left.png', 2220)
     ],
     [
         new Coin('img/Coins/1.png', -810, 190),
@@ -77,7 +81,7 @@ const level1 = new Level(
         new Coin('img/Coins/1.png', 490, 170),
         new Coin('img/Coins/1.png', 1500, 170),
         new Coin('img/Coins/1.png', 2200, 260),
-        new Coin('img/Coins/1.png', 2260, 260),
+        new Coin('img/Coins/1.png', 2260, 260)
     ],
     [
         new Heart('img/Heart/heart1.png', -725, 195),

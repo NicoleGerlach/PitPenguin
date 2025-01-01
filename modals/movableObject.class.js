@@ -8,6 +8,7 @@ class MovableObject extends DrawableObject {
     lastHit = 0;
     bottle = 20;
     coin = 20;
+    heart = 0;
 
     applyGravity() {
         setInterval(() => {
@@ -52,7 +53,7 @@ class MovableObject extends DrawableObject {
     isDead() {
         return this.energy == 0;
     }
-    
+
     playAnimation(images) {
         let i = this.currentImage % images.length;
         let path = images[i];
