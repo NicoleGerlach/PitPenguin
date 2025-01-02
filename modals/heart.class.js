@@ -3,10 +3,10 @@ class Heart extends MovableObject {
     width = 55;
 
     offset = {
-        top: 0,
-        left: 0,
-        right: 0,
-        bottom: 0
+        top: 20,
+        left: 20,
+        right: 20,
+        bottom: 20
     }
 
     constructor(imagePath, x, y) {

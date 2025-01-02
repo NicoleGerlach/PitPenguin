@@ -77,8 +77,12 @@ const level1 = new Level(
         new Coin('img/Coins/1.png', -750, 140),
         new Coin('img/Coins/1.png', -690, 140),
         new Coin('img/Coins/1.png', -630, 190),
+        new Coin('img/Coins/1.png', -395, 190),
         new Coin('img/Coins/1.png', 430, 170),
         new Coin('img/Coins/1.png', 490, 170),
+        new Coin('img/Coins/1.png', 1185, 147),
+        new Coin('img/Coins/1.png', 1253, 85),
+        new Coin('img/Coins/1.png', 1322, 147),
         new Coin('img/Coins/1.png', 1500, 170),
         new Coin('img/Coins/1.png', 2200, 260),
         new Coin('img/Coins/1.png', 2260, 260)

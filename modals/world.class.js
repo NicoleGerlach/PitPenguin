@@ -1,5 +1,3 @@
-
-
 class World {
     penguin = new Penguin();
     enemies = level1.enemies;
@@ -38,13 +36,22 @@ class World {
             this.checkCollectingCoin();
             this.checkCollectingHeart();
         }, 200);
+        // console.log('Energy:', this.penguin.energy);
+        // console.log('Coin:', this.penguin.coin);
+        // console.log('Poison:', this.penguin.bottle);
     }
 
     checkThrowObjects() {
-        if (this.keyboard.D) {
+        if (this.keyboard.D && this.penguin.bottle > 0) {
             let bottle = new ThrowableObject(this.penguin.x + 190, this.penguin.y + 130);
             this.throwableObject.push(bottle);
+            this.throwBottle();
         }
+    }
+
+    throwBottle() {
+        this.penguin.bottle -= 5;
+        this.statusBarBottle.setPercentage(this.penguin.bottle);
     }
 
     checkCollisions() {
@@ -59,35 +66,67 @@ class World {
     checkCollectingPoison() {
         this.level.poison.forEach((poison) => {
             if (this.penguin.isColliding(poison)) {
-                this.penguin.bottle += 10;
-                this.statusBarBottle.setPercentage(this.penguin.bottle);
-                this.removeBottle(poison);
+                this.collectPoison(poison);
             }
         });
+        // console.log('Poison:', this.penguin.bottle);
+    }
+    
+    collectPoison(poison) {
+        if (this.penguin.bottle < 100) {
+            this.penguin.bottle += 10;
+            if (this.penguin.bottle > 100) {
+                this.penguin.bottle = 100;
+            }
+            this.statusBarBottle.setPercentage(this.penguin.bottle);
+            this.removeBottle(poison);
+        } 
+    }
+
+    enoughPoison() {
+        if (this.penguin.bottle == 100) {
+            return this.penguin.bottle == 100;
+        }
     }
 
     checkCollectingCoin() {
         this.level.coin.forEach((coin) => {
             if (this.penguin.isColliding(coin)) {
-                this.penguin.coin += 2;
-                this.statusBarCoin.setPercentage(this.penguin.coin);
+                this.collectingCoin(coin);
             }
         });
+        // console.log('Coin:', this.penguin.coin);
+    }
+
+    collectingCoin(coin) {
+        if (this.penguin.coin < 100) {
+            this.penguin.coin += 5;
+            if (this.penguin.coin > 100) {
+                this.penguin.coin = 100;
+            }
+        }
+        this.statusBarCoin.setPercentage(this.penguin.coin);
+        this.removeCoin(coin);
     }
 
     checkCollectingHeart() {
         this.level.heart.forEach((heart) => {
             if (this.penguin.isColliding(heart)) {
-                this.penguin.heart += 5;
-                if (this.penguin.energy < 100) {
-                    this.penguin.energy += 5;
-                    if (this.penguin.energy > 100) {
-                        this.penguin.energy = 100;
-                    }
-                }
-                this.statusBarHeart.setPercentage(this.penguin.energy);
-            }
+                this.collectingHeart(heart);
+            }  
         });
+        // console.log('Energy:', this.penguin.energy);
+    }
+
+    collectingHeart(heart) {
+        if (this.penguin.energy < 100) {
+            this.penguin.energy += 5;
+            if (this.penguin.energy > 100) {
+                this.penguin.energy = 100;
+            }
+        }
+        this.statusBarHeart.setPercentage(this.penguin.energy);
+        this.removeHeart(heart);
     }
 
     draw() {
@@ -143,8 +182,22 @@ class World {
 
     removeBottle(poison) {
         const indexOfPoison = this.level.poison.indexOf(poison);
-        if (indexOfPoison > -1) {
+        if (indexOfPoison > -1 && this.penguin.bottle < 100) {
             this.level.poison.splice(indexOfPoison, 1);
+        }
+    }
+
+    removeCoin(coin) {
+        const indexOfCoin = this.level.coin.indexOf(coin);
+        if (indexOfCoin > -1 ) {
+            this.level.coin.splice(indexOfCoin, 1);
+        }
+    }
+
+    removeHeart(heart) {
+        const indexOfHeart = this.level.heart.indexOf(heart);
+        if (indexOfHeart > -1 && this.penguin.energy < 100) {
+            this.level.heart.splice(indexOfHeart, 1);
         }
     }
 }
