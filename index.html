@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,6 +8,7 @@
     <link rel="stylesheet" href="style.css">
     <script src="modals/drawableObject.class.js"></script>
     <script src="modals/movableObject.class.js"></script>
+    <script src="modals/templates.js"></script>
     <script src="modals/penguin.class.js"></script>
     <script src="modals/rabbit.class.js"></script>
     <script src="modals/statusBarHeart.class.js"></script>
@@ -26,71 +26,22 @@
     <script src="levels/level1.js"></script>
     <script src="js/game.js"></script>
 </head>
-
-<body onload="init()">
-    <h1>Pit Penguin</h1>
-    <canvas id="canvas" width="720px" height="480px"></canvas>
+<body onload="init(), showInfoBox()">
+    <h1 class="d-none">Pit Penguin</h1>
+    <canvas id="canvas" width="720px" height="480px" class="d-none"></canvas>
     <div class="start-screen">
-        <div class="directions d-none">
-            <h2>Pit Penguin</h2>
-            <div class="directions-box">
-                <div class="info-box">
-                    <img src="img/Penguin/Character09/Penguin.png" alt="">
-                    <div onclick="init()">Start Game</div>
-                </div>
-                <div class="info-box">
-                    <img src="img/question-mark01.png" alt="">
-                    <div>How to play</div>
-                </div>
+        <div class="directions ">
+            <div class="headline">
+                <img src="img/backwards.png" onclick="backFromAboutGame()" id="backwardsAboutGame" class="d-none">
+                <img src="img/backwards.png" onclick="backFromAbouImpressum()" id="backwardsImpressum" class="d-none">
+                <h2>Pit Penguin</h2>
             </div>
-            <div class="impressum">
-                Impressum
+            <div id="instructionsBox" class="instructions-box">
             </div>
-            <div class="about-game">
-                <div>
-                    Pit Penguin is a friendly guy and he likes to walk with you through the winter landscape.<br>
-                    He likes to collect fish coins on the go.<br>
-                    But be warned, he is not alone and the rabbits want to hurt him.<br>
-                    You can prevent this by jumping on the rabbits or using the small poison bottles you can
-                    collect.<br>
-                    After the rabbits there will be a big troll.<br>
-                    You can defeat him if you throw enough poison bottles at him.<br><br>
-                    Good luck and have fun with Pit Penguin!
-                </div>
-                <div>
-                    <h3>How to play</h3>
-                    <table>
-                        <th>How to use the keyboard</th>
-                        <tr>
-                            <td>Left</td>
-                            <td>Move left</td>
-                        </tr>
-                        <tr>
-                            <td>Right</td>
-                            <td>Move right</td>
-                        </tr>
-                        <tr>
-                            <td>Space</td>
-                            <td>Jump</td>
-                        </tr>
-                        <tr>
-                            <td>D</td>
-                            <td>Throw</td>
-                        </tr>
-                    </table>
-                </div>
-            </div>
-            <div class="impressum-information">
-                &copy; Nicole Gerlach 2024<br><br>
-                Nicole Gerlach<br>
-                Niederhäslicher Str. 15<br>
-                01705 Freital<br><br>
-                Images provided by CraftPix and Pixabay.
-            </div>
+
         </div>
         <div></div>
         <div></div>
     </div>
 </body>
-
 </html>

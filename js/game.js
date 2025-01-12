@@ -48,3 +48,59 @@ window.addEventListener("keyup" , (e) => {
         keyboard.D = false;
     }
 })
+
+function showInfoBox() {
+    const instructionsBox = document.getElementById('instructionsBox');
+    instructionsBox.innerHTML += generateInfoBoxHtml();
+}
+
+function showAboutGame() {
+    const instructionsBox = document.getElementById('instructionsBox');
+    const directionsContainer = document.getElementById('directionsContainer');
+    const impressum = document.getElementById('impressum');
+    const backwardsAboutGame = document.getElementById('backwardsAboutGame');
+    directionsContainer.classList.add('d-none');
+    impressum.classList.add('d-none');
+    instructionsBox.innerHTML = '';
+    instructionsBox.innerHTML += generateAboutGameHtml();
+    backwardsAboutGame.classList.remove('d-none');
+}
+
+function backFromAboutGame() {
+    const instructionsBox = document.getElementById('instructionsBox');
+    const directionsContainer = document.getElementById('directionsContainer');
+    const impressum = document.getElementById('impressum');
+    const backwardsAboutGame = document.getElementById('backwardsAboutGame');
+    const aboutGame = document.getElementById('aboutGame');
+    instructionsBox.innerHTML = '';
+    instructionsBox.innerHTML += generateInfoBoxHtml();
+    directionsContainer.classList.remove('d-none');
+    impressum.classList.remove('d-none');
+    backwardsAboutGame.classList.add('d-none');
+    aboutGame.classList.add('d-none');
+}
+
+function showImpressum() {
+    const instructionsBox = document.getElementById('instructionsBox');
+    const directionsContainer = document.getElementById('directionsContainer');
+    const impressum = document.getElementById('impressum');
+    const backwardsImpressum = document.getElementById('backwardsImpressum');
+    directionsContainer.classList.add('d-none');
+    impressum.classList.add('d-none');
+    instructionsBox.innerHTML = '';
+    instructionsBox.innerHTML += generateImpressumHtml();
+    backwardsImpressum.classList.remove('d-none');
+}
+
+function backFromAbouImpressum() {
+    const instructionsBox = document.getElementById('instructionsBox');
+    const directionsContainer = document.getElementById('directionsContainer');
+    const impressum = document.getElementById('impressum');
+    const backwardsImpressum = document.getElementById('backwardsImpressum');
+    instructionsBox.innerHTML = '';
+    instructionsBox.innerHTML += generateInfoBoxHtml();
+    directionsContainer.classList.remove('d-none');
+    impressum.classList.remove('d-none');
+    backwardsImpressum.classList.add('d-none');
+
+}

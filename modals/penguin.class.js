@@ -1,7 +1,7 @@
 class Penguin extends MovableObject {
     height = 300;
     width = 400;
-    y = 20;
+    y = 130;
     speed = 5;
     IMAGES_WALKING = [
         'img/Penguin/Character09/Walk/AllCharacters-Character09-Walk_00.png',

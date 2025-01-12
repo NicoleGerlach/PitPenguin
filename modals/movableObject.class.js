@@ -35,6 +35,10 @@ class MovableObject extends DrawableObject {
         );
     }
 
+    isJumpOnEnemy(penguin) {
+        return (this.y + this.height - this.offset.bottom > penguin.y + penguin.offset.top)
+    }
+
     hit() {
         this.energy -= 5;
         if (this.energy < 0) {

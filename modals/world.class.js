@@ -1,3 +1,4 @@
+
 class World {
     penguin = new Penguin();
     enemies = level1.enemies;
@@ -35,6 +36,7 @@ class World {
             this.checkCollectingPoison();
             this.checkCollectingCoin();
             this.checkCollectingHeart();
+            this.checkJumpOnEnemy();
         }, 200);
         // console.log('Energy:', this.penguin.energy);
         // console.log('Coin:', this.penguin.coin);
@@ -63,6 +65,15 @@ class World {
         });
     }
 
+    checkJumpOnEnemy() {
+        this.level.enemies.forEach((enemy) => {
+            if (this.penguin.isJumpOnEnemy(enemy) && this.penguin.isColliding(enemy)) {
+                this.removeEnemy(enemy);
+            }
+
+        });
+    }
+
     checkCollectingPoison() {
         this.level.poison.forEach((poison) => {
             if (this.penguin.isColliding(poison)) {
@@ -71,7 +82,7 @@ class World {
         });
         // console.log('Poison:', this.penguin.bottle);
     }
-    
+
     collectPoison(poison) {
         if (this.penguin.bottle < 100) {
             this.penguin.bottle += 10;
@@ -80,7 +91,7 @@ class World {
             }
             this.statusBarBottle.setPercentage(this.penguin.bottle);
             this.removeBottle(poison);
-        } 
+        }
     }
 
     enoughPoison() {
@@ -113,7 +124,7 @@ class World {
         this.level.heart.forEach((heart) => {
             if (this.penguin.isColliding(heart)) {
                 this.collectingHeart(heart);
-            }  
+            }
         });
         // console.log('Energy:', this.penguin.energy);
     }
@@ -189,7 +200,7 @@ class World {
 
     removeCoin(coin) {
         const indexOfCoin = this.level.coin.indexOf(coin);
-        if (indexOfCoin > -1 ) {
+        if (indexOfCoin > -1) {
             this.level.coin.splice(indexOfCoin, 1);
         }
     }
@@ -198,6 +209,13 @@ class World {
         const indexOfHeart = this.level.heart.indexOf(heart);
         if (indexOfHeart > -1 && this.penguin.energy < 100) {
             this.level.heart.splice(indexOfHeart, 1);
+        }
+    }
+
+    removeEnemy(enemy) {
+        const indexOfEnemy = this.level.enemies.indexOf(enemy);
+        if (indexOfEnemy > -1) {
+            this.level.enemies.splice(indexOfEnemy, 1);
         }
     }
 }
