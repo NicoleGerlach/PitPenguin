@@ -2,8 +2,8 @@ function generateInfoBoxHtml() {
     return /*html*/`
         <div id="directionsContainer" class="directions-container">
             <div class="directions-box">
-                <div class="info-box">
-                    <div onclick="init()">Start Game</div>
+                <div onclick="startGame()" class="info-box">
+                    <div>Start Game</div>
                     <img src="img/Penguin/Character09/Penguin.png" alt="">
                 </div>
                 <div onclick="showAboutGame()" class="info-box">

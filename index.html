@@ -26,10 +26,10 @@
     <script src="levels/level1.js"></script>
     <script src="js/game.js"></script>
 </head>
-<body onload="init(), showInfoBox()">
+<body onload="showInfoBox()">
     <h1 class="d-none">Pit Penguin</h1>
     <canvas id="canvas" width="720px" height="480px" class="d-none"></canvas>
-    <div class="start-screen">
+    <div id="startScreen" class="start-screen">
         <div class="directions ">
             <div class="headline">
                 <img src="img/backwards.png" onclick="backFromAboutGame()" id="backwardsAboutGame" class="d-none">

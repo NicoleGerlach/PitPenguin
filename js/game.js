@@ -54,6 +54,14 @@ function showInfoBox() {
     instructionsBox.innerHTML += generateInfoBoxHtml();
 }
 
+function startGame() {
+    const startScreen = document.getElementById('startScreen');
+    const canvas = document.getElementById('canvas');
+    startScreen.classList.add('d-none');
+    canvas.classList.remove('d-none');
+    init();
+}
+
 function showAboutGame() {
     const instructionsBox = document.getElementById('instructionsBox');
     const directionsContainer = document.getElementById('directionsContainer');
