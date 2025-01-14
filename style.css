@@ -5,7 +5,7 @@
     font-family: 'Delius';
     font-style: normal;
     font-weight: 400;
-    src: url('/font/delius-v19-latin-regular.woff2') format('woff2');
+    src: url('font/delius-v19-latin-regular.woff2') format('woff2');
     /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
 }
 
@@ -51,8 +51,9 @@ canvas {
 .headline {
     display: flex;
     align-items: center;
-    position: fixed;
-    top: 255px;
+    margin: 30px 0 30px 0;
+    /* position: fixed;
+    top: 255px; */
 }
 
 .headline img {
@@ -66,14 +67,35 @@ canvas {
     filter: brightness(60%);
 }
 
-.instructions-box {
+/* .instructions-box {
     margin-top: 115px;
-}
+} */
 
 h2 {
     font-size: 48px;
     margin-top: 30px;
     margin-block: unset;
+}
+
+.about-game {
+    width: 90%;
+    height: 80%;
+    overflow-y: scroll;
+    margin-left: 40px;
+    padding-right: 12px;
+}
+
+.keyboard-instructions {
+    margin: 12px 0 0 60px;
+}
+
+h4 {
+    margin-bottom: 5px;
+    margin-block: 2px;
+}
+
+td {
+    width: 80px;
 }
 
 .directions-container {
@@ -119,4 +141,20 @@ h2 {
 
 .d-none {
     display: none;
+}
+
+/* ::-webkit-scrollbar {
+    width: 10px;
+} */
+
+::-webkit-scrollbar-track {
+    color: black;
+}
+
+::-webkit-scrollbar-thumb {
+    color: #F2F2F2;
+}
+
+::-webkit-scrollbar-hover {
+    color: blue;
 }

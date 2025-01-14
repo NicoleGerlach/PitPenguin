@@ -31,10 +31,11 @@ function generateAboutGameHtml() {
             You can defeat him if you throw enough poison bottles at him.<br><br>
             Good luck and have fun with Pit Penguin!
         </div>
-        <div>
-            <h3>How to play</h3>
+        <div class="keyboard-instructions" >
+            <h4>
+                How to use the keyboard
+            </h4>
             <table>
-                <th>How to use the keyboard</th>
                 <tr>
                     <td>Left</td>
                     <td>Move left</td>
