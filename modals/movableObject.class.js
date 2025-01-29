@@ -29,14 +29,33 @@ class MovableObject extends DrawableObject {
 
     isColliding(mo) {
         return (this.x + this.width - this.offset.right > mo.x + mo.offset.left &&
-            this.y + this.height - this.offset.bottom > mo.y + mo.offset.top &&
             this.x + this.offset.left < mo.x + mo.width - mo.offset.right &&
+            this.y + this.height - this.offset.bottom > mo.y + mo.offset.top &&
             this.y + this.offset.top < mo.y + mo.height - mo.offset.bottom
         );
     }
 
-    isJumpOnEnemy(penguin) {
-        return (this.y + this.height - this.offset.bottom > penguin.y + penguin.offset.top)
+    isJumpOnEnemy(enemy) {
+        return (this.y + this.height - this.offset.bottom - 30 > enemy.y + enemy.offset.top)
+    }
+
+    // isCollidingWithPoison(poison) {
+    //     return (this.x + this.width - this.offset.right > poison.x + poison.offset.left &&
+    //         this.x + this.offset.left < poison.x + poison.width - poison.offset.right &&
+    //         this.y + this.height - this.offset.bottom > poison.y + poison.offset.top &&
+    //         this.y + this.offset.top < poison.y + poison.height - poison.offset.bottom
+    //     );
+    // }
+
+    isCollidingWithPoison(poison) {
+        try { return (this.x + this.width - this.offset.right > poison.x + poison.offset.left &&
+            this.x + this.offset.left < poison.x + poison.width - poison.offset.right &&
+            this.y + this.height - this.offset.bottom > poison.y + poison.offset.top &&
+            this.y + this.offset.top < poison.y + poison.height - poison.offset.bottom
+        ); } catch(e) {
+            console.log('poison defekt', e);
+            console.log(poison.x);
+        }
     }
 
     hit() {

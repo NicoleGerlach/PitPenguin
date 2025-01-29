@@ -36,7 +36,7 @@ class World {
             this.checkCollectingPoison();
             this.checkCollectingCoin();
             this.checkCollectingHeart();
-            this.checkJumpOnEnemy();
+            this.checkCollisionWithPoison();
         }, 200);
         // console.log('Energy:', this.penguin.energy);
         // console.log('Coin:', this.penguin.coin);
@@ -58,19 +58,39 @@ class World {
 
     checkCollisions() {
         this.level.enemies.forEach((enemy) => {
-            if (this.penguin.isColliding(enemy)) {
+            if (this.penguin.isJumpOnEnemy(enemy) && this.penguin.isColliding(enemy) && this.penguin.isAboveGround()) {
+                this.removeEnemy(enemy);
+                this.penguin.speedY = 15;
+            } else if (this.penguin.isColliding(enemy)) {
                 this.penguin.hit();
                 this.statusBarHeart.setPercentage(this.penguin.energy);
             }
         });
     }
 
-    checkJumpOnEnemy() {
-        this.level.enemies.forEach((enemy) => {
-            if (this.penguin.isJumpOnEnemy(enemy) && this.penguin.isColliding(enemy)) {
-                this.removeEnemy(enemy);
-            }
+    // checkCollisionWithPoison() {
+    //     // Iteriere über alle Poison-Objekte
+    //     this.level.poison.forEach((poison) => {
+    //         // Iteriere über alle Rabbits im Level
+    //         this.level.enemies.forEach((enemy) => {
+    //             if (enemy.isCollidingWithPoison(poison)) { // Prüfe auf Kollision mit Gift
+    //                 console.log("Rabbit wurde vom Gift getroffen!");
+    //                 this.removeEnemy(enemy); // Entferne das Kaninchen
+    //             }
+    //         });
+    //     });
+    // }
 
+    checkCollisionWithPoison() {
+        if (this.throwableObject.length === 0) return; // Keine Flaschen zum Überprüfen
+        this.throwableObject.forEach((bottle) => {
+            this.level.enemies.forEach((enemy) => {
+                if (enemy.isCollidingWithPoison(bottle)) { // Prüfe auf Kollision mit dem Wurfobjekt
+                    console.log("Rabbit wurde vom Gift getroffen!");
+                    this.removeEnemy(enemy); // Entferne das Kaninchen
+                    this.removeBottle(poison);
+                }
+            });
         });
     }
 
