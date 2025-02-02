@@ -57,12 +57,14 @@ function showInfoBox() {
 function startGame() {
     const startScreen = document.getElementById('startScreen');
     const canvas = document.getElementById('canvas');
+    const headline = document.getElementById('headline');
     startScreen.classList.add('d-none');
     canvas.classList.remove('d-none');
+    headline.classList.remove('d-none');
     init();
 }
 
-function showAboutGame() {
+function howToPlay() {
     const instructionsBox = document.getElementById('instructionsBox');
     const directionsContainer = document.getElementById('directionsContainer');
     const impressum = document.getElementById('impressum');
@@ -74,17 +76,17 @@ function showAboutGame() {
     backwardsAboutGame.classList.remove('d-none');
 }
 
-function backFromAboutGame() {
+function backFromHowToPlay() {
     const instructionsBox = document.getElementById('instructionsBox');
     const directionsContainer = document.getElementById('directionsContainer');
     const impressum = document.getElementById('impressum');
-    const backwardsAboutGame = document.getElementById('backwardsAboutGame');
+    const backwardsHowToPlay = document.getElementById('backwardsAboutGame');
     const aboutGame = document.getElementById('aboutGame');
     instructionsBox.innerHTML = '';
     instructionsBox.innerHTML += generateInfoBoxHtml();
     directionsContainer.classList.remove('d-none');
     impressum.classList.remove('d-none');
-    backwardsAboutGame.classList.add('d-none');
+    backwardsHowToPlay.classList.add('d-none');
     aboutGame.classList.add('d-none');
 }
 

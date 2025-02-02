@@ -29,35 +29,20 @@
 </head>
 
 <body onload="showInfoBox()">
-    <h1 class="d-none">Pit Penguin</h1>
+    <h1 id="headline" class="d-none">Pit Penguin</h1>
     <canvas id="canvas" width="720px" height="480px" class="d-none"></canvas>
     <div id="startScreen" class="start-screen">
         <div class="directions ">
-            <div id="winContainer" class="win-container">
-                <div class="win">You Win!</div>
-                <div class="win-box">
-                    <div class="coin-box">
-                        <img src="img/Coins/1.png">
-                        You collected <br>? coins
-                    </div>
-                    <div class="play-again">Play again
-                        <img src="img/reload.png">
-                    </div>
-                </div>
-            </div>
-            <div id="looseConteiner" class="loose-conteiner d-none">You Loose</div>
-            <div class="headline d-none">
-                <img src="img/backwards.png" onclick="backFromAboutGame()" id="backwardsAboutGame" class="d-none">
+            <div class="headline">
+                <img src="img/backwards.png" onclick="backFromHowToPlay()" id="backwardsAboutGame" class="d-none">
                 <img src="img/backwards.png" onclick="backFromAbouImpressum()" id="backwardsImpressum" class="d-none">
                 <h2>Pit Penguin</h2>
             </div>
-            <div id="instructionsBox" class="instructions-box d-none">
+            <div id="instructionsBox" class="instructions-box">
             </div>
-
+            <div></div>
+            <div></div>
         </div>
-        <div></div>
-        <div></div>
-    </div>
 </body>
 
 </html>

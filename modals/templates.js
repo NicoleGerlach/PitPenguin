@@ -6,7 +6,7 @@ function generateInfoBoxHtml() {
                     <div>Start Game</div>
                     <img src="img/Penguin/Character09/Penguin.png" alt="">
                 </div>
-                <div onclick="showAboutGame()" class="info-box">
+                <div onclick="howToPlay()" class="info-box">
                     <div>How to play</div>
                     <img src="img/question-mark01.png" alt="">
                 </div>
@@ -65,6 +65,40 @@ function generateImpressumHtml() {
             Niederhäslicher Str. 15<br>
             01705 Freital<br><br>
             Images provided by CraftPix and Pixabay.
+        </div>
+    `
+}
+
+function generateWinScreenHtml() {
+    return /*html*/`
+        <div id="winContainer" class="win-container">
+            <div class="win">You win, great!</div>
+            <div class="win-box">
+                <div class="coin-box">
+                    <img src="img/Coins/1.png">
+                    You collected <br>? coins
+                </div>
+                <div class="play-again">Play again
+                    <img src="img/reload.png">
+                </div>
+            </div>
+        </div>
+    `
+}
+
+function generateLooseSrceenHtml() {
+    return /*html*/`
+        <div id="looseConteiner" class="loose-container">
+            <div class="loose">Sorry, you loose</div>
+            <div class="loose-box">
+                <div class="play-again">Try again
+                    <img src="img/reload.png">
+                </div>
+                <div class="coin-box">
+                    <img src="img/Coins/1.png">
+                    You collected <br>? coins
+                </div>
+            </div>
         </div>
     `
 }
