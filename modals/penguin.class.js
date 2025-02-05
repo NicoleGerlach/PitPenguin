@@ -1,3 +1,4 @@
+
 class Penguin extends MovableObject {
     height = 300;
     width = 400;
@@ -90,6 +91,8 @@ class Penguin extends MovableObject {
 
 
     walking_sound = new Audio('audio/walking.mp3');
+    jumping_sound = new Audio('audio/jump.mp3');
+    hurt_sound = new Audio ('audio/ouch.mp3');
     world;
 
     offset = {
@@ -124,6 +127,7 @@ class Penguin extends MovableObject {
             }
             if (this.world.keyboard.SPACE && !this.isAboveGround()) {
                 this.jump();
+                this.jumping_sound.play();
             }
             this.world.camera_x = -this.x + 50;
         }, 1000 / 60);
@@ -133,6 +137,7 @@ class Penguin extends MovableObject {
                 this.playAnimation(this.IMAGES_DEAD);
             } else if (this.isHurt()) {
                 this.playAnimation(this.IMAGES_HURT);
+                this.hurt_sound.play();
             } else if (this.isAboveGround()) {
                 this.playAnimation(this.IMAGES_JUMPING);
             } else {

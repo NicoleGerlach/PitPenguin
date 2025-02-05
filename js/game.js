@@ -1,13 +1,16 @@
 let canvas;
 let world;
 let keyboard = new Keyboard();
+background_sound = new Audio('audio/background.mp3');
 
 function init() {
     canvas = document.getElementById('canvas');
     world = new World(canvas, keyboard);
+    mobileButtonsTouched();
+    mobileButtonsNotTouched();
 }
 
-window.addEventListener("keydown" , (e) => {
+window.addEventListener("keydown", (e) => {
     if (e.keyCode == 39) {
         keyboard.RIGHT = true;
     }
@@ -28,7 +31,7 @@ window.addEventListener("keydown" , (e) => {
     }
 })
 
-window.addEventListener("keyup" , (e) => {
+window.addEventListener("keyup", (e) => {
     if (e.keyCode == 39) {
         keyboard.RIGHT = false;
     }
@@ -49,10 +52,60 @@ window.addEventListener("keyup" , (e) => {
     }
 })
 
+function mobileButtonsTouched() {
+    document.getElementById('btnLeft').addEventListener('touchstart', (e) => {
+        e.preventDefault();
+        keyboard.LEFT = true;
+    });
+    document.getElementById('btnRight').addEventListener('touchstart', (e) => {
+        e.preventDefault();
+        keyboard.RIGHT = true;
+    });
+    document.getElementById('btnJump').addEventListener('touchstart', (e) => {
+        e.preventDefault();
+        keyboard.SPACE = true;
+    });
+    document.getElementById('btnPoison').addEventListener('touchstart', (e) => {
+        e.preventDefault();
+        keyboard.D = true;
+    });
+}
+
+function mobileButtonsNotTouched() {
+    document.getElementById('btnLeft').addEventListener('touchend', (e) => {
+        e.preventDefault();
+        keyboard.LEFT = false;
+    });
+    document.getElementById('btnRight').addEventListener('touchend', (e) => {
+        e.preventDefault();
+        keyboard.RIGHT = false;
+    });
+    document.getElementById('btnJump').addEventListener('touchend', (e) => {
+        e.preventDefault();
+        keyboard.SPACE = false;
+    });
+    document.getElementById('btnPoison').addEventListener('touchend', (e) => {
+        e.preventDefault();
+        keyboard.D = false;
+    });
+}
+
+function checkScreen() {
+    const screen = document.getElementById('rotateScreen')
+    if (window.innerWidth < window.innerHeight && window.innerWidth <= 915) {
+        screen.classList.remove('d-none');
+    } else {
+        screen.classList.add('d-none');
+    }
+}
+
 function showInfoBox() {
     const instructionsBox = document.getElementById('instructionsBox');
     instructionsBox.innerHTML += generateInfoBoxHtml();
+    checkScreen();
 }
+
+window.addEventListener("resize", checkScreen);
 
 function startGame() {
     const startScreen = document.getElementById('startScreen');
@@ -62,6 +115,8 @@ function startGame() {
     canvas.classList.remove('d-none');
     headline.classList.remove('d-none');
     init();
+    showMobileButtons();
+    this.background_sound.play();
 }
 
 function howToPlay() {
@@ -112,5 +167,32 @@ function backFromAbouImpressum() {
     directionsContainer.classList.remove('d-none');
     impressum.classList.remove('d-none');
     backwardsImpressum.classList.add('d-none');
+}
 
+function showMobileButtons() {
+    buttonBoxLeft = document.getElementById('btnBoxLeft');
+    buttonBoxRight = document.getElementById('btnBoxRight');
+    if (window.innerWidth <= 915) {
+        buttonBoxLeft.classList.remove('d-none');
+        buttonBoxRight.classList.remove('d-none');
+    }
+}
+
+function showFullscreen(element) {
+    let fullscreen = document.getElementById('fullscreen');
+    if (element.requestFullscreen) {
+        element.requestFullscreen();
+    } else if (element.msRequestFullscreen) {      // for IE11 (remove June 15, 2022)
+        element.msRequestFullscreen();
+    } else if (element.webkitRequestFullscreen) {  // iOS Safari
+        element.webkitRequestFullscreen();
+    }
+}
+
+function closeFullscreen() {
+    if (document.exitFullscreen) {
+        document.exitFullscreen();
+    } else if (document.webkitExitFullscreen) {
+        document.webkitExitFullscreen();
+    }
 }

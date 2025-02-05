@@ -29,19 +29,42 @@
 </head>
 
 <body onload="showInfoBox()">
-    <h1 id="headline" class="d-none">Pit Penguin</h1>
-    <canvas id="canvas" width="720px" height="480px" class="d-none"></canvas>
-    <div id="startScreen" class="start-screen">
-        <div class="directions ">
-            <div class="headline">
-                <img src="img/backwards.png" onclick="backFromHowToPlay()" id="backwardsAboutGame" class="d-none">
-                <img src="img/backwards.png" onclick="backFromAbouImpressum()" id="backwardsImpressum" class="d-none">
-                <h2>Pit Penguin</h2>
+    <div id="rotateScreen" class="rotate-screen d-none">
+        Please rotate your screen.
+    </div>
+    <div id="fullscreen">
+        <h1 id="headline" class="d-none">Pit Penguin</h1>
+        <div class="game-screen">
+            <div id="btnBoxLeft" class="d-none">
+                <div class="btns-left-side">
+                    <img id="btnLeft" src="img/btn-left.png">
+                    <img id="btnRight" src="img/btn-right.png">
+                </div>
             </div>
-            <div id="instructionsBox" class="instructions-box">
+            <canvas id="canvas" width="720px" height="480px" class="d-none"></canvas>
+            <div id="btnBoxRight" class="d-none">
+                <div class="btns-right-side">
+                    <img id="btnMute" src="img/mute.png">
+                    <div class="btns-right-side">
+                        <img id="btnJump" src="img/btn-jump.png">
+                        <img id="btnPoison" src="img/btn-poison.png">
+                    </div>
+                </div>
             </div>
-            <div></div>
-            <div></div>
+        </div>
+        <div id="startScreen" class="start-screen">
+            <div class="directions ">
+                <div class="headline">
+                    <img src="img/backwards.png" onclick="backFromHowToPlay()" id="backwardsAboutGame" class="d-none">
+                    <img src="img/backwards.png" onclick="backFromAbouImpressum()" id="backwardsImpressum"
+                        class="d-none">
+                    <h2>Pit Penguin</h2>
+                </div>
+                <div id="instructionsBox" class="instructions-box">
+                </div>
+                <div></div>
+                <div></div>
+            </div>
         </div>
 </body>
 

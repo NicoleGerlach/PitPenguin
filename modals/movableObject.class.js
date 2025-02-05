@@ -53,8 +53,7 @@ class MovableObject extends DrawableObject {
             this.y + this.height - this.offset.bottom > poison.y + poison.offset.top &&
             this.y + this.offset.top < poison.y + poison.height - poison.offset.bottom
         ); } catch(e) {
-            console.log('poison defekt', e);
-            console.log(poison.x);
+            console.log(poison);
         }
     }
 
