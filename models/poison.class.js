@@ -1,18 +1,21 @@
 class Poison extends ThrowableObject {
     height = 80;
     width = 60;
-    y = 310;
+    // y = 310;
 
-    // offset = {
-    //     top: 20,
-    //     left: 50,
-    //     right: 20,
-    //     bottom: 0
-    // }
+    offset = {
+        top: 20,
+        left: 50,
+        right: 20,
+        bottom: 0
+    }
 
-    constructor(imagePath, x) {
-        super().loadImage(imagePath);
+    constructor(imagePath, x, y) {
+        console.log('%c x, y, poison', 'color: green:', x, y);
+        super();
+        this.loadImage(imagePath);
         this.x = x
+        this.y = y;
     }
 
     drawFrame(ctx) {

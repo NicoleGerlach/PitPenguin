@@ -39,13 +39,31 @@ class MovableObject extends DrawableObject {
         return (this.y + this.height - this.offset.bottom - 30 > enemy.y + enemy.offset.top)
     }
 
+    // isCollidingWithPoison(poison) {
+    //     return (this.x + this.width - this.offset.right > poison.x + poison.offset.left &&
+    //         this.x + this.offset.left < poison.x + poison.width - poison.offset.right &&
+    //         this.y + this.height - this.offset.bottom > poison.y + poison.offset.top &&
+    //         this.y + this.offset.top < poison.y + poison.height - poison.offset.bottom
+    //     );
+    // }
+
     isCollidingWithPoison(poison) {
-        return (this.x + this.width - this.offset.right > poison.x + poison.offset.left &&
-            this.x + this.offset.left < poison.x + poison.width - poison.offset.right &&
-            this.y + this.height - this.offset.bottom > poison.y + poison.offset.top &&
-            this.y + this.offset.top < poison.y + poison.height - poison.offset.bottom
-        );
-    }
+        try {
+          return (
+            this.x + this.width - this.offset.right >
+              poison.x + poison.offset.left &&
+            this.x + this.offset.left <
+              poison.x + poison.width - poison.offset.right &&
+            this.y + this.height - this.offset.bottom >
+              poison.y + poison.offset.top &&
+            this.y + this.offset.top <
+              poison.y + poison.height - poison.offset.bottom
+          );
+        } catch (e) {
+          console.log('poison defekt', e);
+          console.log(poison.x);
+        }
+      }
 
     hit() {
         this.energy -= 8;
@@ -66,9 +84,9 @@ class MovableObject extends DrawableObject {
         return this.energy == 0;
     }
 
-    hurtEndboss() {
-        this.energy -= 25;
-    }
+    // hurtEndboss() {
+    //     this.energy -= 25;
+    // }
 
     playAnimation(images) {
         let i = this.currentImage % images.length;

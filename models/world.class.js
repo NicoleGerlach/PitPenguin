@@ -11,16 +11,17 @@ class World {
     ctx;
     keyboard;
     camera_x = 0;
-    level = level1;s
+    level = level1;
     statusBarHeart = new StatusBarHeart();
     statusBarCoin = new StatusBarCoin();
     statusBarPoison = new StatusBarPoison();
-    throwableObject = [];
+    throwableObjects = [];
 
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d');
         this.canvas = canvas;
         this.keyboard = keyboard;
+        console.log('poison_supplies: ', this.poison[0]);
         this.draw();
         this.setWorld();
         this.run();
@@ -48,7 +49,7 @@ class World {
     checkThrowObjects() {
         if (this.keyboard.D && this.penguin.poison > 0) {
             let poison = new ThrowableObject(this.penguin.x + 190, this.penguin.y + 130);
-            this.throwableObject.push(poison);
+            this.throwableObjects.push(poison);
             this.throwPoison();
         }
     }
@@ -71,8 +72,8 @@ class World {
     }
 
     checkCollisionWithPoison() {
-        if (this.throwableObject.length === 0) return; // Keine Flaschen zum Überprüfen
-        this.throwableObject.forEach((poison) => {
+        if (this.throwableObjects.length === 0) return; // Keine Flaschen zum Überprüfen
+        this.throwableObjects.forEach((poison) => {
             this.level.enemies.forEach((enemy) => {
                 if (enemy.isCollidingWithPoison(poison)) { // Prüfe auf Kollision mit dem Wurfobjekt
                     if (enemy instanceof Rabbit) { // Überprüfe, ob der Feind ein Rabbit ist
@@ -181,7 +182,7 @@ class World {
         this.addObjectsToMap(this.level.poison);
         this.addObjectsToMap(this.level.coin);
         this.addObjectsToMap(this.level.heart);
-        this.addObjectsToMap(this.throwableObject);
+        this.addObjectsToMap(this.throwableObjects);
         this.addToMap(this.level.endboss);
         this.ctx.translate(-this.camera_x, 0);
         let self = this;
@@ -191,6 +192,7 @@ class World {
     }
 
     addObjectsToMap(objects) {
+        console.log(objects);
         objects.forEach(o => {
             this.addToMap(o);
         });
