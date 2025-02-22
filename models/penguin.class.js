@@ -132,17 +132,25 @@ class Penguin extends MovableObject {
             this.world.camera_x = -this.x + 50;
         }, 1000 / 60);
 
+        let hasCollidedWithEnemy = false; // Flag für Kollision mit Feind
+
         setInterval(() => {
             if (this.isDead()) {
                 this.playAnimation(this.IMAGES_DEAD);
             } else if (this.isHurt()) {
                 this.playAnimation(this.IMAGES_HURT);
-                this.hurt_sound.play();
-            } else if (this.isAboveGround()) {
-                this.playAnimation(this.IMAGES_JUMPING);
+                if (!hasCollidedWithEnemy) {
+                    this.hurt_sound.play(); // Spiele den Sound ab
+                    hasCollidedWithEnemy = true; // Setze die Flag auf true
+                }
             } else {
-                if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
-                    this.playAnimation(this.IMAGES_WALKING);
+                hasCollidedWithEnemy = false;
+                if (this.isAboveGround()) {
+                    this.playAnimation(this.IMAGES_JUMPING);
+                } else {
+                    if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
+                        this.playAnimation(this.IMAGES_WALKING);
+                    }
                 }
             }
         }, 50);

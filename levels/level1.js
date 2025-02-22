@@ -4,33 +4,18 @@ const level1 = new Level(
   enemies,
   new Endboss(),
   [
-    new BackgroundObject(
-      'img/Background/01/layers/l1-background.png',
-      -719 * 2
-    ),
+    new BackgroundObject('img/Background/01/layers/l1-background.png', -719 * 2),
     new BackgroundObject('img/Background/01/layers/l3-fog.png', -719 * 2),
     new BackgroundObject('img/Background/01/layers/l4-stars01.png', -700 * 2),
-    new BackgroundObject(
-      'img/Background/01/layers/l5-northern-lights02.png',
-      -719 * 2
-    ),
-    new BackgroundObject(
-      'img/Background/01/layers/l7-mountains01.png',
-      -719 * 2
-    ),
-    new BackgroundObject(
-      'img/Background/01/layers/l8-mountains01.png',
-      -719 * 2
-    ),
+    new BackgroundObject('img/Background/01/layers/l5-northern-lights02.png', -719 * 2),
+    new BackgroundObject('img/Background/01/layers/l7-mountains01.png', -719 * 2),
+    new BackgroundObject('img/Background/01/layers/l8-mountains01.png', -719 * 2),
     new BackgroundObject('img/Background/01/layers/l9-ground01.png', -719 * 2),
 
     new BackgroundObject('img/Background/01/layers/l1-background.png', -719),
     new BackgroundObject('img/Background/01/layers/l3-fog.png', -719),
     new BackgroundObject('img/Background/01/layers/l4-stars01.png', -700),
-    new BackgroundObject(
-      'img/Background/01/layers/l2-northern-lights01.png',
-      -719
-    ),
+    new BackgroundObject('img/Background/01/layers/l2-northern-lights01.png', -719),
     new BackgroundObject('img/Background/01/layers/l7-mountains02.png', -719),
     new BackgroundObject('img/Background/01/layers/l8-mountains02.png', -719),
     new BackgroundObject('img/Background/01/layers/l9-ground02.png', -719),
@@ -38,10 +23,7 @@ const level1 = new Level(
     new BackgroundObject('img/Background/01/layers/l1-background.png', 0),
     new BackgroundObject('img/Background/01/layers/l3-fog.png', 0),
     new BackgroundObject('img/Background/01/layers/l4-stars01.png', 0),
-    new BackgroundObject(
-      'img/Background/01/layers/l5-northern-lights02.png',
-      0
-    ),
+    new BackgroundObject('img/Background/01/layers/l5-northern-lights02.png', 0),
     new BackgroundObject('img/Background/01/layers/l6-moon.png', 0),
     new BackgroundObject('img/Background/01/layers/l7-mountains01.png', 0),
     new BackgroundObject('img/Background/01/layers/l8-mountains01.png', 0),
@@ -49,10 +31,7 @@ const level1 = new Level(
     new BackgroundObject('img/Background/01/layers/l1-background.png', 719),
     new BackgroundObject('img/Background/01/layers/l3-fog.png', 719),
     new BackgroundObject('img/Background/01/layers/l4-stars01.png', 700),
-    new BackgroundObject(
-      'img/Background/01/layers/l2-northern-lights01.png',
-      719
-    ),
+    new BackgroundObject('img/Background/01/layers/l2-northern-lights01.png', 719),
     new BackgroundObject('img/Background/01/layers/l7-mountains02.png', 719),
     new BackgroundObject('img/Background/01/layers/l8-mountains02.png', 719),
     new BackgroundObject('img/Background/01/layers/l9-ground02.png', 719),
@@ -60,51 +39,24 @@ const level1 = new Level(
     new BackgroundObject('img/Background/01/layers/l1-background.png', 719 * 2),
     new BackgroundObject('img/Background/01/layers/l3-fog.png', 719 * 2),
     new BackgroundObject('img/Background/01/layers/l4-stars01.png', 700 * 2),
-    new BackgroundObject(
-      'img/Background/01/layers/l5-northern-lights02.png',
-      719 * 2
-    ),
-    new BackgroundObject(
-      'img/Background/01/layers/l7-mountains01.png',
-      719 * 2
-    ),
-    new BackgroundObject(
-      'img/Background/01/layers/l8-mountains01.png',
-      719 * 2
-    ),
+    new BackgroundObject('img/Background/01/layers/l5-northern-lights02.png', 719 * 2),
+    new BackgroundObject('img/Background/01/layers/l7-mountains01.png', 719 * 2),
+    new BackgroundObject('img/Background/01/layers/l8-mountains01.png', 719 * 2),
     new BackgroundObject('img/Background/01/layers/l9-ground01.png', 719 * 2),
     new BackgroundObject('img/Background/01/layers/l1-background.png', 719 * 3),
     new BackgroundObject('img/Background/01/layers/l3-fog.png', 719 * 3),
     new BackgroundObject('img/Background/01/layers/l4-stars01.png', 700 * 3),
-    new BackgroundObject(
-      'img/Background/01/layers/l2-northern-lights01.png',
-      719 * 3
-    ),
-    new BackgroundObject(
-      'img/Background/01/layers/l7-mountains02.png',
-      719 * 3
-    ),
-    new BackgroundObject(
-      'img/Background/01/layers/l8-mountains02.png',
-      719 * 3
-    ),
+    new BackgroundObject('img/Background/01/layers/l2-northern-lights01.png', 719 * 3),
+    new BackgroundObject('img/Background/01/layers/l7-mountains02.png', 719 * 3),
+    new BackgroundObject('img/Background/01/layers/l8-mountains02.png', 719 * 3),
     new BackgroundObject('img/Background/01/layers/l9-ground02.png', 719 * 3),
     new BackgroundObject('img/Background/01/layers/l4-stars01.png', 700 * 4),
     new BackgroundObject('img/Background/01/layers/l1-background.png', 719 * 4),
     new BackgroundObject('img/Background/01/layers/l3-fog.png', 719 * 4),
     new BackgroundObject('img/Background/01/layers/l4-stars01.png', 700 * 4),
-    new BackgroundObject(
-      'img/Background/01/layers/l5-northern-lights02.png',
-      719 * 4
-    ),
-    new BackgroundObject(
-      'img/Background/01/layers/l7-mountains01.png',
-      719 * 4
-    ),
-    new BackgroundObject(
-      'img/Background/01/layers/l8-mountains01.png',
-      719 * 4
-    ),
+    new BackgroundObject('img/Background/01/layers/l5-northern-lights02.png', 719 * 4),
+    new BackgroundObject('img/Background/01/layers/l7-mountains01.png', 719 * 4),
+    new BackgroundObject('img/Background/01/layers/l8-mountains01.png', 719 * 4),
     new BackgroundObject('img/Background/01/layers/l9-ground01.png', 719 * 4),
   ],
   [

@@ -10,13 +10,6 @@ class MovableObject extends DrawableObject {
     coin = 35;
     heart = 0;
 
-    offset = {
-        top: 0,
-        left: 0,
-        right: 0,
-        bottom: 0
-    }
-
     applyGravity() {
         setInterval(() => {
             if (this.isAboveGround() || this.speedY > 0) {
@@ -54,18 +47,8 @@ class MovableObject extends DrawableObject {
         );
     }
 
-    // isCollidingWithPoison(poison) {
-    //     try { return (this.x + this.width - this.offset.right > poison.x + poison.offset.left &&
-    //         this.x + this.offset.left < poison.x + poison.width - poison.offset.right &&
-    //         this.y + this.height - this.offset.bottom > poison.y + poison.offset.top &&
-    //         this.y + this.offset.top < poison.y + poison.height - poison.offset.bottom
-    //     ); } catch(e) {
-    //         console.log(poison);
-    //     }
-    // }
-
     hit() {
-        this.energy -= 5;
+        this.energy -= 8;
         if (this.energy < 0) {
             this.energy = 0;
         } else {
