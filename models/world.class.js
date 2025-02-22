@@ -10,10 +10,10 @@ class World {
     ctx;
     keyboard;
     camera_x = 0;
-    level = level1;
+    level = level1;s
     statusBarHeart = new StatusBarHeart();
     statusBarCoin = new StatusBarCoin();
-    statusBarBottle = new StatusBarBottle();
+    statusBarPoison = new StatusBarPoison();
     throwableObject = [];
 
     constructor(canvas, keyboard) {
@@ -40,20 +40,20 @@ class World {
         }, 200);
         // console.log('Energy:', this.penguin.energy);
         // console.log('Coin:', this.penguin.coin);
-        // console.log('Poison:', this.penguin.bottle);
+        // console.log('Poison:', this.penguin.poison);
     }
 
     checkThrowObjects() {
-        if (this.keyboard.D && this.penguin.bottle > 0) {
-            let bottle = new ThrowableObject(this.penguin.x + 190, this.penguin.y + 130);
-            this.throwableObject.push(bottle);
-            this.throwBottle();
+        if (this.keyboard.D && this.penguin.poison > 0) {
+            let poison = new ThrowableObject(this.penguin.x + 190, this.penguin.y + 130);
+            this.throwableObject.push(poison);
+            this.throwPoison();
         }
     }
 
-    throwBottle() {
-        this.penguin.bottle -= 5;
-        this.statusBarBottle.setPercentage(this.penguin.bottle);
+    throwPoison() {
+        this.penguin.poison -= 5;
+        this.statusBarPoison.setPercentage(this.penguin.poison);
     }
 
     checkCollisions() {
@@ -68,27 +68,20 @@ class World {
         });
     }
 
-    // checkCollisionWithPoison() {
-    //     // Iteriere über alle Poison-Objekte
-    //     this.level.poison.forEach((poison) => {
-    //         // Iteriere über alle Rabbits im Level
-    //         this.level.enemies.forEach((enemy) => {
-    //             if (enemy.isCollidingWithPoison(poison)) { // Prüfe auf Kollision mit Gift
-    //                 console.log("Rabbit wurde vom Gift getroffen!");
-    //                 this.removeEnemy(enemy); // Entferne das Kaninchen
-    //             }
-    //         });
-    //     });
-    // }
-
     checkCollisionWithPoison() {
         if (this.throwableObject.length === 0) return; // Keine Flaschen zum Überprüfen
-        this.throwableObject.forEach((bottle) => {
+        this.throwableObject.forEach((poison) => {
             this.level.enemies.forEach((enemy) => {
-                if (enemy.isCollidingWithPoison(bottle)) { // Prüfe auf Kollision mit dem Wurfobjekt
-                    console.log("Rabbit wurde vom Gift getroffen!");
-                    this.removeEnemy(enemy); // Entferne das Kaninchen
-                    this.removeBottle(poison);
+                if (enemy.isCollidingWithPoison(poison)) { // Prüfe auf Kollision mit dem Wurfobjekt
+                    if (enemy instanceof Rabbit) { // Überprüfe, ob der Feind ein Rabbit ist
+                        console.log("Rabbit wurde vom Gift getroffen!");
+                        this.removeEnemy(enemy); // Entferne das Kaninchen
+                        this.removePoison(poison); // Entferne das Giftobjekt
+                    } else if (enemy instanceof Endboss) { // Überprüfe, ob der Feind der Endboss ist
+                        console.log("Endboss wurde vom Gift getroffen!");
+                        this.enemy.hurtEndboss(); // Reduziere Energie vom Endboss
+                        this.removePoison(poison); // Entferne das Giftobjekt
+                    } 
                 }
             });
         });
@@ -100,23 +93,23 @@ class World {
                 this.collectPoison(poison);
             }
         });
-        // console.log('Poison:', this.penguin.bottle);
+        // console.log('Poison:', this.penguin.poison);
     }
 
     collectPoison(poison) {
-        if (this.penguin.bottle < 100) {
-            this.penguin.bottle += 10;
-            if (this.penguin.bottle > 100) {
-                this.penguin.bottle = 100;
+        if (this.penguin.poison < 100) {
+            this.penguin.poison += 10;
+            if (this.penguin.poison > 100) {
+                this.penguin.poison = 100;
             }
-            this.statusBarBottle.setPercentage(this.penguin.bottle);
-            this.removeBottle(poison);
+            this.statusBarPoison.setPercentage(this.penguin.poison);
+            this.removePoison(poison);
         }
     }
 
     enoughPoison() {
-        if (this.penguin.bottle == 100) {
-            return this.penguin.bottle == 100;
+        if (this.penguin.poison == 100) {
+            return this.penguin.poison == 100;
         }
     }
 
@@ -168,7 +161,7 @@ class World {
         this.ctx.translate(-this.camera_x, 0);
         this.addToMap(this.statusBarHeart);
         this.addToMap(this.statusBarCoin);
-        this.addToMap(this.statusBarBottle);
+        this.addToMap(this.statusBarPoison);
         this.ctx.translate(this.camera_x, 0);
         this.addObjectsToMap(this.level.enemies);
         this.addObjectsToMap(this.level.poison);
@@ -211,9 +204,9 @@ class World {
         mo.x = mo.x * -1;
     }
 
-    removeBottle(poison) {
+    removePoison(poison) {
         const indexOfPoison = this.level.poison.indexOf(poison);
-        if (indexOfPoison > -1 && this.penguin.bottle < 100) {
+        if (indexOfPoison > -1 && this.penguin.poison < 100) {
             this.level.poison.splice(indexOfPoison, 1);
         }
     }

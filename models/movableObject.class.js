@@ -6,9 +6,16 @@ class MovableObject extends DrawableObject {
     acceleration = 2.5;
     energy = 100;
     lastHit = 0;
-    bottle = 35;
+    poison = 35;
     coin = 35;
     heart = 0;
+
+    offset = {
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0
+    }
 
     applyGravity() {
         setInterval(() => {
@@ -39,23 +46,23 @@ class MovableObject extends DrawableObject {
         return (this.y + this.height - this.offset.bottom - 30 > enemy.y + enemy.offset.top)
     }
 
-    // isCollidingWithPoison(poison) {
-    //     return (this.x + this.width - this.offset.right > poison.x + poison.offset.left &&
-    //         this.x + this.offset.left < poison.x + poison.width - poison.offset.right &&
-    //         this.y + this.height - this.offset.bottom > poison.y + poison.offset.top &&
-    //         this.y + this.offset.top < poison.y + poison.height - poison.offset.bottom
-    //     );
-    // }
-
     isCollidingWithPoison(poison) {
-        try { return (this.x + this.width - this.offset.right > poison.x + poison.offset.left &&
+        return (this.x + this.width - this.offset.right > poison.x + poison.offset.left &&
             this.x + this.offset.left < poison.x + poison.width - poison.offset.right &&
             this.y + this.height - this.offset.bottom > poison.y + poison.offset.top &&
             this.y + this.offset.top < poison.y + poison.height - poison.offset.bottom
-        ); } catch(e) {
-            console.log(poison);
-        }
+        );
     }
+
+    // isCollidingWithPoison(poison) {
+    //     try { return (this.x + this.width - this.offset.right > poison.x + poison.offset.left &&
+    //         this.x + this.offset.left < poison.x + poison.width - poison.offset.right &&
+    //         this.y + this.height - this.offset.bottom > poison.y + poison.offset.top &&
+    //         this.y + this.offset.top < poison.y + poison.height - poison.offset.bottom
+    //     ); } catch(e) {
+    //         console.log(poison);
+    //     }
+    // }
 
     hit() {
         this.energy -= 5;
@@ -74,6 +81,10 @@ class MovableObject extends DrawableObject {
 
     isDead() {
         return this.energy == 0;
+    }
+
+    hurtEndboss() {
+        this.energy -= 25;
     }
 
     playAnimation(images) {

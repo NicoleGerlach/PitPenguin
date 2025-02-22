@@ -86,11 +86,11 @@ function generateWinScreenHtml() {
     `
 }
 
-function generateLooseSrceenHtml() {
+function generateLoseSrceenHtml() {
     return /*html*/`
-        <div id="looseConteiner" class="loose-container">
-            <div class="loose">Sorry, you loose</div>
-            <div class="loose-box">
+        <div id="loseContainer" class="lose-container">
+            <div class="lose">Sorry, you lose</div>
+            <div class="lose-box">
                 <div class="play-again">Try again
                     <img src="img/reload.png">
                 </div>

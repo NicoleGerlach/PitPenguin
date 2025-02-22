@@ -1,3 +1,4 @@
+
 class Level {
     enemies;
     backgroundObjects;

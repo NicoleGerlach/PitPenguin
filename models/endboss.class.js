@@ -1,10 +1,12 @@
+
 class Endboss extends MovableObject {
     height = 550;
     width = 550;
     x = 2500;
     y = -80;
+    speed = 5;
 
-    IMAGES_WALKING = [
+    IMAGES_WAITING = [
         'img/Enemy/Kicking/0_Elementals_Kicking_000.png',
         'img/Enemy/Kicking/0_Elementals_Kicking_001.png',
         'img/Enemy/Kicking/0_Elementals_Kicking_002.png',
@@ -28,6 +30,32 @@ class Endboss extends MovableObject {
         'img/Enemy/Idle Blinking/0_Elementals_Idle Blinking_016.png',
         'img/Enemy/Idle Blinking/0_Elementals_Idle Blinking_017.png',
     ];
+    IMAGES_Walking = [
+        'img/Enemy/Walking/0_Elementals_Walking_000.png',
+        'img/Enemy/Walking/0_Elementals_Walking_001.png',
+        'img/Enemy/Walking/0_Elementals_Walking_002.png',
+        'img/Enemy/Walking/0_Elementals_Walking_003.png',
+        'img/Enemy/Walking/0_Elementals_Walking_004.png',
+        'img/Enemy/Walking/0_Elementals_Walking_005.png',
+        'img/Enemy/Walking/0_Elementals_Walking_006.png',
+        'img/Enemy/Walking/0_Elementals_Walking_007.png',
+        'img/Enemy/Walking/0_Elementals_Walking_008.png',
+        'img/Enemy/Walking/0_Elementals_Walking_009.png',
+        'img/Enemy/Walking/0_Elementals_Walking_010.png',
+        'img/Enemy/Walking/0_Elementals_Walking_011.png',
+        'img/Enemy/Walking/0_Elementals_Walking_012.png',
+        'img/Enemy/Walking/0_Elementals_Walking_013.png',
+        'img/Enemy/Walking/0_Elementals_Walking_014.png',
+        'img/Enemy/Walking/0_Elementals_Walking_015.png',
+        'img/Enemy/Walking/0_Elementals_Walking_016.png',
+        'img/Enemy/Walking/0_Elementals_Walking_017.png',
+        'img/Enemy/Walking/0_Elementals_Walking_018.png',
+        'img/Enemy/Walking/0_Elementals_Walking_019.png',
+        'img/Enemy/Walking/0_Elementals_Walking_020.png',
+        'img/Enemy/Walking/0_Elementals_Walking_021.png',
+        'img/Enemy/Walking/0_Elementals_Walking_022.png',
+        'img/Enemy/Walking/0_Elementals_Walking_023.png',
+    ]
 
     offset = {
         top: 45,
@@ -37,14 +65,14 @@ class Endboss extends MovableObject {
     }
 
     constructor() {
-        super().loadImage(this.IMAGES_WALKING[0]);
-        this.loadImages(this.IMAGES_WALKING);
+        super().loadImage(this.IMAGES_WAITING[0]);
+        this.loadImages(this.IMAGES_WAITING);
         this.animate();
     }
 
     animate() {
         setInterval(() => {
-            this.playAnimation(this.IMAGES_WALKING);
+            this.playAnimation(this.IMAGES_WAITING);
         }, 100);
     }
 

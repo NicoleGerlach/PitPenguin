@@ -37,11 +37,11 @@ class Rabbit extends MovableObject {
         }, 60);
     }
 
-    // drawFrame(ctx) {
-    //     ctx.beginPath();
-    //     ctx.lineWidth = "5";
-    //     ctx.strokeStyle = "blue";
-    //     ctx.rect(this.x + 25, this.y + 45, this.width - 50, this.height - 55);
-    //     ctx.stroke();
-    // }
+    drawFrame(ctx) {
+        ctx.beginPath();
+        ctx.lineWidth = "5";
+        ctx.strokeStyle = "blue";
+        ctx.rect(this.x + 25, this.y + 45, this.width - 50, this.height - 55);
+        ctx.stroke();
+    }
 }

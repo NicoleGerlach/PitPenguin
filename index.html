@@ -7,25 +7,25 @@
     <title>Pit Peguin</title>
     <link rel="icon" type="image/x-icon" href="img/Penguin/Character09/Penguin.png">
     <link rel="stylesheet" href="style.css">
-    <script src="modals/drawableObject.class.js"></script>
-    <script src="modals/movableObject.class.js"></script>
-    <script src="modals/templates.js"></script>
-    <script src="modals/penguin.class.js"></script>
-    <script src="modals/rabbit.class.js"></script>
-    <script src="modals/statusBarHeart.class.js"></script>
-    <script src="modals/statusBarCoin.class.js"></script>
-    <script src="modals/statusBarBottle.class.js"></script>
-    <script src="modals/throwableObject.class.js"></script>
-    <script src="modals/world.class.js"></script>
-    <script src="modals/background.class.js"></script>
-    <script src="modals/keyboard.class.js"></script>
-    <script src="modals/level.class.js"></script>
-    <script src="modals/endboss.class.js"></script>
-    <script src="modals/poison.class.js"></script>
-    <script src="modals/coin.class.js"></script>
-    <script src="modals/heart.class.js"></script>
-    <script src="levels/level1.js"></script>
+    <script src="models/drawableObject.class.js"></script>
+    <script src="models/movableObject.class.js"></script>
+    <script src="js/templates.js"></script>
+    <script src="models/penguin.class.js"></script>
+    <script src="models/rabbit.class.js"></script>
+    <script src="models/statusBarHeart.class.js"></script>
+    <script src="models/statusBarCoin.class.js"></script>
+    <script src="models/statusBarPoison.class.js"></script>
+    <script src="models/throwableObject.class.js"></script>
+    <script src="models/world.class.js"></script>
+    <script src="models/background.class.js"></script>
+    <script src="models/keyboard.class.js"></script>
+    <script src="models/level.class.js"></script>
+    <script src="models/endboss.class.js"></script>
+    <script src="models/poison.class.js"></script>
+    <script src="models/coin.class.js"></script>
+    <script src="models/heart.class.js"></script>
     <script src="js/game.js"></script>
+    <script src="levels/level1.js"></script>
 </head>
 
 <body onload="showInfoBox()">
@@ -44,7 +44,8 @@
             <canvas id="canvas" width="720px" height="480px" class="d-none"></canvas>
             <div id="btnBoxRight" class="d-none">
                 <div class="btns-right-side">
-                    <img id="btnMute" src="img/mute.png">
+                    <img id="btnMute" onclick="stopSound()" src="img/mute.png" >
+                    <img id="btnFullscreen" src="img/fullscreen.png">
                     <div class="btns-right-side">
                         <img id="btnJump" src="img/btn-jump.png">
                         <img id="btnPoison" src="img/btn-poison.png">
@@ -55,10 +56,13 @@
         <div id="startScreen" class="start-screen">
             <div class="directions ">
                 <div class="headline">
-                    <img src="img/backwards.png" onclick="backFromHowToPlay()" id="backwardsAboutGame" class="d-none">
-                    <img src="img/backwards.png" onclick="backFromAbouImpressum()" id="backwardsImpressum"
-                        class="d-none">
-                    <h2>Pit Penguin</h2>
+                    <div>
+                        <img id="backwardsAboutGame" src="img/backwards.png" onclick="backFromHowToPlay()" class="d-none">
+                        <img id="backwardsImpressum" src="img/backwards.png" onclick="backFromAbouImpressum()" class="d-none">
+                    </div>
+                    <div>
+                        <h2>Pit Penguin</h2>
+                    </div>
                 </div>
                 <div id="instructionsBox" class="instructions-box">
                 </div>

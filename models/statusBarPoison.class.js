@@ -1,5 +1,5 @@
 
-class StatusBarBottle extends DrawableObject {
+class StatusBarPoison extends DrawableObject {
     x = 510;
     y = 0;
     height = 50;
