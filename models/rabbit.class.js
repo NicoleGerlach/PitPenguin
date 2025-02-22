@@ -25,7 +25,7 @@ class Rabbit extends MovableObject {
         super().loadImage('img/Rabbit/Monster5/Moving/Moving_00.png');
         this.loadImages(this.IMAGES_WALKING);
         this.animate();
-        this.x = 400 + Math.random() * 500;
+        this.x = 400 + Math.random() * 1900;
         this.speed = 0.85 + Math.random() * 0.25;
         this.moveLeft();
     }

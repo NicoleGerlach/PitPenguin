@@ -28,7 +28,8 @@
     <script src="levels/level1.js"></script>
 </head>
 
-<body onload="showInfoBox()">
+<!-- <body onload="showInfoBox()"> -->
+<body onload="startGame()">
     <div id="rotateScreen" class="rotate-screen d-none">
         Please rotate your screen.
     </div>
@@ -57,8 +58,8 @@
             <div class="directions ">
                 <div class="headline">
                     <div>
-                        <img id="backwardsAboutGame" src="img/backwards.png" onclick="backFromHowToPlay()" class="d-none">
-                        <img id="backwardsImpressum" src="img/backwards.png" onclick="backFromAbouImpressum()" class="d-none">
+                        <img src="img/backwards.png" onclick="backToMainScreen()" id="arrow_back" class="d-none">
+                        <!-- <img id="backwardsImpressum" src="img/backwards.png" onclick="backFromAbouImpressum()" class="d-none"> -->
                     </div>
                     <div>
                         <h2>Pit Penguin</h2>

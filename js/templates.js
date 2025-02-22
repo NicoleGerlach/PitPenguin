@@ -2,16 +2,16 @@ function generateInfoBoxHtml() {
     return /*html*/`
         <div id="directionsContainer" class="directions-container">
             <div class="directions-box">
-                <div onclick="startGame()" class="info-box">
+                <div onclick="showContent('startGame')" class="info-box">
                     <div>Start Game</div>
                     <img src="img/Penguin/Character09/Penguin.png" alt="">
                 </div>
-                <div onclick="howToPlay()" class="info-box">
+                <div onclick="showContent('howToPlay')" class="info-box">
                     <div>How to play</div>
                     <img src="img/question-mark01.png" alt="">
                 </div>
             </div>
-            <div onclick="showImpressum()" id="impressum" class="impressum">
+            <div onclick="showContent('imprint')" id="impressum" class="impressum">
                 Impressum
             </div>
         </div>
@@ -57,7 +57,7 @@ function generateAboutGameHtml() {
     `
 }
 
-function generateImpressumHtml() {
+function generateImprintHtml() {
     return /*html*/`
         <div id="impressumInformation" class="impressum-information">
             &copy; Nicole Gerlach 2024<br><br>

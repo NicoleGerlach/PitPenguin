@@ -2,6 +2,7 @@
 class World {
     penguin = new Penguin();
     enemies = level1.enemies;
+    endboss = level1.endboss;
     backgroundObjects = level1.backgroundObjects;
     poison = level1.poison;
     coin = level1.coin
@@ -168,6 +169,7 @@ class World {
         this.addObjectsToMap(this.level.coin);
         this.addObjectsToMap(this.level.heart);
         this.addObjectsToMap(this.throwableObject);
+        this.addToMap(this.level.endboss);
         this.ctx.translate(-this.camera_x, 0);
         let self = this;
         requestAnimationFrame(function () {

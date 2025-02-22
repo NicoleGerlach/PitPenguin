@@ -102,12 +102,9 @@ function checkScreen() {
 function showInfoBox() {
     const instructionsBox = document.getElementById('instructionsBox');
     instructionsBox.innerHTML += generateInfoBoxHtml();
-    checkScreen();
-}
-
-window.addEventListener("resize", checkScreen);
-
-function startGame() {
+  }
+  
+  function startGame() {
     const startScreen = document.getElementById('startScreen');
     const canvas = document.getElementById('canvas');
     const headline = document.getElementById('headline');
@@ -115,59 +112,53 @@ function startGame() {
     canvas.classList.remove('d-none');
     headline.classList.remove('d-none');
     init();
-    showMobileButtons();
-    this.background_sound.play();
-}
+  }
 
-function howToPlay() {
-    const instructionsBox = document.getElementById('instructionsBox');
-    const directionsContainer = document.getElementById('directionsContainer');
-    const impressum = document.getElementById('impressum');
-    const backwardsAboutGame = document.getElementById('backwardsAboutGame');
-    directionsContainer.classList.add('d-none');
-    impressum.classList.add('d-none');
-    instructionsBox.innerHTML = '';
-    instructionsBox.innerHTML += generateAboutGameHtml();
-    backwardsAboutGame.classList.remove('d-none');
-}
+// function showInfoBox() {
+//     const instructionsBox = document.getElementById('instructionsBox');
+//     instructionsBox.innerHTML += generateInfoBoxHtml();
+//     checkScreen();
+// }
 
-function backFromHowToPlay() {
-    const instructionsBox = document.getElementById('instructionsBox');
-    const directionsContainer = document.getElementById('directionsContainer');
-    const impressum = document.getElementById('impressum');
-    const backwardsHowToPlay = document.getElementById('backwardsAboutGame');
-    const aboutGame = document.getElementById('aboutGame');
-    instructionsBox.innerHTML = '';
-    instructionsBox.innerHTML += generateInfoBoxHtml();
-    directionsContainer.classList.remove('d-none');
-    impressum.classList.remove('d-none');
-    backwardsHowToPlay.classList.add('d-none');
-    aboutGame.classList.add('d-none');
-}
+// window.addEventListener("resize", checkScreen);
 
-function showImpressum() {
-    const instructionsBox = document.getElementById('instructionsBox');
-    const directionsContainer = document.getElementById('directionsContainer');
-    const impressum = document.getElementById('impressum');
-    const backwardsImpressum = document.getElementById('backwardsImpressum');
-    directionsContainer.classList.add('d-none');
-    impressum.classList.add('d-none');
-    instructionsBox.innerHTML = '';
-    instructionsBox.innerHTML += generateImpressumHtml();
-    backwardsImpressum.classList.remove('d-none');
-}
+// function startGame() {
+//     const startScreen = document.getElementById('startScreen');
+//     const canvas = document.getElementById('canvas');
+//     const headline = document.getElementById('headline');
+//     startScreen.classList.add('d-none');
+//     canvas.classList.remove('d-none');
+//     headline.classList.remove('d-none');
+//     init();
+//     showMobileButtons();
+//     this.background_sound.play();
+// }
 
-function backFromAbouImpressum() {
+function showContent(content) {
+    const arrowBack = document.getElementById('arrow_back');
     const instructionsBox = document.getElementById('instructionsBox');
-    const directionsContainer = document.getElementById('directionsContainer');
-    const impressum = document.getElementById('impressum');
-    const backwardsImpressum = document.getElementById('backwardsImpressum');
     instructionsBox.innerHTML = '';
-    instructionsBox.innerHTML += generateInfoBoxHtml();
-    directionsContainer.classList.remove('d-none');
-    impressum.classList.remove('d-none');
-    backwardsImpressum.classList.add('d-none');
-}
+  
+    if (content === 'startGame') {
+      startGame();
+    } else if (content === 'howToPlay') {
+      instructionsBox.innerHTML = generateAboutGameHtml();
+      arrowBack.classList.remove('d-none');
+    } else if (content === 'imprint') {
+      instructionsBox.innerHTML = generateImprintHtml();
+      arrowBack.classList.remove('d-none');
+    } else {
+      console.warn(`Unknown content ${content}`);
+    }
+  }
+  
+  function backToMainScreen() {
+    const arrowBack = document.getElementById('arrow_back');
+    const instructionsBox = document.getElementById('instructionsBox');
+    instructionsBox.innerHTML = '';
+    showInfoBox();
+    arrowBack.classList.add('d-none');
+  }
 
 function showMobileButtons() {
     buttonBoxLeft = document.getElementById('btnBoxLeft');
