@@ -26,8 +26,5 @@ class DrawableObject {
             img.src = path;
             this.imageCache[path] = img;
         });
-    }
-
-
-    
+    }   
 }

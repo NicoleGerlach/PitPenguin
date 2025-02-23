@@ -1,3 +1,4 @@
+
 class Poison extends ThrowableObject {
     height = 80;
     width = 60;
@@ -10,12 +11,21 @@ class Poison extends ThrowableObject {
         bottom: 0
     }
 
-    constructor(imagePath, x, y) {
-        console.log('%c x, y, poison', 'color: green:', x, y);
+    // constructor(imagePath, x, y) {
+    //     // console.log('%c x, y, poison', 'color: green', x, y);
+    //     super();
+    //     this.loadImage(imagePath);
+    //     this.x = x
+    //     this.y = y;
+    // }
+
+    constructor(imagePath, x, y, id) {
+        console.log('%c x, y, poison', 'color: green', x, y, id);
         super();
         this.loadImage(imagePath);
         this.x = x
         this.y = y;
+        this.id = id;
     }
 
     drawFrame(ctx) {

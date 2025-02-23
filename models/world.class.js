@@ -4,7 +4,7 @@ class World {
     enemies = level1.enemies;
     endboss = level1.endboss;
     backgroundObjects = level1.backgroundObjects;
-    poison = level1.poison;
+    poisonBottles = level1.poison;
     coin = level1.coin
     heart = level1.heart
     canvas;
@@ -21,7 +21,7 @@ class World {
         this.ctx = canvas.getContext('2d');
         this.canvas = canvas;
         this.keyboard = keyboard;
-        console.log('poison_supplies: ', this.poison[0]);
+        // console.log('poison_supplies: ', this.poisonBottles[0]);
         this.draw();
         this.setWorld();
         this.run();
@@ -79,11 +79,11 @@ class World {
                     if (enemy instanceof Rabbit) { // Überprüfe, ob der Feind ein Rabbit ist
                         console.log("Rabbit wurde vom Gift getroffen!");
                         this.removeEnemy(enemy); // Entferne das Kaninchen
-                        this.removePoison(poison); // Entferne das Giftobjekt
+                        // this.removePoison(poison); // Entferne das Giftobjekt
                     } else if (enemy instanceof Endboss) { // Überprüfe, ob der Feind der Endboss ist
                         console.log("Endboss wurde vom Gift getroffen!");
                         this.enemy.hurtEndboss(); // Reduziere Energie vom Endboss
-                        this.removePoison(poison); // Entferne das Giftobjekt
+                        // this.removePoison(poison); // Entferne das Giftobjekt
                     } 
                 }
             });
@@ -103,7 +103,7 @@ class World {
     //   }
 
     checkCollectingPoison() {
-        this.level.poison.forEach((poison) => {
+        this.poisonBottles.forEach((poison) => {
             if (this.penguin.isColliding(poison)) {
                 this.collectPoison(poison);
             }
@@ -111,14 +111,48 @@ class World {
         // console.log('Poison:', this.penguin.poison);
     }
 
+    // collectPoison(poison) {
+    //     if (this.penguin.poison < 100) {
+    //         //
+    //         this.penguin.poison += 10;
+    //         if (this.penguin.poison > 100) {
+    //             this.penguin.poison = 100;
+    //         }
+    //         this.statusBarPoison.setPercentage(this.penguin.poison);
+    //         // this.throwableObjects.push(poison);
+    //         console.log('Flaschnbeutel:', this.throwableObjects);
+    //         this.removePoison(poison);
+    //     }
+    // }
+
     collectPoison(poison) {
+        console.log('Aktuelle Flaschenanzahl:', this.penguin.poison);
+    
         if (this.penguin.poison < 100) {
             this.penguin.poison += 10;
             if (this.penguin.poison > 100) {
                 this.penguin.poison = 100;
             }
             this.statusBarPoison.setPercentage(this.penguin.poison);
-            this.removePoison(poison);
+            console.log('Poison eingesammelt:', poison);
+    
+            // Exakte Flasche mit ID suchen
+            const index = this.level.poison.findIndex(p => p.id === poison.id);
+            console.log('Index der Flasche:', index);
+    
+            if (index !== -1) {
+                // Flasche sicher aus dem Level entfernen
+                this.level.poison.splice(index, 1); 
+                console.log('Flasche entfernt:', poison, id);
+    
+                // Füge die Flasche zum Wurf-Array hinzu
+                this.throwableObjects.push(poison); 
+                console.log('Flasche zu throwableObjects hinzugefügt:', poison);
+            } else {
+                console.log('Flasche nicht gefunden zum Entfernen:', poison);
+            }
+        } else {
+            console.log('Maximale Anzahl an Flaschen erreicht.');
         }
     }
 
@@ -179,7 +213,7 @@ class World {
         this.addToMap(this.statusBarPoison);
         this.ctx.translate(this.camera_x, 0);
         this.addObjectsToMap(this.level.enemies);
-        this.addObjectsToMap(this.level.poison);
+        this.addObjectsToMap(this.poisonBottles);
         this.addObjectsToMap(this.level.coin);
         this.addObjectsToMap(this.level.heart);
         this.addObjectsToMap(this.throwableObjects);
@@ -192,7 +226,6 @@ class World {
     }
 
     addObjectsToMap(objects) {
-        console.log(objects);
         objects.forEach(o => {
             this.addToMap(o);
         });
@@ -221,12 +254,23 @@ class World {
         mo.x = mo.x * -1;
     }
 
-    removePoison(poison) {
-        const indexOfPoison = this.level.poison.indexOf(poison);
-        if (indexOfPoison > -1 && this.penguin.poison < 100) {
-            this.level.poison.splice(indexOfPoison, 1);
-        }
-    }
+    // removePoison(poison) {
+    //     console.log('Gift:', poison);
+    //     const indexOfPoison = this.level.poison.indexOf(poison);
+    //     if (indexOfPoison > -1 && this.penguin.poison < 100) {
+    //         this.level.poison.splice(indexOfPoison, 1);
+    //         console.log('Poison Bottles:', this.poisonBottles);
+    //     }
+    // }
+
+    // removePoison(poison) {
+    //     console.log('Gift:', poison);
+    //     const indexOfPoison = this.poisonBottles.indexOf(poison);
+    //     if (indexOfPoison > -1 && this.penguin.poison < 100) {
+    //         this.poisonBottles.splice(indexOfPoison, 1);
+    //         console.log('Poison Bottles:', this.poisonBottles);
+    //     }
+    // }
 
     removeCoin(coin) {
         const indexOfCoin = this.level.coin.indexOf(coin);
