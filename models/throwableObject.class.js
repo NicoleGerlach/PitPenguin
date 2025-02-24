@@ -1,3 +1,4 @@
+
 class ThrowableObject extends MovableObject {
 
     offset = {
