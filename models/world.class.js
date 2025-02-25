@@ -46,11 +46,17 @@ class World {
         // console.log('Poison:', this.penguin.poison);
     }
 
+    // checkThrowObjects() {
+    //     if (this.keyboard.D && this.penguin.poison > 0) {
+    //         let poison = new ThrowableObject(this.penguin.x + 190, this.penguin.y + 130);
+    //         this.throwableObjects.push(poison);
+    //         this.throwPoison();
+    //     }
+    // }
+
     checkThrowObjects() {
         if (this.keyboard.D && this.penguin.poison > 0) {
-            let poison = new ThrowableObject(this.penguin.x + 190, this.penguin.y + 130);
-            this.throwableObjects.push(poison);
-            this.throwPoison();
+            this.throwBottle(); // Rufe die throwBottle-Methode auf
         }
     }
 
@@ -59,20 +65,41 @@ class World {
         this.statusBarPoison.setPercentage(this.penguin.poison);
     }
 
+    // throwBottle() {
+    //     if (this.throwableObjects.length > 0) {
+    //         let bottle = this.throwableObjects.shift();
+    //         this.activeThrownBottles.push(bottle);
+    //         console.log('Flasche geworfen!', this.activeThrownBottles);
+    //     } else {
+    //         console.log('Keine Flaschen mehr zum Werfen!');
+    //     }
+    // }
+
     throwBottle() {
         if (this.throwableObjects.length > 0) {
-            let bottle = this.throwableObjects.shift();
-            this.activeThrownBottles.push(bottle);
+            let bottle = this.throwableObjects.shift(); // Nimm die nächste Flasche
+            this.activeThrownBottles.push(bottle); // Füge sie zu den aktiven geworfenen Flaschen hinzu
             console.log('Flasche geworfen!', this.activeThrownBottles);
+    
+            // Reduziere die Anzahl an Giftflaschen des Pinguins
+            this.throwPoison();
         } else {
             console.log('Keine Flaschen mehr zum Werfen!');
         }
     }
 
+    // bottleLanded(bottle) {
+    //     const index = this.activeThrownBottles.indexOf(bottle);
+    //     if (index > -1) {
+    //         this.activeThrownBottles.splice(index, 1);
+    //         console.log('Flasche ist gelandet und entfernt:', bottle);
+    //     }
+    // }
+
     bottleLanded(bottle) {
         const index = this.activeThrownBottles.indexOf(bottle);
         if (index > -1) {
-            this.activeThrownBottles.splice(index, 1);
+            this.activeThrownBottles.splice(index, 1); // Entferne sie aus dem aktiven Array
             console.log('Flasche ist gelandet und entfernt:', bottle);
         }
     }
@@ -108,6 +135,24 @@ class World {
         });
     }
 
+    // checkCollisionWithPoison() {
+    //     this.activeThrownBottles.forEach((bottle) => {
+    //         // Hier kannst du überprüfen, ob die Flasche den Boden erreicht hat oder mit einem Gegner kollidiert
+    //         if (bottle.y > canvas.height) { // Beispiel für das Erreichen des Bodens
+    //             this.bottleLanded(bottle); // Entferne die Flasche
+    //         }
+    
+    //         // Hier kannst du auch Kollisionen mit Gegnern überprüfen
+    //         this.level.enemies.forEach((enemy) => {
+    //             if (enemy.isCollidingWithPoison(bottle)) {
+    //                 console.log("Gegner wurde getroffen!");
+    //                 this.bottleLanded(bottle); // Entferne die Flasche nach der Kollision
+    //                 // Weitere Logik zur Behandlung des Treffers...
+    //             }
+    //         });
+    //     });
+    // }
+
     // checkEndbossCollisionWithPoison() {
     //     if (this.throwableObjects.length === 0) return;
     //     this.throwableObjects.forEach((poison) => {
@@ -137,22 +182,22 @@ class World {
                 this.penguin.poison = 100;
             }
             this.statusBarPoison.setPercentage(this.penguin.poison);
-            // console.log('Poison eingesammelt:', poison);
+            console.log('Poison eingesammelt:', poison);
             // Exakte Flasche mit ID suchen
             const index = this.level.poison.findIndex(p => p.id === poison.id);
             // console.log('Index der Flasche:', index);
             if (index !== -1) {
                 // Flasche sicher aus dem Level entfernen
                 this.level.poison.splice(index, 1); 
-                // console.log('Flasche entfernt:', poison);
+                console.log('Flasche entfernt:', poison);
                 // Füge die Flasche zum Wurf-Array hinzu
                 this.throwableObjects.push(poison); 
-                // console.log('Flasche zu throwableObjects hinzugefügt:', poison);
+                console.log('Flasche zu throwableObjects hinzugefügt:', poison);
             } else {
-                // console.log('Flasche nicht gefunden zum Entfernen:', poison);
+                console.log('Flasche nicht gefunden zum Entfernen:', poison);
             }
         } else {
-            // console.log('Maximale Anzahl an Flaschen erreicht.');
+            console.log('Maximale Anzahl an Flaschen erreicht.');
         }
     }
 
