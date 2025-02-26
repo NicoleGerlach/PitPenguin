@@ -6,7 +6,7 @@ class MovableObject extends DrawableObject {
     acceleration = 2.5;
     energy = 100;
     lastHit = 0;
-    poison = 35;
+    poison = 0;
     coin = 35;
     heart = 0;
 

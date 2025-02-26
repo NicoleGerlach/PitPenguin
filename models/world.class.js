@@ -16,7 +16,6 @@ class World {
     statusBarCoin = new StatusBarCoin();
     statusBarPoison = new StatusBarPoison();
     throwableObjects = [];
-    activeThrownBottles = [];
 
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d');
@@ -46,43 +45,20 @@ class World {
         // console.log('Poison:', this.penguin.poison);
     }
 
-    // checkThrowObjects() {
-    //     if (this.keyboard.D && this.penguin.poison > 0) {
-    //         let poison = new ThrowableObject(this.penguin.x + 190, this.penguin.y + 130);
-    //         this.throwableObjects.push(poison);
-    //         this.throwPoison();
-    //     }
-    // }
-
     checkThrowObjects() {
         if (this.keyboard.D && this.penguin.poison > 0) {
             this.throwBottle(); // Rufe die throwBottle-Methode auf
         }
     }
 
-    throwPoison() {
-        this.penguin.poison -= 5;
-        this.statusBarPoison.setPercentage(this.penguin.poison);
-    }
-
-    // throwBottle() {
-    //     if (this.throwableObjects.length > 0) {
-    //         let bottle = this.throwableObjects.shift();
-    //         this.activeThrownBottles.push(bottle);
-    //         console.log('Flasche geworfen!', this.activeThrownBottles);
-    //     } else {
-    //         console.log('Keine Flaschen mehr zum Werfen!');
-    //     }
-    // }
-
     throwBottle() {
-        if (this.throwableObjects.length > 0) {
-            let bottle = this.throwableObjects.shift(); // Nimm die nächste Flasche
-            this.activeThrownBottles.push(bottle); // Füge sie zu den aktiven geworfenen Flaschen hinzu
-            console.log('Flasche geworfen!', this.activeThrownBottles);
-    
-            // Reduziere die Anzahl an Giftflaschen des Pinguins
-            this.throwPoison();
+        console.log('Flaschen zum Werfen:', this.penguin.poison);
+
+        if (this.penguin.poison > 0) {
+            let bottle = new ThrowableObject(this.penguin.x + 190, this.penguin.y + 130);
+            this.throwableObjects.push(bottle);
+            this.penguin.poison--;
+            this.statusBarPoison.setPercentage(this.penguin.poison * 10);
         } else {
             console.log('Keine Flaschen mehr zum Werfen!');
         }
@@ -96,13 +72,13 @@ class World {
     //     }
     // }
 
-    bottleLanded(bottle) {
-        const index = this.activeThrownBottles.indexOf(bottle);
-        if (index > -1) {
-            this.activeThrownBottles.splice(index, 1); // Entferne sie aus dem aktiven Array
-            console.log('Flasche ist gelandet und entfernt:', bottle);
-        }
-    }
+    // bottleLanded(bottle) {
+    //     const index = this.activeThrownBottles.indexOf(bottle);
+    //     if (index > -1) {
+    //         this.activeThrownBottles.splice(index, 1); // Entferne sie aus dem aktiven Array
+    //         console.log('Flasche ist gelandet und entfernt:', bottle);
+    //     }
+    // }
 
     checkCollisions() {
         this.level.enemies.forEach((enemy) => {
@@ -129,29 +105,11 @@ class World {
                         console.log("Endboss wurde vom Gift getroffen!");
                         this.enemy.hurtEndboss(); // Reduziere Energie vom Endboss
                         // this.removePoison(poison); // Entferne das Giftobjekt
-                    } 
+                    }
                 }
             });
         });
     }
-
-    // checkCollisionWithPoison() {
-    //     this.activeThrownBottles.forEach((bottle) => {
-    //         // Hier kannst du überprüfen, ob die Flasche den Boden erreicht hat oder mit einem Gegner kollidiert
-    //         if (bottle.y > canvas.height) { // Beispiel für das Erreichen des Bodens
-    //             this.bottleLanded(bottle); // Entferne die Flasche
-    //         }
-    
-    //         // Hier kannst du auch Kollisionen mit Gegnern überprüfen
-    //         this.level.enemies.forEach((enemy) => {
-    //             if (enemy.isCollidingWithPoison(bottle)) {
-    //                 console.log("Gegner wurde getroffen!");
-    //                 this.bottleLanded(bottle); // Entferne die Flasche nach der Kollision
-    //                 // Weitere Logik zur Behandlung des Treffers...
-    //             }
-    //         });
-    //     });
-    // }
 
     // checkEndbossCollisionWithPoison() {
     //     if (this.throwableObjects.length === 0) return;
@@ -176,148 +134,135 @@ class World {
 
     collectPoison(poison) {
         console.log('Aktuelle Flaschenanzahl:', this.penguin.poison);
-        if (this.penguin.poison < 100) {
-            this.penguin.poison += 10;
-            if (this.penguin.poison > 100) {
-                this.penguin.poison = 100;
-            }
-            this.statusBarPoison.setPercentage(this.penguin.poison);
-            console.log('Poison eingesammelt:', poison);
-            // Exakte Flasche mit ID suchen
-            const index = this.level.poison.findIndex(p => p.id === poison.id);
-            // console.log('Index der Flasche:', index);
-            if (index !== -1) {
-                // Flasche sicher aus dem Level entfernen
-                this.level.poison.splice(index, 1); 
-                console.log('Flasche entfernt:', poison);
-                // Füge die Flasche zum Wurf-Array hinzu
-                this.throwableObjects.push(poison); 
-                console.log('Flasche zu throwableObjects hinzugefügt:', poison);
-            } else {
-                console.log('Flasche nicht gefunden zum Entfernen:', poison);
-            }
+        const index = this.level.poison.findIndex(p => p.id === poison.id);
+
+        if (index !== -1) {
+            this.level.poison.splice(index, 1);
+            this.penguin.poison++;
+
+            console.log('Giftflaschen gesammelt:', this.penguin.poison);
+            this.statusBarPoison.setPercentage(this.penguin.poison * 10);
         } else {
-            console.log('Maximale Anzahl an Flaschen erreicht.');
+            console.log('Flasche nicht gefunden zum Entfernen:', poison);
         }
     }
 
-    enoughPoison() {
-        if (this.penguin.poison == 100) {
-            return this.penguin.poison == 100;
+enoughPoison() {
+    if (this.penguin.poison == 100) {
+        return this.penguin.poison == 100;
+    }
+}
+
+checkCollectingCoin() {
+    this.level.coin.forEach((coin) => {
+        if (this.penguin.isColliding(coin)) {
+            this.collectingCoin(coin);
+        }
+    });
+    // console.log('Coin:', this.penguin.coin);
+}
+
+collectingCoin(coin) {
+    if (this.penguin.coin < 100) {
+        this.penguin.coin += 5;
+        if (this.penguin.coin > 100) {
+            this.penguin.coin = 100;
         }
     }
+    this.statusBarCoin.setPercentage(this.penguin.coin);
+    this.removeCoin(coin);
+}
 
-    checkCollectingCoin() {
-        this.level.coin.forEach((coin) => {
-            if (this.penguin.isColliding(coin)) {
-                this.collectingCoin(coin);
-            }
-        });
-        // console.log('Coin:', this.penguin.coin);
-    }
-
-    collectingCoin(coin) {
-        if (this.penguin.coin < 100) {
-            this.penguin.coin += 5;
-            if (this.penguin.coin > 100) {
-                this.penguin.coin = 100;
-            }
+checkCollectingHeart() {
+    this.level.heart.forEach((heart) => {
+        if (this.penguin.isColliding(heart)) {
+            this.collectingHeart(heart);
         }
-        this.statusBarCoin.setPercentage(this.penguin.coin);
-        this.removeCoin(coin);
-    }
+    });
+    // console.log('Energy:', this.penguin.energy);
+}
 
-    checkCollectingHeart() {
-        this.level.heart.forEach((heart) => {
-            if (this.penguin.isColliding(heart)) {
-                this.collectingHeart(heart);
-            }
-        });
-        // console.log('Energy:', this.penguin.energy);
-    }
-
-    collectingHeart(heart) {
-        if (this.penguin.energy < 100) {
-            this.penguin.energy += 5;
-            if (this.penguin.energy > 100) {
-                this.penguin.energy = 100;
-            }
-        }
-        this.statusBarHeart.setPercentage(this.penguin.energy);
-        this.removeHeart(heart);
-    }
-
-    draw() {
-        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-        this.ctx.translate(this.camera_x, 0);
-        this.addObjectsToMap(this.level.backgroundObjects);
-        this.addToMap(this.penguin);
-        this.ctx.translate(-this.camera_x, 0);
-        this.addToMap(this.statusBarHeart);
-        this.addToMap(this.statusBarCoin);
-        this.addToMap(this.statusBarPoison);
-        this.ctx.translate(this.camera_x, 0);
-        this.addObjectsToMap(this.level.enemies);
-        this.addObjectsToMap(this.poisonBottles);
-        this.addObjectsToMap(this.level.coin);
-        this.addObjectsToMap(this.level.heart);
-        // this.addObjectsToMap(this.throwableObjects);
-        this.addObjectsToMap(this.activeThrownBottles);
-        this.addToMap(this.level.endboss);
-        this.ctx.translate(-this.camera_x, 0);
-        let self = this;
-        requestAnimationFrame(function () {
-            self.draw();
-        })
-    }
-
-    addObjectsToMap(objects) {
-        objects.forEach(o => {
-            this.addToMap(o);
-        });
-    }
-
-    addToMap(mo) {
-        if (mo.otherDirection) {
-            this.flipImage(mo);
-        }
-        mo.draw(this.ctx);
-        mo.drawFrame(this.ctx);
-        if (mo.otherDirection) {
-            this.flipImageBack(mo);
+collectingHeart(heart) {
+    if (this.penguin.energy < 100) {
+        this.penguin.energy += 5;
+        if (this.penguin.energy > 100) {
+            this.penguin.energy = 100;
         }
     }
+    this.statusBarHeart.setPercentage(this.penguin.energy);
+    this.removeHeart(heart);
+}
 
-    flipImage(mo) {
-        this.ctx.save();
-        this.ctx.translate(mo.width, 0);
-        this.ctx.scale(-1, 1);
-        mo.x = mo.x * -1;
-    }
+draw() {
+    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    this.ctx.translate(this.camera_x, 0);
+    this.addObjectsToMap(this.level.backgroundObjects);
+    this.addToMap(this.penguin);
+    this.ctx.translate(-this.camera_x, 0);
+    this.addToMap(this.statusBarHeart);
+    this.addToMap(this.statusBarCoin);
+    this.addToMap(this.statusBarPoison);
+    this.ctx.translate(this.camera_x, 0);
+    this.addObjectsToMap(this.level.enemies);
+    this.addObjectsToMap(this.poisonBottles);
+    this.addObjectsToMap(this.level.coin);
+    this.addObjectsToMap(this.level.heart);
+    this.addObjectsToMap(this.throwableObjects);
+    this.addToMap(this.level.endboss);
+    this.ctx.translate(-this.camera_x, 0);
+    let self = this;
+    requestAnimationFrame(function () {
+        self.draw();
+    })
+}
 
-    flipImageBack(mo) {
-        this.ctx.restore();
-        mo.x = mo.x * -1;
-    }
+addObjectsToMap(objects) {
+    objects.forEach(o => {
+        this.addToMap(o);
+    });
+}
 
-    removeCoin(coin) {
-        const indexOfCoin = this.level.coin.indexOf(coin);
-        if (indexOfCoin > -1) {
-            this.level.coin.splice(indexOfCoin, 1);
-        }
+addToMap(mo) {
+    if (mo.otherDirection) {
+        this.flipImage(mo);
     }
+    mo.draw(this.ctx);
+    mo.drawFrame(this.ctx);
+    if (mo.otherDirection) {
+        this.flipImageBack(mo);
+    }
+}
 
-    removeHeart(heart) {
-        const indexOfHeart = this.level.heart.indexOf(heart);
-        if (indexOfHeart > -1 && this.penguin.energy < 100) {
-            this.level.heart.splice(indexOfHeart, 1);
-        }
-    }
+flipImage(mo) {
+    this.ctx.save();
+    this.ctx.translate(mo.width, 0);
+    this.ctx.scale(-1, 1);
+    mo.x = mo.x * -1;
+}
 
-    removeEnemy(enemy) {
-        const indexOfEnemy = this.level.enemies.indexOf(enemy);
-        if (indexOfEnemy > -1) {
-            this.level.enemies.splice(indexOfEnemy, 1);
-        }
+flipImageBack(mo) {
+    this.ctx.restore();
+    mo.x = mo.x * -1;
+}
+
+removeCoin(coin) {
+    const indexOfCoin = this.level.coin.indexOf(coin);
+    if (indexOfCoin > -1) {
+        this.level.coin.splice(indexOfCoin, 1);
     }
+}
+
+removeHeart(heart) {
+    const indexOfHeart = this.level.heart.indexOf(heart);
+    if (indexOfHeart > -1 && this.penguin.energy < 100) {
+        this.level.heart.splice(indexOfHeart, 1);
+    }
+}
+
+removeEnemy(enemy) {
+    const indexOfEnemy = this.level.enemies.indexOf(enemy);
+    if (indexOfEnemy > -1) {
+        this.level.enemies.splice(indexOfEnemy, 1);
+    }
+}
 }

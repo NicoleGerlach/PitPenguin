@@ -13,7 +13,7 @@ class StatusBarPoison extends DrawableObject {
         'img/StatusBarBottle/100_.png'
     ]
 
-    percentage = 20;
+    percentage = 0;
 
     constructor() {
         super();

@@ -13,7 +13,7 @@ class StatusBarHeart extends DrawableObject {
         'img/StatusBarHeart/100_ .png' 
     ]
 
-    percentage = 100;
+    percentage = 50;
 
     constructor() {
         super();

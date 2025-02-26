@@ -14,7 +14,7 @@ class ThrowableObject extends MovableObject {
         this.y = y;
         this.height = 80;
         this.width = 60;
-        // this.throw(100, 150);
+        this.throw(100, 150);
     }
     
     loadImage(path) {
@@ -26,7 +26,7 @@ class ThrowableObject extends MovableObject {
         this.speedY = 20
         this.applyGravity();
         setInterval(() => {
-            this.x += 10;
+            this.x += 8;
         }, 25);
     }
 

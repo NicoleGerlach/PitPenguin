@@ -1,5 +1,5 @@
 
-class Poison extends ThrowableObject {
+class Poison extends MovableObject {
     height = 80;
     width = 60;
     // y = 310;
@@ -20,7 +20,6 @@ class Poison extends ThrowableObject {
     // }
 
     constructor(imagePath, x, y, id) {
-        console.log('%c x, y, poison', 'color: green', x, y, id);
         super();
         this.loadImage(imagePath);
         this.x = x
