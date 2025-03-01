@@ -2,9 +2,12 @@
 class Endboss extends MovableObject {
     height = 550;
     width = 550;
-    x = 2500;
+    x = 2600;
     y = -80;
     speed = 5;
+    direction = -1;
+    leftBoundary = 2200;
+    rightBoundary = 2650;
 
     IMAGES_WAITING = [
         'img/Enemy/Kicking/0_Elementals_Kicking_000.png',
@@ -67,7 +70,9 @@ class Endboss extends MovableObject {
     constructor() {
         super().loadImage(this.IMAGES_WAITING[0]);
         this.loadImages(this.IMAGES_WAITING);
+        this.loadImages(this.IMAGES_Walking);
         this.animate();
+        this.walkToAndFro();
     }
 
     animate() {
@@ -75,6 +80,18 @@ class Endboss extends MovableObject {
             this.playAnimation(this.IMAGES_WAITING);
         }, 100);
     }
+
+    walkToAndFro() {
+
+        setInterval(() => {
+          this.x += this.speed * this.direction;
+            this.playAnimation(this.IMAGES_Walking);
+          if (this.x <= this.leftBoundary || this.x >= this.rightBoundary) {
+            this.direction *= -1;
+            this.otherDirection = this.direction === 1;
+          }
+        }, 1000 / 60);
+      }
 
     // drawFrame(ctx) {
     //     ctx.beginPath();
