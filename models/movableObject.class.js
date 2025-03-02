@@ -47,24 +47,6 @@ class MovableObject extends DrawableObject {
         );
     }
 
-    // isCollidingWithPoison(poison) {
-    //     try {
-    //       return (
-    //         this.x + this.width - this.offset.right >
-    //           poison.x + poison.offset.left &&
-    //         this.x + this.offset.left <
-    //           poison.x + poison.width - poison.offset.right &&
-    //         this.y + this.height - this.offset.bottom >
-    //           poison.y + poison.offset.top &&
-    //         this.y + this.offset.top <
-    //           poison.y + poison.height - poison.offset.bottom
-    //       );
-    //     } catch (e) {
-    //       console.log('poison defekt', e);
-    //       console.log(poison.x);
-    //     }
-    //   }
-
     hit() {
         this.energy -= 8;
         if (this.energy < 0) {
@@ -84,7 +66,7 @@ class MovableObject extends DrawableObject {
         return this.energy == 0;
     }
 
-    // hurtEndboss() {
+    // endbossIsHurt() {
     //     this.energy -= 25;
     // }
 

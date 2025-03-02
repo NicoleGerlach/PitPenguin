@@ -38,7 +38,7 @@ class World {
             this.checkCollectingCoin();
             this.checkCollectingHeart();
             this.checkCollisionWithPoison();
-            // this.checkEndbossCollisionWithPoison();
+            this.checkEndbossCollisionWithPoison();
         }, 200);
         // console.log('Energy:', this.penguin.energy);
         // console.log('Coin:', this.penguin.coin);
@@ -111,17 +111,16 @@ class World {
         });
     }
 
-    // checkEndbossCollisionWithPoison() {
-    //     if (this.throwableObjects.length === 0) return;
-    //     this.throwableObjects.forEach((poison) => {
-    //       console.log('Bild einer Giftflasche zur Kollision: ', poison);
-    //       if (this.endboss.isCollidingWithPoison(poison)) {
-    //         console.log('Endboss wurde vom Gift getroffen!');
-    //         // später Lebenspunkte des Endbosses zählen.
-    //         this.removeBottle(poison);
-    //       }
-    //     });
-    //   }
+    checkEndbossCollisionWithPoison() {
+        if (this.throwableObjects.length === 0) return;
+        this.throwableObjects.forEach((poison) => {
+          console.log('Bild einer Giftflasche zur Kollision: ', poison);
+          if (this.endboss.isCollidingWithPoison(poison)) {
+            console.log('Endboss wurde vom Gift getroffen!');
+            // später Lebenspunkte des Endbosses zählen.
+          }
+        });
+      }
 
     checkCollectingPoison() {
         this.poisonBottles.forEach((poison) => {
@@ -197,7 +196,6 @@ draw() {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
     this.ctx.translate(this.camera_x, 0);
     this.addObjectsToMap(this.level.backgroundObjects);
-    this.addToMap(this.penguin);
     this.ctx.translate(-this.camera_x, 0);
     this.addToMap(this.statusBarHeart);
     this.addToMap(this.statusBarCoin);
@@ -209,6 +207,7 @@ draw() {
     this.addObjectsToMap(this.level.heart);
     this.addObjectsToMap(this.throwableObjects);
     this.addToMap(this.level.endboss);
+    this.addToMap(this.penguin);
     this.ctx.translate(-this.camera_x, 0);
     let self = this;
     requestAnimationFrame(function () {
