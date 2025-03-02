@@ -103,7 +103,7 @@ class World {
                         // this.removePoison(poison); // Entferne das Giftobjekt
                     } else if (enemy instanceof Endboss) { // Überprüfe, ob der Feind der Endboss ist
                         console.log("Endboss wurde vom Gift getroffen!");
-                        this.enemy.hurtEndboss(); // Reduziere Energie vom Endboss
+                        this.enemy.endbossIsHurt(); // Reduziere Energie vom Endboss
                         // this.removePoison(poison); // Entferne das Giftobjekt
                     }
                 }
@@ -114,13 +114,12 @@ class World {
     checkEndbossCollisionWithPoison() {
         if (this.throwableObjects.length === 0) return;
         this.throwableObjects.forEach((poison) => {
-          console.log('Bild einer Giftflasche zur Kollision: ', poison);
-          if (this.endboss.isCollidingWithPoison(poison)) {
-            console.log('Endboss wurde vom Gift getroffen!');
-            // später Lebenspunkte des Endbosses zählen.
-          }
+            if (this.endboss.isCollidingWithPoison(poison)) {
+                console.log('Endboss wurde vom Gift getroffen!');
+                this.endboss.hit(); // Rufe die Hit-Methode auf
+            }
         });
-      }
+    }
 
     checkCollectingPoison() {
         this.poisonBottles.forEach((poison) => {
