@@ -8,6 +8,7 @@ class Endboss extends MovableObject {
   direction = -1;
   leftBoundary = 2200;
   rightBoundary = 2650;
+  energy = 4;
 
   IMAGES_Walking = [
     'img/Enemy/Walking/0_Elementals_Walking_000.png',
@@ -66,24 +67,6 @@ class Endboss extends MovableObject {
     'img/Enemy/Dying/0_Elementals_Dying_013.png',
     'img/Enemy/Dying/0_Elementals_Dying_014.png',
   ];
-  // IMAGES_KICKING = [
-  //   'img/Enemy/Idle Blinking/0_Elementals_Idle Blinking_014.png',
-  //   'img/Enemy/Idle Blinking/0_Elementals_Idle Blinking_015.png',
-  //   'img/Enemy/Idle Blinking/0_Elementals_Idle Blinking_016.png',
-  //   'img/Enemy/Idle Blinking/0_Elementals_Idle Blinking_017.png',
-  //   'img/Enemy/Kicking/0_Elementals_Kicking_000.png',
-  //   'img/Enemy/Kicking/0_Elementals_Kicking_001.png',
-  //   'img/Enemy/Kicking/0_Elementals_Kicking_002.png',
-  //   'img/Enemy/Kicking/0_Elementals_Kicking_003.png',
-  //   'img/Enemy/Kicking/0_Elementals_Kicking_004.png',
-  //   'img/Enemy/Kicking/0_Elementals_Kicking_005.png',
-  //   'img/Enemy/Kicking/0_Elementals_Kicking_006.png',
-  //   'img/Enemy/Kicking/0_Elementals_Kicking_007.png',
-  //   'img/Enemy/Kicking/0_Elementals_Kicking_008.png',
-  //   'img/Enemy/Kicking/0_Elementals_Kicking_009.png',
-  //   'img/Enemy/Kicking/0_Elementals_Kicking_010.png',
-  //   'img/Enemy/Kicking/0_Elementals_Kicking_011.png',
-  // ]
 
   offset = {
     top: 45,
@@ -97,8 +80,8 @@ class Endboss extends MovableObject {
     this.loadImages(this.IMAGES_Walking);
     this.loadImages(this.IMAGES_HURT);
     this.loadImages(this.IMAGES_DEAD);
-    // this.loadImages(this.IMAGES_KICKING);
     this.endbossIsHurt = false;
+    this.endbossIsDead = false;
     this.animate();
   }
 
@@ -115,24 +98,27 @@ class Endboss extends MovableObject {
         this.playAnimation(this.IMAGES_HURT);
       } else {
         this.playAnimation(this.IMAGES_Walking);
-        // this.playAnimation(this.IMAGES_KICKING);
       }
     }, 2000 / 60);
   }
 
   hit() {
-    if (!this.endbossIsHurt && !this.endbossIsDead) { // Nur verletzen, wenn nicht bereits verletzt oder tot
-        console.log('Endboss wurde vom Gift getroffen!');
-        this.endbossIsHurt = true; // Setze den Zustand auf verletzt
+    if (!this.endbossIsHurt && !this.endbossIsDead) {
+        this.endbossIsHurt = true;
+        this.energy--;
+        if (this.energy <= 0) {
+          this.endbossIsDead = true;
+      }
       this.speed = 0;
         setTimeout(() => { 
-            this.endbossIsHurt = false; // Nach einer bestimmten Zeit zurücksetzen
+            this.endbossIsHurt = false;
             this.speed = 5;
-        }, 800); // Dauer der Verletzungsanimation anpassen (z.B. 1000 ms)
-
-        // Hier kannst du auch Lebenspunkte abziehen:
-        // this.energy -= 25; 
+        }, 800);
     }
+}
+
+endbossIsDead() {
+  return this.energy == 0;
 }
 
   drawFrame(ctx) {

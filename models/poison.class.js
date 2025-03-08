@@ -11,14 +11,6 @@ class Poison extends MovableObject {
         bottom: 0
     }
 
-    // constructor(imagePath, x, y) {
-    //     // console.log('%c x, y, poison', 'color: green', x, y);
-    //     super();
-    //     this.loadImage(imagePath);
-    //     this.x = x
-    //     this.y = y;
-    // }
-
     constructor(imagePath, x, y, id) {
         super();
         this.loadImage(imagePath);
