@@ -24,6 +24,7 @@ class World {
         this.draw();
         this.setWorld();
         this.run();
+        se
     }
 
     setWorld() {
@@ -31,7 +32,7 @@ class World {
     }
 
     run() {
-        setInterval(() => {
+        let interval = setInterval(() => {
             this.checkCollisions();
             this.checkThrowObjects();
             this.checkCollectingPoison();
@@ -43,6 +44,7 @@ class World {
         // console.log('Energy:', this.penguin.energy);
         // console.log('Coin:', this.penguin.coin);
         // console.log('Poison:', this.penguin.poison);
+        console.log('Id vom Intervall run ist:', interval);
     }
 
     checkThrowObjects() {
