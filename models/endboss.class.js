@@ -8,7 +8,9 @@ class Endboss extends MovableObject {
   direction = -1;
   leftBoundary = 2200;
   rightBoundary = 2650;
-  energy = 4;
+  energy = 2;
+  isDead = false;
+  endbossIsHurt = false;
 
   IMAGES_Walking = [
     'img/Enemy/Walking/0_Elementals_Walking_000.png',
@@ -80,46 +82,61 @@ class Endboss extends MovableObject {
     this.loadImages(this.IMAGES_Walking);
     this.loadImages(this.IMAGES_HURT);
     this.loadImages(this.IMAGES_DEAD);
-    this.endbossIsHurt = false;
-    this.endbossIsDead = false;
     this.animate();
   }
 
   animate() {
-    setInterval(() => {
+    let movementInterval = setInterval(() => {
+      if (this.isDead) { // Überprüfe, ob der Endboss tot ist
+        clearInterval(movementInterval); // Stoppe das Intervall
+        return; // Beende die Methode
+      }
       this.x += this.speed * this.direction;
       if (this.x <= this.leftBoundary || this.x >= this.rightBoundary) {
-        this.direction *= -1;
-        this.otherDirection = this.direction === 1;
+        this.direction *= -1; // Ändere die Richtung
+        this.otherDirection = this.direction === 1; // Aktualisiere andere Richtung
       }
-      if (this.endbossIsDead) {
-        this.playAnimation(this.IMAGES_DEAD);
-      } else if (this.endbossIsHurt) {
+      if (this.endbossIsHurt) {
         this.playAnimation(this.IMAGES_HURT);
       } else {
         this.playAnimation(this.IMAGES_Walking);
       }
-    }, 2000 / 60);
+    }, 2000 / 60); // Setze das Intervall
+    this.intervalIds.push(movementInterval); // Füge die ID zum Array hinzu
+    console.log('Interval Endboss:', this.intervalIds);
   }
 
-  hit() {
-    if (!this.endbossIsHurt && !this.endbossIsDead) {
-        this.endbossIsHurt = true;
-        this.energy--;
-        if (this.energy <= 0) {
-          this.endbossIsDead = true;
+hit() {
+  console.log('Energie Endboss vor Treffer:', this.energy);
+  if (!this.isDead && !this.endbossIsHurt) { // Nur Schaden annehmen, wenn er nicht tot und nicht verletzt ist
+      this.energy--; // Reduziere die Energie bei Schaden
+      if (this.energy <= 0) { 
+          this.isDead = true; // Setze den Zustand auf tot
+          this.playDeadAnimation(); // Spiele die Todesanimation ab
+      } else {
+          this.endbossIsHurt = true; // Setze den Zustand auf verletzt
+          this.speed = 0;
+          setTimeout(() => { 
+              this.endbossIsHurt = false; // Setze den Zustand zurück nach 800ms
+              this.speed = 5; // Stelle die Geschwindigkeit wieder her
+          }, 800); // Nach einer kurzen Zeit wieder heilen
       }
-      this.speed = 0;
-        setTimeout(() => { 
-            this.endbossIsHurt = false;
-            this.speed = 5;
-        }, 800);
-    }
+  }
+
+  console.log('Energie Endboss nach Treffer:', this.energy);
 }
 
-endbossIsDead() {
-  return this.energy == 0;
-}
+  playDeadAnimation() {
+    if (this.isDead) {
+      this.playAnimation(this.IMAGES_DEAD);
+      this.speed = 0;
+      setTimeout(() => {
+        console.log("Alle Intervalle wurden gestoppt.");
+        this.stopGame();
+      }, 2000); // Wartezeit für das Stoppen nach der Animation
+    }
+  }
+
 
   drawFrame(ctx) {
     ctx.beginPath();

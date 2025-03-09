@@ -6,9 +6,10 @@ class MovableObject extends DrawableObject {
     acceleration = 2.5;
     energy = 100;
     lastHit = 0;
-    poison = 0;
+    poison = 20;
     coin = 35;
     heart = 0;
+    intervalIds = [];
 
     applyGravity() {
         setInterval(() => {
@@ -84,4 +85,10 @@ class MovableObject extends DrawableObject {
     jump() {
         this.speedY = 30;
     }
+
+    stopGame() {
+        this.intervalIds.forEach(id => clearInterval(id)); // Stoppe alle Intervalle
+        this.intervalIds = []; // Leere das Array nach dem Stoppen
+    }
+    
 }
