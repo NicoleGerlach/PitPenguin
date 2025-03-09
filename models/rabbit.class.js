@@ -31,10 +31,11 @@ class Rabbit extends MovableObject {
     }
 
     animate() {
-        setInterval(() => {
+        let interval = setInterval(() => {
             this.moveLeft();
             this.playAnimation(this.IMAGES_WALKING);
         }, 60);
+        console.log('Id vom Intervall rabbit ist:', interval);
     }
 
     drawFrame(ctx) {

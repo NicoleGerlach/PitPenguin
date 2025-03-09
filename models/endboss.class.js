@@ -82,6 +82,7 @@ class Endboss extends MovableObject {
     this.loadImages(this.IMAGES_Walking);
     this.loadImages(this.IMAGES_HURT);
     this.loadImages(this.IMAGES_DEAD);
+<<<<<<< HEAD
     this.animate();
   }
 
@@ -137,6 +138,92 @@ hit() {
     }
   }
 
+=======
+    this.endbossIsHurt = false;
+    this.isDead = false;
+    this.animate();
+  }
+
+  // animate() {
+  //   let interval = setInterval(() => {
+  //     this.x += this.speed * this.direction;
+  //     if (this.x <= this.leftBoundary || this.x >= this.rightBoundary) {
+  //       this.direction *= -1;
+  //       this.otherDirection = this.direction === 1;
+  //     }
+  //     if (this.isDead()) {
+  //       this.endbossIsDead();
+  //       return;
+  //     } else if (this.endbossIsHurt) {
+  //       this.playAnimation(this.IMAGES_HURT);
+  //     } else {
+  //       this.playAnimation(this.IMAGES_Walking);
+  //     }
+  //   }, 2000 / 60);
+  //   console.log('Id vom Intervall endboss ist:', interval);
+  // }
+
+  animate() {
+    let interval = setInterval(() => {
+        if (this.isDead) { // Überprüfe den Status direkt
+            this.endbossIsDead();
+            clearInterval(interval); // Stoppe das Intervall
+            return; // Beende die Ausführung der Funktion
+        }
+
+        this.x += this.speed * this.direction;
+
+        if (this.x <= this.leftBoundary || this.x >= this.rightBoundary) {
+            this.direction *= -1;
+            this.otherDirection = this.direction === 1;
+        }
+
+        if (this.endbossIsHurt) {
+            this.playAnimation(this.IMAGES_HURT);
+        } else {
+            this.playAnimation(this.IMAGES_Walking);
+        }
+    }, 2000 / 60);
+
+    console.log('Id vom Intervall endboss ist:', interval);
+}
+
+  hit() {
+    if (!this.endbossIsHurt && !this.isDead) {
+      this.endbossIsHurt = true;
+      this.energy--;
+      console.log('Leben Endboss;', this.energy);
+      if (this.energy <= 0) {
+        this.isDead = true;
+      }
+      this.speed = 0;
+      setTimeout(() => {
+        this.endbossIsHurt = false;
+        this.speed = 5;
+      }, 4000);
+    }
+  }
+
+  // endbossIsDead() {
+  //   if (this.isDead) {
+  //     setTimeout(() => {
+  //       this.playAnimation(this.IMAGES_DEAD);
+  //     }, 700);
+  //   }
+  // }
+
+  endbossIsDead() {
+    if (this.isDead) { // Überprüfe, ob der Endboss noch lebt
+        // Starte die Todesanimation nach einer kurzen Verzögerung
+        this.playAnimation(this.IMAGES_DEAD); // Spiele die Todesanimation ab
+
+        // Stoppe das Spiel nach einer Verzögerung, um die Animation abzuschließen
+        setTimeout(() => {
+            this.stopGame(); // Stoppe das Spiel
+        }, 2000); // Wartezeit für die Dauer der Animation (oder wie lange du möchtest)
+    }
+}
+>>>>>>> 4bf1c8032bd502320900a79bfce2fab458853edc
 
   drawFrame(ctx) {
     ctx.beginPath();

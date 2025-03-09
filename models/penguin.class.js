@@ -114,7 +114,7 @@ class Penguin extends MovableObject {
     }
 
     animate() {
-        setInterval(() => {
+        let interval = setInterval(() => {
             this.walking_sound.pause();
             if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
                 this.moveRight();
@@ -132,10 +132,11 @@ class Penguin extends MovableObject {
             }
             this.world.camera_x = -this.x + 50;
         }, 1000 / 60);
+        console.log('Id vom Intervall penguin ist:', interval);
 
         let hasCollidedWithEnemy = false; // Flag für Kollision mit Feind
 
-        setInterval(() => {
+        let interval2 = setInterval(() => {
             if (this.isDead()) {
                 this.playAnimation(this.IMAGES_DEAD);
             } else if (this.isHurt()) {
@@ -155,6 +156,7 @@ class Penguin extends MovableObject {
                 }
             }
         }, 50);
+        console.log('Id vom Intervall penguin 2 ist:', interval2);
     }
 
     drawFrame(ctx) {
