@@ -114,17 +114,23 @@ class Penguin extends MovableObject {
     }
 
     animate() {
-        let interval = setInterval(() => {
-            this.walking_sound.pause();
+        let movementPenguin = setInterval(() => {
+            if (this.isAboveGround()) {
+                this.walking_sound.pause();
+            } else {
+                if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
+                    this.walking_sound.play();
+                } else {
+                    this.walking_sound.pause();
+                }
+            }
             if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
                 this.moveRight();
                 this.otherDirection = false;
-                this.walking_sound.play();
             }
             if (this.world.keyboard.LEFT && this.x > this.world.level.level_start_x) {
                 this.moveLeft();
                 this.otherDirection = true;
-                this.walking_sound.play();
             }
             if (this.world.keyboard.SPACE && !this.isAboveGround()) {
                 this.jump();
@@ -132,11 +138,11 @@ class Penguin extends MovableObject {
             }
             this.world.camera_x = -this.x + 50;
         }, 1000 / 60);
-        console.log('Id vom Intervall penguin ist:', interval);
-
+    
+        console.log('Id vom movementintervall penguin ist:', movementPenguin);
+    
         let hasCollidedWithEnemy = false; // Flag für Kollision mit Feind
-
-        let interval2 = setInterval(() => {
+        let animationPenguinInterval = setInterval(() => {
             if (this.isDead()) {
                 this.playAnimation(this.IMAGES_DEAD);
             } else if (this.isHurt()) {
@@ -149,14 +155,14 @@ class Penguin extends MovableObject {
                 hasCollidedWithEnemy = false;
                 if (this.isAboveGround()) {
                     this.playAnimation(this.IMAGES_JUMPING);
-                } else {
+                } else { 
                     if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
                         this.playAnimation(this.IMAGES_WALKING);
                     }
                 }
             }
         }, 50);
-        console.log('Id vom Intervall penguin 2 ist:', interval2);
+        console.log('Id vom animationintervall penguin 2 ist:', animationPenguinInterval);
     }
 
     drawFrame(ctx) {

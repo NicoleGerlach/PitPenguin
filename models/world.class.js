@@ -24,7 +24,6 @@ class World {
         this.draw();
         this.setWorld();
         this.run();
-        se
     }
 
     setWorld() {
@@ -92,6 +91,10 @@ class World {
                 this.statusBarHeart.setPercentage(this.penguin.energy);
             }
         });
+        if (this.penguin.isColliding(this.endboss)) {
+            this.penguin.hit();
+            this.statusBarHeart.setPercentage(this.penguin.energy);
+        }
     }
 
     checkCollisionWithPoison() {

@@ -6,11 +6,7 @@ class MovableObject extends DrawableObject {
     acceleration = 2.5;
     energy = 100;
     lastHit = 0;
-<<<<<<< HEAD
-    poison = 20;
-=======
-    poison =7;
->>>>>>> 4bf1c8032bd502320900a79bfce2fab458853edc
+    poison = 0;
     coin = 35;
     heart = 0;
     intervalIds = [];
@@ -91,23 +87,9 @@ class MovableObject extends DrawableObject {
         this.speedY = 30;
     }
 
-<<<<<<< HEAD
     stopGame() {
         this.intervalIds.forEach(id => clearInterval(id)); // Stoppe alle Intervalle
         this.intervalIds = []; // Leere das Array nach dem Stoppen
     }
     
-=======
-    setStopableInterval(fn, time) {
-        let id = setInterval(fn, time);
-        this.intervalIds.push(id);
-        console.log('Ineterval Ids:', this.intervalIds);
-    }
-
-    stopGame() {
-        this.intervalIds.forEach(clearInterval);
-        this.intervalIds = [];
-        console.log('Spiel zu Ende, Endgegner tot');
-    }
->>>>>>> 4bf1c8032bd502320900a79bfce2fab458853edc
 }
