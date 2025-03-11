@@ -90,7 +90,6 @@ class Penguin extends MovableObject {
         'img/Penguin/Character09/Dead/AllCharacters-Character09-Dead_44.png'
     ];
 
-
     walking_sound = new Audio('audio/walking.mp3');
     jumping_sound = new Audio('audio/jump.mp3');
     hurt_sound = new Audio ('audio/ouch.mp3');
@@ -138,13 +137,14 @@ class Penguin extends MovableObject {
             }
             this.world.camera_x = -this.x + 50;
         }, 1000 / 60);
-    
+        this.intervalIds.push(movementPenguin);
         console.log('Id vom movementintervall penguin ist:', movementPenguin);
     
         let hasCollidedWithEnemy = false; // Flag für Kollision mit Feind
         let animationPenguinInterval = setInterval(() => {
             if (this.isDead()) {
-                this.playAnimation(this.IMAGES_DEAD);
+                // this.playAnimation(this.IMAGES_DEAD);
+                this.playDeadAnimation();
             } else if (this.isHurt()) {
                 this.playAnimation(this.IMAGES_HURT);
                 if (!hasCollidedWithEnemy) {
@@ -162,7 +162,22 @@ class Penguin extends MovableObject {
                 }
             }
         }, 50);
+        this.intervalIds.push(animationPenguinInterval);
         console.log('Id vom animationintervall penguin 2 ist:', animationPenguinInterval);
+    }
+
+    playDeadAnimation() {
+        let deadAnimationPenguinInterval = setInterval(() => {
+            if (this.isDead) {
+                this.playAnimation(this.IMAGES_DEAD);
+                this.speed = 0;
+            }
+        }, 2500 / 60);
+        setTimeout(() => {
+            console.log('Intervall penguin 2 wurde gestoppt:', this.animationPenguinInterval);
+            this.stopGame();
+        }, 300);
+        this.intervalIds.push(deadAnimationPenguinInterval);
     }
 
     drawFrame(ctx) {
