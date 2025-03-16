@@ -2,7 +2,6 @@
 class Poison extends MovableObject {
     height = 80;
     width = 60;
-    // y = 310;
 
     offset = {
         top: 20,

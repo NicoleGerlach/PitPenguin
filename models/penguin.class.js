@@ -137,8 +137,8 @@ class Penguin extends MovableObject {
             }
             this.world.camera_x = -this.x + 50;
         }, 1000 / 60);
-        this.intervalIds.push(movementPenguin);
-        console.log('Id vom movementintervall penguin ist:', movementPenguin);
+        gameIntervals.push(movementPenguin);
+        console.log('Id von movementintervall penguin ist:', movementPenguin);
     
         let hasCollidedWithEnemy = false; // Flag für Kollision mit Feind
         let animationPenguinInterval = setInterval(() => {
@@ -162,8 +162,8 @@ class Penguin extends MovableObject {
                 }
             }
         }, 50);
-        this.intervalIds.push(animationPenguinInterval);
-        console.log('Id vom animationintervall penguin 2 ist:', animationPenguinInterval);
+        gameIntervals.push(animationPenguinInterval);
+        console.log('Id von animationintervall penguin 2 ist:', animationPenguinInterval);
     }
 
     playDeadAnimation() {
@@ -174,10 +174,9 @@ class Penguin extends MovableObject {
             }
         }, 2500 / 60);
         setTimeout(() => {
-            console.log('Intervall penguin 2 wurde gestoppt:', this.animationPenguinInterval);
-            this.stopGame();
-        }, 300);
-        this.intervalIds.push(deadAnimationPenguinInterval);
+            stopGame();
+        }, 200);
+        gameIntervals.push(deadAnimationPenguinInterval);
     }
 
     drawFrame(ctx) {

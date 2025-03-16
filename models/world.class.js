@@ -40,28 +40,21 @@ class World {
             this.checkCollisionWithPoison();
             this.checkEndbossCollisionWithPoison();
         }, 200);
-        // console.log('Energy:', this.penguin.energy);
-        // console.log('Coin:', this.penguin.coin);
-        // console.log('Poison:', this.penguin.poison);
-        console.log('Id vom Intervall run ist:', interval);
+        console.log('Id von  run ist:', interval);
     }
 
     checkThrowObjects() {
         if (this.keyboard.D && this.penguin.poison > 0) {
-            this.throwBottle(); // Rufe die throwBottle-Methode auf
+            this.throwBottle();
         }
     }
 
     throwBottle() {
-        console.log('Flaschen zum Werfen:', this.penguin.poison);
-
         if (this.penguin.poison > 0) {
             let bottle = new ThrowableObject(this.penguin.x + 190, this.penguin.y + 130);
             this.throwableObjects.push(bottle);
             this.penguin.poison--;
             this.statusBarPoison.setPercentage(this.penguin.poison * 10);
-        } else {
-            console.log('Keine Flaschen mehr zum Werfen!');
         }
     }
 
@@ -103,13 +96,9 @@ class World {
             this.level.enemies.forEach((enemy) => {
                 if (enemy.isCollidingWithPoison(poison)) { // Prüfe auf Kollision mit dem Wurfobjekt
                     if (enemy instanceof Rabbit) { // Überprüfe, ob der Feind ein Rabbit ist
-                        console.log("Rabbit wurde vom Gift getroffen!");
                         this.removeEnemy(enemy); // Entferne das Kaninchen
-                        // this.removePoison(poison); // Entferne das Giftobjekt
                     } else if (enemy instanceof Endboss) { // Überprüfe, ob der Feind der Endboss ist
-                        console.log("Endboss wurde vom Gift getroffen!");
                         this.enemy.endbossIsHurt(); // Reduziere Energie vom Endboss
-                        // this.removePoison(poison); // Entferne das Giftobjekt
                     }
                 }
             });
@@ -120,8 +109,7 @@ class World {
         if (this.throwableObjects.length === 0) return;
         this.throwableObjects.forEach((poison) => {
             if (this.endboss.isCollidingWithPoison(poison)) {
-                console.log('Endboss wurde vom Gift getroffen!');
-                this.endboss.hit(); // Rufe die Hit-Methode auf
+                this.endboss.hit(); 
             }
         });
     }
@@ -132,21 +120,14 @@ class World {
                 this.collectPoison(poison);
             }
         });
-        // console.log('Poison:', this.penguin.poison);
     }
 
     collectPoison(poison) {
-        console.log('Aktuelle Flaschenanzahl:', this.penguin.poison);
         const index = this.level.poison.findIndex(p => p.id === poison.id);
-
         if (index !== -1) {
             this.level.poison.splice(index, 1);
             this.penguin.poison++;
-
-            console.log('Giftflaschen gesammelt:', this.penguin.poison);
             this.statusBarPoison.setPercentage(this.penguin.poison * 10);
-        } else {
-            console.log('Flasche nicht gefunden zum Entfernen:', poison);
         }
     }
 
@@ -162,7 +143,6 @@ checkCollectingCoin() {
             this.collectingCoin(coin);
         }
     });
-    // console.log('Coin:', this.penguin.coin);
 }
 
 collectingCoin(coin) {
@@ -182,7 +162,6 @@ checkCollectingHeart() {
             this.collectingHeart(heart);
         }
     });
-    // console.log('Energy:', this.penguin.energy);
 }
 
 collectingHeart(heart) {

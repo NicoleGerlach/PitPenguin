@@ -8,7 +8,7 @@ class Endboss extends MovableObject {
   direction = -1;
   leftBoundary = 2200;
   rightBoundary = 2650;
-  energy = 4;
+  energy = 2;
   isDead = false;
   endbossIsHurt = false;
 
@@ -88,7 +88,7 @@ class Endboss extends MovableObject {
   animate() {
     let movementInterval = setInterval(() => {
       if (this.isDead) { // Überprüfe, ob der Endboss tot ist
-        clearInterval(movementInterval); // Stoppe das Intervall
+        // clearInterval(movementInterval); // Stoppe das Intervall
         return; // Beende die Methode
       }
       this.x += this.speed * this.direction;
@@ -102,12 +102,12 @@ class Endboss extends MovableObject {
         this.playAnimation(this.IMAGES_Walking);
       }
     }, 2000 / 60); // Setze das Intervall
-    this.intervalIds.push(movementInterval); // Füge die ID zum Array hinzu
-    console.log('Interval Endboss:', this.intervalIds);
+    gameIntervals.push(movementInterval); // Füge die ID zum Array hinzu
+    console.log('Id von movement endboss ist:', movementInterval);
+    
   }
 
   hit() {
-    console.log('Energie Endboss vor Treffer:', this.energy);
     if (!this.isDead && !this.endbossIsHurt) { // Nur Schaden annehmen, wenn er nicht tot und nicht verletzt ist
       this.energy--; // Reduziere die Energie bei Schaden
       if (this.energy <= 0) {
@@ -122,8 +122,6 @@ class Endboss extends MovableObject {
         }, 800); // Nach einer kurzen Zeit wieder heilen
       }
     }
-
-    console.log('Energie Endboss nach Treffer:', this.energy);
   }
 
   playDeadAnimation() {
@@ -132,12 +130,13 @@ class Endboss extends MovableObject {
             this.playAnimation(this.IMAGES_DEAD);
             this.speed = 0;
         }
-    }, 2500 / 60);
+    }, 2200 / 60);
     setTimeout(() => {
-        console.log("Alle Intervalle wurden gestoppt.");
-        this.stopGame();
-    }, 320);
-    this.intervalIds.push(deadAnimationInterval);
+        stopGame();
+    }, 200);
+    gameIntervals.push(deadAnimationInterval);
+    console.log('Id von deadAnimationEndboss ist:', deadAnimationInterval);
+    
 }
 
   drawFrame(ctx) {

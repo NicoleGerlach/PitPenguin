@@ -10,7 +10,6 @@ class Level {
     level_start_x = -1000;
 
     constructor(enemies, endboss, backgroundObjects, poison, coin, heart){
-        // console.log('%c poison constructor: ', 'color: red;', enemies, endboss, backgroundObjects, poison, coin, heart);
         this.enemies = enemies;
         this.endboss = endboss;
         this.backgroundObjects = backgroundObjects;

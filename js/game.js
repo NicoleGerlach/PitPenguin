@@ -1,13 +1,22 @@
+
 let canvas;
 let world;
 let keyboard = new Keyboard();
 background_sound = new Audio('audio/background.mp3');
+let gameIntervals = [];
+
 
 function init() {
     canvas = document.getElementById('canvas');
+    setLevel();
     world = new World(canvas, keyboard);
     mobileButtonsTouched();
     mobileButtonsNotTouched();
+}
+
+function stopGame() {
+    gameIntervals.forEach(intervalId => clearInterval(intervalId)); // Stoppe alle Intervalle
+    console.log('Intervall Ids:', gameIntervals);
 }
 
 window.addEventListener("keydown", (e) => {
@@ -186,4 +195,6 @@ function closeFullscreen() {
     } else if (document.webkitExitFullscreen) {
         document.webkitExitFullscreen();
     }
+
+
 }
