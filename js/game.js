@@ -196,5 +196,7 @@ function closeFullscreen() {
         document.webkitExitFullscreen();
     }
 
-
+ function stopSound() {
+    this.background_sound.pause();
+ }
 }

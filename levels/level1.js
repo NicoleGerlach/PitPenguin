@@ -1,4 +1,5 @@
 // let enemies = spawnRabbits(8);
+
 enemies = [];
 
 let level1;

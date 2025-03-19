@@ -198,6 +198,21 @@ td {
     height: 202px;
 }
 
+.game-buttons {
+    position: fixed;
+    display: flex;
+    height: 50px;
+    /* justify-content: space-between; */
+    /* z-index: 3; */
+    top: 56%;
+    margin: 0 20px;
+    gap: 580px;
+}
+
+.game-buttons img:hover {
+    cursor: pointer;
+}
+
 .play-again img {
     height: 100px;
     width: 100px;
