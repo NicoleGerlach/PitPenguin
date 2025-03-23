@@ -1,9 +1,10 @@
 
 class StatusBarPoison extends DrawableObject {
-    x = 510;
-    y = 0;
+    x = 20;
+    y = 80;
     height = 50;
     width = 190;
+
     IMAGES = [
         'img/StatusBarBottle/0_.png',
         'img/StatusBarBottle/20_.png',

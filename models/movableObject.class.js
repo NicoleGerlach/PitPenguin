@@ -6,7 +6,7 @@ class MovableObject extends DrawableObject {
     acceleration = 2.5;
     energy = 100;
     lastHit = 0;
-    poison = 0;
+    poison = 20;
     coin = 35;
     heart = 0;
     // gameIntervals = [];

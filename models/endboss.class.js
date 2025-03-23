@@ -8,7 +8,7 @@ class Endboss extends MovableObject {
   direction = -1;
   leftBoundary = 2200;
   rightBoundary = 2650;
-  energy = 2;
+  energy = 4;
   isDead = false;
   endbossIsHurt = false;
 
@@ -67,8 +67,21 @@ class Endboss extends MovableObject {
     'img/Enemy/Dying/0_Elementals_Dying_011.png',
     'img/Enemy/Dying/0_Elementals_Dying_012.png',
     'img/Enemy/Dying/0_Elementals_Dying_013.png',
-    'img/Enemy/Dying/0_Elementals_Dying_014.png',
+    'img/Enemy/Dying/0_Elementals_Dying_014.png'
   ];
+  IMAGES_DeadSprite = [
+    'img/Enemy/DeadSprite/DeadFx_00.png',
+    'img/Enemy/DeadSprite/DeadFx_02.png',
+    'img/Enemy/DeadSprite/DeadFx_04.png',
+    'img/Enemy/DeadSprite/DeadFx_06.png',
+    'img/Enemy/DeadSprite/DeadFx_08.png',
+    'img/Enemy/DeadSprite/DeadFx_10.png',
+    'img/Enemy/DeadSprite/DeadFx_12.png',
+    'img/Enemy/DeadSprite/DeadFx_14.png',
+    'img/Enemy/DeadSprite/DeadFx_16.png',
+    'img/Enemy/DeadSprite/DeadFx_18.png',
+    'img/Enemy/DeadSprite/DeadFx_19.png'
+  ]
 
   offset = {
     top: 45,
@@ -82,6 +95,7 @@ class Endboss extends MovableObject {
     this.loadImages(this.IMAGES_Walking);
     this.loadImages(this.IMAGES_HURT);
     this.loadImages(this.IMAGES_DEAD);
+    this.statusBarEndboss = new StatusBarEndboss();
     this.animate();
   }
 
@@ -104,7 +118,6 @@ class Endboss extends MovableObject {
     }, 2000 / 60); // Setze das Intervall
     gameIntervals.push(movementInterval); // Füge die ID zum Array hinzu
     console.log('Id von movement endboss ist:', movementInterval);
-    
   }
 
   hit() {
@@ -115,6 +128,7 @@ class Endboss extends MovableObject {
         this.playDeadAnimation(); // Spiele die Todesanimation ab
       } else {
         this.endbossIsHurt = true; // Setze den Zustand auf verletzt
+        this.statusBarEndboss.updateHearts();
         this.speed = 0;
         setTimeout(() => {
           this.endbossIsHurt = false; // Setze den Zustand zurück nach 800ms
@@ -126,18 +140,18 @@ class Endboss extends MovableObject {
 
   playDeadAnimation() {
     let deadAnimationInterval = setInterval(() => {
-        if (this.isDead) {
-            this.playAnimation(this.IMAGES_DEAD);
-            this.speed = 0;
-        }
+      if (this.isDead) {
+        this.playAnimation(this.IMAGES_DEAD);
+        this.speed = 0;
+      }
     }, 2200 / 60);
     setTimeout(() => {
-        stopGame();
+      stopGame();
     }, 200);
     gameIntervals.push(deadAnimationInterval);
     console.log('Id von deadAnimationEndboss ist:', deadAnimationInterval);
-    
-}
+
+  }
 
   drawFrame(ctx) {
     ctx.beginPath();

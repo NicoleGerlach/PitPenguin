@@ -15,6 +15,7 @@ class World {
     statusBarHeart = new StatusBarHeart();
     statusBarCoin = new StatusBarCoin();
     statusBarPoison = new StatusBarPoison();
+    statusBarEndboss = new StatusBarEndboss();
     throwableObjects = [];
 
     constructor(canvas, keyboard) {
@@ -183,6 +184,7 @@ draw() {
     this.addToMap(this.statusBarHeart);
     this.addToMap(this.statusBarCoin);
     this.addToMap(this.statusBarPoison);
+    this.addToMap(this.statusBarEndboss);
     this.ctx.translate(this.camera_x, 0);
     this.addObjectsToMap(this.level.enemies);
     this.addObjectsToMap(this.poisonBottles);

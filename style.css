@@ -250,6 +250,12 @@ td {
     height: 50px;
 }
 
+.heart {
+    width: 50px; /* Größe der Herzen anpassen */
+    height: auto;
+    margin-right: 5px; /* Abstand zwischen den Herzen */
+}
+
 ::-webkit-scrollbar {
     width: 7px;
 }
