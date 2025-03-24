@@ -30,7 +30,7 @@
 </head>
 
 <!-- <body onload="showInfoBox()"> -->
-    
+
 <body onload="startGame()">
     <div id="rotateScreen" class="rotate-screen d-none">
         Please rotate your screen.
@@ -42,23 +42,25 @@
                 <img onclick="stopSound()" src="img/mute.png">
                 <img src="img/fullscreen.png">
             </div>
-            <div id="btnBoxLeft" class="d-none">
-                <div class="btns-left-side">
-                    <img id="btnLeft" src="img/btn-left.png">
-                    <img id="btnRight" src="img/btn-right.png">
+            <div class="navigation-buttons">
+                <div id="btnBoxLeft">
+                    <div class="btns-left-side">
+                        <img id="btnLeft" src="img/btn-left.png">
+                        <img id="btnRight" src="img/btn-right.png">
+                    </div>
                 </div>
-            </div>
-            <canvas id="canvas" width="720px" height="480px" class="d-none"></canvas>
-            <div id="btnBoxRight" class="d-none">
-                <div class="btns-right-side">
-                    <img id="btnMute" onclick="stopSound()" src="img/mute.png" >
-                    <img id="btnFullscreen" src="img/fullscreen.png">
+                <div id="btnBoxRight">
                     <div class="btns-right-side">
-                        <img id="btnJump" src="img/btn-jump.png">
-                        <img id="btnPoison" src="img/btn-poison.png">
+                        <div class="btns-right-side">
+                            <img id="btnJump" src="img/btn-jump.png">
+                            <img id="btnPoison" src="img/btn-poison.png">
+                        </div>
                     </div>
                 </div>
             </div>
+            <canvas id="canvas" width="720px" height="480px" class="d-none"></canvas>
+
+
         </div>
         <div id="startScreen" class="start-screen">
             <div class="directions ">
@@ -77,4 +79,5 @@
             </div>
         </div>
 </body>
+
 </html>

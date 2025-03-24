@@ -1,6 +1,6 @@
 
 class StatusBarEndboss extends DrawableObject {
-    x = 540;
+    x = 300;
     y = 0;
     height = 50;
     width = 50;
@@ -16,12 +16,10 @@ class StatusBarEndboss extends DrawableObject {
     constructor() {
         super();
         this.loadImages(this.IMAGES_HEART);
-        this.loadImage(this.IMAGE_BROKENHEART);
+        this.loadImages([this.IMAGE_BROKENHEART]);
     }
 
     draw(ctx) {
-        console.log("Drawing hearts...");
-
         for (let i = 0; i < this.heartStatus.length; i++) {
             if (this.heartStatus[i]) {
                 // Zeichne das Herz
@@ -29,21 +27,16 @@ class StatusBarEndboss extends DrawableObject {
             } else {
                 // Zeichne das defekte Herz
                 ctx.drawImage(this.imageCache[this.IMAGE_BROKENHEART], this.x + (i * 40), this.y, this.width, this.height);
-                console.log('Defektes Herz wird angezeigt'); // Diese Zeile sollte jetzt erreicht werden
             }
         }
     }
 
     updateHearts() {
-        console.log('Update hearts...');
-        console.log("Before update:", this.heartStatus); // Vor dem Update
         for (let i = 0; i < this.heartStatus.length; i++) {
             if (this.heartStatus[i]) {
                 this.heartStatus[i] = false; // Setze das Herz auf tot
-                console.log(`Herz ${i} wurde auf defekt gesetzt.`);
                 break; // Beende die Schleife nach dem ersten Treffer
             }
         }
-        console.log("After update:", this.heartStatus); // Nach dem Update
     }
 }

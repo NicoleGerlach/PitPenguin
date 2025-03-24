@@ -29,6 +29,7 @@ class World {
 
     setWorld() {
         this.penguin.world = this;
+        this.endboss.statusBarEndboss = this.statusBarEndboss;
     }
 
     run() {
@@ -41,7 +42,6 @@ class World {
             this.checkCollisionWithPoison();
             this.checkEndbossCollisionWithPoison();
         }, 200);
-        console.log('Id von  run ist:', interval);
     }
 
     checkThrowObjects() {

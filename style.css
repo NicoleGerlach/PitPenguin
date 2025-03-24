@@ -198,15 +198,17 @@ td {
     height: 202px;
 }
 
+.game-screen {
+    position: relative;
+}
+
 .game-buttons {
-    position: fixed;
+    position: absolute;
     display: flex;
     height: 50px;
-    /* justify-content: space-between; */
-    /* z-index: 3; */
-    top: 56%;
-    margin: 0 20px;
-    gap: 580px;
+    gap: 12px;
+    top: 12px;
+    right: 15px;
 }
 
 .game-buttons img:hover {
@@ -223,19 +225,11 @@ td {
 }
 
 .btns-left-side {
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: end;
-    align-items: center;
+
 }
 
 .btns-right-side {
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: end;
-    align-items: center;
+
 }
 
 .btns-left-side:hover,

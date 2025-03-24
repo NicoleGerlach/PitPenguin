@@ -16,7 +16,6 @@ function init() {
 
 function stopGame() {
     gameIntervals.forEach(intervalId => clearInterval(intervalId)); // Stoppe alle Intervalle
-    console.log('Intervall Ids:', gameIntervals);
 }
 
 window.addEventListener("keydown", (e) => {
@@ -156,8 +155,6 @@ function showContent(content) {
     } else if (content === 'imprint') {
       instructionsBox.innerHTML = generateImprintHtml();
       arrowBack.classList.remove('d-none');
-    } else {
-      console.warn(`Unknown content ${content}`);
     }
   }
   

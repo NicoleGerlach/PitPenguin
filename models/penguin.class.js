@@ -138,7 +138,6 @@ class Penguin extends MovableObject {
             this.world.camera_x = -this.x + 50;
         }, 1000 / 60);
         gameIntervals.push(movementPenguin);
-        console.log('Id von movementintervall penguin ist:', movementPenguin);
     
         let hasCollidedWithEnemy = false; // Flag für Kollision mit Feind
         let animationPenguinInterval = setInterval(() => {
@@ -163,7 +162,6 @@ class Penguin extends MovableObject {
             }
         }, 50);
         gameIntervals.push(animationPenguinInterval);
-        console.log('Id von animationintervall penguin 2 ist:', animationPenguinInterval);
     }
 
     playDeadAnimation() {

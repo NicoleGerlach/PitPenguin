@@ -1,9 +1,9 @@
 
 class Endboss extends MovableObject {
-  height = 550;
-  width = 550;
+  height = 500;
+  width = 500;
   x = 2600;
-  y = -80;
+  y = -40;
   speed = 5;
   direction = -1;
   leftBoundary = 2200;
@@ -95,7 +95,6 @@ class Endboss extends MovableObject {
     this.loadImages(this.IMAGES_Walking);
     this.loadImages(this.IMAGES_HURT);
     this.loadImages(this.IMAGES_DEAD);
-    this.statusBarEndboss = new StatusBarEndboss();
     this.animate();
   }
 
@@ -117,13 +116,13 @@ class Endboss extends MovableObject {
       }
     }, 2000 / 60); // Setze das Intervall
     gameIntervals.push(movementInterval); // Füge die ID zum Array hinzu
-    console.log('Id von movement endboss ist:', movementInterval);
   }
 
   hit() {
     if (!this.isDead && !this.endbossIsHurt) { // Nur Schaden annehmen, wenn er nicht tot und nicht verletzt ist
       this.energy--; // Reduziere die Energie bei Schaden
       if (this.energy <= 0) {
+        this.statusBarEndboss.updateHearts();
         this.isDead = true; // Setze den Zustand auf tot
         this.playDeadAnimation(); // Spiele die Todesanimation ab
       } else {
@@ -149,8 +148,6 @@ class Endboss extends MovableObject {
       stopGame();
     }, 200);
     gameIntervals.push(deadAnimationInterval);
-    console.log('Id von deadAnimationEndboss ist:', deadAnimationInterval);
-
   }
 
   drawFrame(ctx) {

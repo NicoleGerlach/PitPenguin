@@ -18,7 +18,6 @@ class MovableObject extends DrawableObject {
                 this.speedY -= this.acceleration;
             }
         }, 1000 / 25);
-        console.log('Id von gravity ist:', interval);        
     }
 
     isAboveGround() {
