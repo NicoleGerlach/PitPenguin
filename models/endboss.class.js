@@ -148,6 +148,10 @@ class Endboss extends MovableObject {
       stopGame();
     }, 200);
     gameIntervals.push(deadAnimationInterval);
+    setTimeout(() => {
+      showWinScreen();
+    }, 600);
+    
   }
 
   drawFrame(ctx) {

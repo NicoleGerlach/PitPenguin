@@ -18,6 +18,18 @@ function stopGame() {
     gameIntervals.forEach(intervalId => clearInterval(intervalId)); // Stoppe alle Intervalle
 }
 
+function showWinScreen() {
+    if (stopGame) {
+        document.body.innerHTML += generateWinScreenHtml();
+    }
+}
+
+function showLoseScreen() {
+    if (stopGame) {
+        document.body.innerHTML += generateLoseSrceenHtml();
+    }
+}
+
 window.addEventListener("keydown", (e) => {
     if (e.keyCode == 39) {
         keyboard.RIGHT = true;

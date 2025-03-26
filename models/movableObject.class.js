@@ -9,15 +9,15 @@ class MovableObject extends DrawableObject {
     poison = 20;
     coin = 35;
     heart = 0;
-    // gameIntervals = [];
 
     applyGravity() {
-        let interval = setInterval(() => {
+        let gravityInterval = setInterval(() => {
             if (this.isAboveGround() || this.speedY > 0) {
                 this.y -= this.speedY;
                 this.speedY -= this.acceleration;
             }
         }, 1000 / 25);
+        gameIntervals.push(gravityInterval);
     }
 
     isAboveGround() {
@@ -85,10 +85,4 @@ class MovableObject extends DrawableObject {
     jump() {
         this.speedY = 30;
     }
-
-    // stopGame() {
-    //     this.gameIntervals.forEach(id => clearInterval(id));
-    //     console.log("Alle Intervalle gestoppt:", this.gameIntervals);
-    //     this.gameIntervals = []; // Leere das Array nach dem Stoppen
-    // }
 }

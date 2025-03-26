@@ -33,7 +33,7 @@ class World {
     }
 
     run() {
-        let interval = setInterval(() => {
+        let runInterval = setInterval(() => {
             this.checkCollisions();
             this.checkThrowObjects();
             this.checkCollectingPoison();
@@ -42,6 +42,7 @@ class World {
             this.checkCollisionWithPoison();
             this.checkEndbossCollisionWithPoison();
         }, 200);
+        gameIntervals.push(runInterval);
     }
 
     checkThrowObjects() {
@@ -63,14 +64,6 @@ class World {
     //     const index = this.activeThrownBottles.indexOf(bottle);
     //     if (index > -1) {
     //         this.activeThrownBottles.splice(index, 1);
-    //         console.log('Flasche ist gelandet und entfernt:', bottle);
-    //     }
-    // }
-
-    // bottleLanded(bottle) {
-    //     const index = this.activeThrownBottles.indexOf(bottle);
-    //     if (index > -1) {
-    //         this.activeThrownBottles.splice(index, 1); // Entferne sie aus dem aktiven Array
     //         console.log('Flasche ist gelandet und entfernt:', bottle);
     //     }
     // }
@@ -110,7 +103,7 @@ class World {
         if (this.throwableObjects.length === 0) return;
         this.throwableObjects.forEach((poison) => {
             if (this.endboss.isCollidingWithPoison(poison)) {
-                this.endboss.hit(); 
+                this.endboss.hit();
             }
         });
     }
@@ -132,120 +125,120 @@ class World {
         }
     }
 
-enoughPoison() {
-    if (this.penguin.poison == 100) {
-        return this.penguin.poison == 100;
-    }
-}
-
-checkCollectingCoin() {
-    this.level.coin.forEach((coin) => {
-        if (this.penguin.isColliding(coin)) {
-            this.collectingCoin(coin);
-        }
-    });
-}
-
-collectingCoin(coin) {
-    if (this.penguin.coin < 100) {
-        this.penguin.coin += 5;
-        if (this.penguin.coin > 100) {
-            this.penguin.coin = 100;
+    enoughPoison() {
+        if (this.penguin.poison == 100) {
+            return this.penguin.poison == 100;
         }
     }
-    this.statusBarCoin.setPercentage(this.penguin.coin);
-    this.removeCoin(coin);
-}
 
-checkCollectingHeart() {
-    this.level.heart.forEach((heart) => {
-        if (this.penguin.isColliding(heart)) {
-            this.collectingHeart(heart);
+    checkCollectingCoin() {
+        this.level.coin.forEach((coin) => {
+            if (this.penguin.isColliding(coin)) {
+                this.collectingCoin(coin);
+            }
+        });
+    }
+
+    collectingCoin(coin) {
+        if (this.penguin.coin < 100) {
+            this.penguin.coin += 5;
+            if (this.penguin.coin > 100) {
+                this.penguin.coin = 100;
+            }
         }
-    });
-}
+        this.statusBarCoin.setPercentage(this.penguin.coin);
+        this.removeCoin(coin);
+    }
 
-collectingHeart(heart) {
-    if (this.penguin.energy < 100) {
-        this.penguin.energy += 5;
-        if (this.penguin.energy > 100) {
-            this.penguin.energy = 100;
+    checkCollectingHeart() {
+        this.level.heart.forEach((heart) => {
+            if (this.penguin.isColliding(heart)) {
+                this.collectingHeart(heart);
+            }
+        });
+    }
+
+    collectingHeart(heart) {
+        if (this.penguin.energy < 100) {
+            this.penguin.energy += 5;
+            if (this.penguin.energy > 100) {
+                this.penguin.energy = 100;
+            }
+        }
+        this.statusBarHeart.setPercentage(this.penguin.energy);
+        this.removeHeart(heart);
+    }
+
+    draw() {
+        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+        this.ctx.translate(this.camera_x, 0);
+        this.addObjectsToMap(this.level.backgroundObjects);
+        this.ctx.translate(-this.camera_x, 0);
+        this.addToMap(this.statusBarHeart);
+        this.addToMap(this.statusBarCoin);
+        this.addToMap(this.statusBarPoison);
+        this.addToMap(this.statusBarEndboss);
+        this.ctx.translate(this.camera_x, 0);
+        this.addObjectsToMap(this.level.enemies);
+        this.addObjectsToMap(this.poisonBottles);
+        this.addObjectsToMap(this.level.coin);
+        this.addObjectsToMap(this.throwableObjects);
+        this.addToMap(this.level.endboss);
+        this.addToMap(this.penguin);
+        this.ctx.translate(-this.camera_x, 0);
+        let self = this;
+        requestAnimationFrame(function () {
+            self.draw();
+        })
+    }
+
+    addObjectsToMap(objects) {
+        objects.forEach(o => {
+            this.addToMap(o);
+        });
+    }
+
+    addToMap(mo) {
+        if (mo.otherDirection) {
+            this.flipImage(mo);
+        }
+        mo.draw(this.ctx);
+        mo.drawFrame(this.ctx);
+        if (mo.otherDirection) {
+            this.flipImageBack(mo);
         }
     }
-    this.statusBarHeart.setPercentage(this.penguin.energy);
-    this.removeHeart(heart);
-}
 
-draw() {
-    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-    this.ctx.translate(this.camera_x, 0);
-    this.addObjectsToMap(this.level.backgroundObjects);
-    this.ctx.translate(-this.camera_x, 0);
-    this.addToMap(this.statusBarHeart);
-    this.addToMap(this.statusBarCoin);
-    this.addToMap(this.statusBarPoison);
-    this.addToMap(this.statusBarEndboss);
-    this.ctx.translate(this.camera_x, 0);
-    this.addObjectsToMap(this.level.enemies);
-    this.addObjectsToMap(this.poisonBottles);
-    this.addObjectsToMap(this.level.coin);
-    this.addObjectsToMap(this.throwableObjects);
-    this.addToMap(this.level.endboss);
-    this.addToMap(this.penguin);
-    this.ctx.translate(-this.camera_x, 0);
-    let self = this;
-    requestAnimationFrame(function () {
-        self.draw();
-    })
-}
-
-addObjectsToMap(objects) {
-    objects.forEach(o => {
-        this.addToMap(o);
-    });
-}
-
-addToMap(mo) {
-    if (mo.otherDirection) {
-        this.flipImage(mo);
+    flipImage(mo) {
+        this.ctx.save();
+        this.ctx.translate(mo.width, 0);
+        this.ctx.scale(-1, 1);
+        mo.x = mo.x * -1;
     }
-    mo.draw(this.ctx);
-    mo.drawFrame(this.ctx);
-    if (mo.otherDirection) {
-        this.flipImageBack(mo);
+
+    flipImageBack(mo) {
+        this.ctx.restore();
+        mo.x = mo.x * -1;
     }
-}
 
-flipImage(mo) {
-    this.ctx.save();
-    this.ctx.translate(mo.width, 0);
-    this.ctx.scale(-1, 1);
-    mo.x = mo.x * -1;
-}
-
-flipImageBack(mo) {
-    this.ctx.restore();
-    mo.x = mo.x * -1;
-}
-
-removeCoin(coin) {
-    const indexOfCoin = this.level.coin.indexOf(coin);
-    if (indexOfCoin > -1) {
-        this.level.coin.splice(indexOfCoin, 1);
+    removeCoin(coin) {
+        const indexOfCoin = this.level.coin.indexOf(coin);
+        if (indexOfCoin > -1) {
+            this.level.coin.splice(indexOfCoin, 1);
+        }
     }
-}
 
-removeHeart(heart) {
-    const indexOfHeart = this.level.heart.indexOf(heart);
-    if (indexOfHeart > -1 && this.penguin.energy < 100) {
-        this.level.heart.splice(indexOfHeart, 1);
+    removeHeart(heart) {
+        const indexOfHeart = this.level.heart.indexOf(heart);
+        if (indexOfHeart > -1 && this.penguin.energy < 100) {
+            this.level.heart.splice(indexOfHeart, 1);
+        }
     }
-}
 
-removeEnemy(enemy) {
-    const indexOfEnemy = this.level.enemies.indexOf(enemy);
-    if (indexOfEnemy > -1) {
-        this.level.enemies.splice(indexOfEnemy, 1);
+    removeEnemy(enemy) {
+        const indexOfEnemy = this.level.enemies.indexOf(enemy);
+        if (indexOfEnemy > -1) {
+            this.level.enemies.splice(indexOfEnemy, 1);
+        }
     }
-}
 }

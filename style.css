@@ -165,6 +165,8 @@ td {
 .lose-container {
     width: 100%;
     height: 100%;
+    position: absolute;
+    background-color: chocolate;
 }
 
 .win,
@@ -224,12 +226,25 @@ td {
     display: flex;
 }
 
-.btns-left-side {
+.navigation-buttons {
+    position: absolute;
+    display: flex;
+}
 
+.btns-left-side {
+    display: flex;
+    top: 410px;
+    position: absolute;
+    left: 20px;
+    gap: 15px;
 }
 
 .btns-right-side {
-
+    display: flex;
+    top: 205px;
+    position: absolute;
+    left: 290px;
+    gap: 15px;
 }
 
 .btns-left-side:hover,
@@ -245,9 +260,11 @@ td {
 }
 
 .heart {
-    width: 50px; /* Größe der Herzen anpassen */
+    width: 50px;
+    /* Größe der Herzen anpassen */
     height: auto;
-    margin-right: 5px; /* Abstand zwischen den Herzen */
+    margin-right: 5px;
+    /* Abstand zwischen den Herzen */
 }
 
 ::-webkit-scrollbar {
@@ -297,18 +314,18 @@ td {
 
     canvas {
         height: 100vh;
-        border-radius: 20px;
+        width: auto;
     }
 
-    body {
+    /* body {
         display: flex;
         justify-content: center;
         align-content: center;
         background-color: #355A77;
-    }
+    } */
 
-    .game-screen {
+    /* .game-screen {
         display: grid;
         grid-template-columns: 1fr 9fr 1fr;
-    }
+    } */
 }

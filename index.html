@@ -37,7 +37,7 @@
     </div>
     <div id="fullscreen">
         <h1 id="headline" class="d-none">Pit Penguin</h1>
-        <div class="game-screen">
+        <div id="gameScreen" class="game-screen">
             <div class="game-buttons">
                 <img onclick="stopSound()" src="img/mute.png">
                 <img src="img/fullscreen.png">
@@ -59,11 +59,8 @@
                 </div>
             </div>
             <canvas id="canvas" width="720px" height="480px" class="d-none"></canvas>
-
-
         </div>
         <div id="startScreen" class="start-screen">
-            <div class="directions ">
                 <div class="headline">
                     <div>
                         <img src="img/backwards.png" onclick="backToMainScreen()" id="arrow_back" class="d-none">
@@ -76,7 +73,6 @@
                 </div>
                 <div></div>
                 <div></div>
-            </div>
         </div>
 </body>
 

@@ -175,6 +175,9 @@ class Penguin extends MovableObject {
             stopGame();
         }, 200);
         gameIntervals.push(deadAnimationPenguinInterval);
+        setTimeout(() => {
+            showLoseScreen();
+          }, 600);
     }
 
     drawFrame(ctx) {
