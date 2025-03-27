@@ -3,7 +3,7 @@ class Penguin extends MovableObject {
     height = 300;
     width = 400;
     y = 130;
-    x = 2000;
+    x = 0;
     speed = 5;
     IMAGES_WALKING = [
         'img/Penguin/Character09/Walk/AllCharacters-Character09-Walk_00.png',
@@ -93,6 +93,7 @@ class Penguin extends MovableObject {
     walking_sound = new Audio('audio/walking.mp3');
     jumping_sound = new Audio('audio/jump.mp3');
     hurt_sound = new Audio ('audio/ouch.mp3');
+    lose_sound = new Audio ('audio/lose-sound.mp3');
     world;
 
     offset = {
@@ -177,6 +178,7 @@ class Penguin extends MovableObject {
         gameIntervals.push(deadAnimationPenguinInterval);
         setTimeout(() => {
             showLoseScreen();
+            this.lose_sound.play();
           }, 600);
     }
 

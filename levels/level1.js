@@ -1,8 +1,17 @@
-// let enemies = spawnRabbits(8);
 
-enemies = [];
+let enemies = spawnRabbits(8);
 
 let level1;
+
+
+function spawnRabbits(amount) {
+  const rabbitEnemies = [];
+  for (let i = 0; i < amount; i++) {
+    let rabbit = new Rabbit();
+    rabbitEnemies.push(rabbit);
+  }
+  return rabbitEnemies;
+}
 
 function setLevel() {
   level1 = new Level(
@@ -16,7 +25,7 @@ function setLevel() {
       new BackgroundObject('img/Background/01/layers/l7-mountains01.png', -719 * 2),
       new BackgroundObject('img/Background/01/layers/l8-mountains01.png', -719 * 2),
       new BackgroundObject('img/Background/01/layers/l9-ground01.png', -719 * 2),
-  
+
       new BackgroundObject('img/Background/01/layers/l1-background.png', -719),
       new BackgroundObject('img/Background/01/layers/l3-fog.png', -719),
       new BackgroundObject('img/Background/01/layers/l4-stars01.png', -700),
@@ -24,7 +33,7 @@ function setLevel() {
       new BackgroundObject('img/Background/01/layers/l7-mountains02.png', -719),
       new BackgroundObject('img/Background/01/layers/l8-mountains02.png', -719),
       new BackgroundObject('img/Background/01/layers/l9-ground02.png', -719),
-  
+
       new BackgroundObject('img/Background/01/layers/l1-background.png', 0),
       new BackgroundObject('img/Background/01/layers/l3-fog.png', 0),
       new BackgroundObject('img/Background/01/layers/l4-stars01.png', 0),
@@ -40,7 +49,7 @@ function setLevel() {
       new BackgroundObject('img/Background/01/layers/l7-mountains02.png', 719),
       new BackgroundObject('img/Background/01/layers/l8-mountains02.png', 719),
       new BackgroundObject('img/Background/01/layers/l9-ground02.png', 719),
-  
+
       new BackgroundObject('img/Background/01/layers/l1-background.png', 719 * 2),
       new BackgroundObject('img/Background/01/layers/l3-fog.png', 719 * 2),
       new BackgroundObject('img/Background/01/layers/l4-stars01.png', 700 * 2),
@@ -65,16 +74,16 @@ function setLevel() {
       new BackgroundObject('img/Background/01/layers/l9-ground01.png', 719 * 4),
     ],
     [
-    new Poison('img/Poison/Dark-Left.png', -780, 310, 1),
-    new Poison('img/Poison/Dark-Left.png', -400, 310, 2),
-    new Poison('img/Poison/Dark-Left.png', 450, 310, 3),
-    new Poison('img/Poison/Dark-Left.png', 700, 310, 4),
-    new Poison('img/Poison/Dark-Right.png', 900, 310, 5),
-    new Poison('img/Poison/Dark-Right.png', 1250, 310, 6),
-    new Poison('img/Poison/Dark-Left.png', 1800, 310, 7),
-    new Poison('img/Poison/Dark-Left.png', 1500, 310, 8),
-    new Poison('img/Poison/Dark-Left.png', 2220, 310, 9),
-  ],
+      new Poison('img/Poison/Dark-Left.png', -780, 310, 1),
+      new Poison('img/Poison/Dark-Left.png', -400, 310, 2),
+      new Poison('img/Poison/Dark-Left.png', 450, 310, 3),
+      new Poison('img/Poison/Dark-Left.png', 700, 310, 4),
+      new Poison('img/Poison/Dark-Right.png', 900, 310, 5),
+      new Poison('img/Poison/Dark-Right.png', 1250, 310, 6),
+      new Poison('img/Poison/Dark-Left.png', 1800, 310, 7),
+      new Poison('img/Poison/Dark-Left.png', 1500, 310, 8),
+      new Poison('img/Poison/Dark-Left.png', 2220, 310, 9),
+    ],
     [
       new Coin('img/Coins/1.png', -810, 190),
       new Coin('img/Coins/1.png', -750, 140),
@@ -95,13 +104,4 @@ function setLevel() {
       new Heart('img/Heart/heart1.png', 1250, 150),
     ]
   );
-  
-  function spawnRabbits(amount) {
-    const rabbitEnemies = [];
-    for (let i = 0; i < amount; i++) {
-      let rabbit = new Rabbit();
-      rabbitEnemies.push(rabbit);
-    }
-    return rabbitEnemies;
-  }  
 }

@@ -11,6 +11,8 @@ class Endboss extends MovableObject {
   energy = 4;
   isDead = false;
   endbossIsHurt = false;
+  win_sound = new Audio('audio/win-sound.mp3');
+  roar_sound = new Audio('audio/orc-grunt.mp3');
 
   IMAGES_Walking = [
     'img/Enemy/Walking/0_Elementals_Walking_000.png',
@@ -111,6 +113,7 @@ class Endboss extends MovableObject {
       }
       if (this.endbossIsHurt) {
         this.playAnimation(this.IMAGES_HURT);
+        this.roar_sound.play();
       } else {
         this.playAnimation(this.IMAGES_Walking);
       }
@@ -150,8 +153,8 @@ class Endboss extends MovableObject {
     gameIntervals.push(deadAnimationInterval);
     setTimeout(() => {
       showWinScreen();
+      this.win_sound.play();
     }, 600);
-    
   }
 
   drawFrame(ctx) {

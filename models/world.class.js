@@ -17,6 +17,7 @@ class World {
     statusBarPoison = new StatusBarPoison();
     statusBarEndboss = new StatusBarEndboss();
     throwableObjects = [];
+    collectedCoins = 0;
 
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d');
@@ -146,8 +147,10 @@ class World {
                 this.penguin.coin = 100;
             }
         }
+        this.collectedCoins += 1;
         this.statusBarCoin.setPercentage(this.penguin.coin);
         this.removeCoin(coin);
+        console.log('Gesammelte Münzen:', this.collectedCoins);
     }
 
     checkCollectingHeart() {

@@ -76,7 +76,7 @@ function generateWinScreenHtml() {
             <div class="win-box">
                 <div class="coin-box">
                     <img src="img/Coins/1.png">
-                    You collected <br>? coins
+                    You collected <br> ${world.collectedCoins} of 13 coins
                 </div>
                 <div class="play-again">Play again
                     <img src="img/reload.png">
@@ -96,7 +96,7 @@ function generateLoseSrceenHtml() {
                 </div>
                 <div class="coin-box">
                     <img src="img/Coins/1.png">
-                    You collected <br>? coins
+                    You collected <br> ${world.collectedCoins} of 13 coins
                 </div>
             </div>
         </div>
