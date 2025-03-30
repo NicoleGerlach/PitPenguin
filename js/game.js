@@ -4,6 +4,8 @@ let world;
 let keyboard = new Keyboard();
 background_sound = new Audio('audio/background.mp3');
 let gameIntervals = [];
+let isMute = false;
+let isFullscreen = false;
 
 
 function init() {
@@ -12,6 +14,7 @@ function init() {
     world = new World(canvas, keyboard);
     mobileButtonsTouched();
     mobileButtonsNotTouched();
+    showMobileButtons();
 }
 
 function stopGame() {
@@ -21,14 +24,28 @@ function stopGame() {
 function showWinScreen() {
     if (stopGame) {
         document.body.innerHTML += generateWinScreenHtml();
+        stopSound();
     }
 }
 
 function showLoseScreen() {
     if (stopGame) {
         document.body.innerHTML += generateLoseSrceenHtml();
+        stopSound();
     }
 }
+
+function showMobileButtons() {
+    let btnsContainer = document.getElementById('btnsContainer');
+    if (window.innerWidth < 915) {
+        btnsContainer.classList.remove('d-none'); // Entferne die Klasse d-none
+    } else {
+        btnsContainer.classList.add('d-none'); // Füge die Klasse d-none hinzu
+    }
+}
+
+// Event-Listener für Fenstergrößenänderungen
+window.addEventListener('resize', showMobileButtons);
 
 window.addEventListener("keydown", (e) => {
     if (e.keyCode == 39) {
@@ -112,7 +129,7 @@ function mobileButtonsNotTouched() {
 
 function checkScreen() {
     const screen = document.getElementById('rotateScreen')
-    if (window.innerWidth < window.innerHeight && window.innerWidth <= 915) {
+    if (window.innerWidth <= 915) {
         screen.classList.remove('d-none');
     } else {
         screen.classList.add('d-none');
@@ -122,9 +139,17 @@ function checkScreen() {
 function showInfoBox() {
     const instructionsBox = document.getElementById('instructionsBox');
     instructionsBox.innerHTML += generateInfoBoxHtml();
-  }
-  
-  function startGame() {
+}
+
+function showInfoBox() {
+    const instructionsBox = document.getElementById('instructionsBox');
+    instructionsBox.innerHTML += generateInfoBoxHtml();
+    checkScreen();
+}
+
+window.addEventListener("resize", checkScreen);
+
+function startGame() {
     const startScreen = document.getElementById('startScreen');
     const canvas = document.getElementById('canvas');
     const headline = document.getElementById('headline');
@@ -132,80 +157,112 @@ function showInfoBox() {
     canvas.classList.remove('d-none');
     headline.classList.remove('d-none');
     init();
-  }
+    showMobileButtons();
+    showGameButtons();
+    playSound();
+}
 
-// function showInfoBox() {
-//     const instructionsBox = document.getElementById('instructionsBox');
-//     instructionsBox.innerHTML += generateInfoBoxHtml();
-//     checkScreen();
-// }
-
-// window.addEventListener("resize", checkScreen);
-
-// function startGame() {
-//     const startScreen = document.getElementById('startScreen');
-//     const canvas = document.getElementById('canvas');
-//     const headline = document.getElementById('headline');
-//     startScreen.classList.add('d-none');
-//     canvas.classList.remove('d-none');
-//     headline.classList.remove('d-none');
-//     init();
-//     showMobileButtons();
-//     this.background_sound.play();
-// }
+function playAgain() {
+    const winScreen = document.getElementById('winContainer');
+    const loseScreen = document.getElementById('loseContainer');
+    winScreen.classList.add('d-none');
+    loseScreen.classList.add('d-none');
+    startGame();
+}
 
 function showContent(content) {
     const arrowBack = document.getElementById('arrow_back');
     const instructionsBox = document.getElementById('instructionsBox');
     instructionsBox.innerHTML = '';
-  
     if (content === 'startGame') {
-      startGame();
+        startGame();
     } else if (content === 'howToPlay') {
-      instructionsBox.innerHTML = generateAboutGameHtml();
-      arrowBack.classList.remove('d-none');
+        instructionsBox.innerHTML = generateAboutGameHtml();
+        arrowBack.classList.remove('d-none');
     } else if (content === 'imprint') {
-      instructionsBox.innerHTML = generateImprintHtml();
-      arrowBack.classList.remove('d-none');
+        instructionsBox.innerHTML = generateImprintHtml();
+        arrowBack.classList.remove('d-none');
     }
-  }
-  
-  function backToMainScreen() {
+}
+
+function showGameButtons() {
+    let gameButtons = document.getElementById('gameButtons');
+    gameButtons.classList.remove('d-none');
+    gameButtons.style.display = 'flex';
+}
+
+function backToMainScreen() {
     const arrowBack = document.getElementById('arrow_back');
     const instructionsBox = document.getElementById('instructionsBox');
     instructionsBox.innerHTML = '';
     showInfoBox();
     arrowBack.classList.add('d-none');
-  }
+}
 
-function showMobileButtons() {
-    buttonBoxLeft = document.getElementById('btnBoxLeft');
-    buttonBoxRight = document.getElementById('btnBoxRight');
-    if (window.innerWidth <= 915) {
-        buttonBoxLeft.classList.remove('d-none');
-        buttonBoxRight.classList.remove('d-none');
+// Funktion zum Aktivieren des Vollbildmodus
+function showFullsrceen() {
+    let elem = document.documentElement; // Das gesamte Dokument
+    if (elem.requestFullscreen) {
+        elem.requestFullscreen();
+    } else if (elem.webkitRequestFullscreen) { // Safari
+        elem.webkitRequestFullscreen();
+    } else if (elem.msRequestFullscreen) { // IE/Edge
+        elem.msRequestFullscreen();
     }
 }
 
-function showFullscreen(element) {
-    let fullscreen = document.getElementById('fullscreen');
-    if (element.requestFullscreen) {
-        element.requestFullscreen();
-    } else if (element.msRequestFullscreen) {      // for IE11 (remove June 15, 2022)
-        element.msRequestFullscreen();
-    } else if (element.webkitRequestFullscreen) {  // iOS Safari
-        element.webkitRequestFullscreen();
-    }
-}
-
-function closeFullscreen() {
+// Funktion zum Verlassen des Vollbildmodus
+function exitFullscreen() {
     if (document.exitFullscreen) {
         document.exitFullscreen();
     } else if (document.webkitExitFullscreen) {
         document.webkitExitFullscreen();
     }
+}
 
- function stopSound() {
+function toggleFullscreenImg() {
+    let fullscreenImg = document.getElementById('fullscreenImg');
+    if (isFullscreen === false) { // Wenn wir nicht im Vollbild sind
+        fullscreenImg.src = 'img/exit-fullscreen.png'; // Bild auf "Exit Fullscreen" ändern
+        showFullsrceen(); // Vollbildmodus aktivieren
+    } else { // Wenn wir im Vollbild sind
+        exitFullscreen(); // Verlasse den Vollbildmodus
+    }
+}
+
+// Event Listener für Änderungen des Vollbildmodus
+document.addEventListener('fullscreenchange', () => {
+    isFullscreen = !!document.fullscreenElement; // Aktualisiere den Status basierend auf dem aktuellen Zustand
+
+    let fullscreenImg = document.getElementById('fullscreenImg');
+
+    if (isFullscreen) {
+        fullscreenImg.src = 'img/exit-fullscreen.png'; // Bild auf "Exit Fullscreen" ändern
+    } else {
+        fullscreenImg.src = 'img/fullscreen.png'; // Bild auf "Vollbild" ändern
+    }
+});
+
+function playSound() {
+    if (isMute == false) {
+        this.background_sound.play();
+        this.background_sound.currentTime = 0;
+    }
+}
+
+function stopSound() {
     this.background_sound.pause();
- }
+}
+
+function toggleMuteImg() {
+    let mute = document.getElementById('mute');
+    if (isMute === false) { // Wenn der Sound nicht stummgeschaltet ist
+        mute.src = 'img/mute.png'; // Bild auf "Mute" ändern
+        stopSound(); // Stoppe den Sound
+        isMute = true; // Setze den Status auf stumm
+    } else { // Wenn der Sound stummgeschaltet ist
+        mute.src = 'img/unmute.png'; // Bild auf "Unmute" ändern
+        playSound(); // Spiele den Sound ab, wenn er nicht stummgeschaltet ist
+        isMute = false; // Setze den Status auf unmuted
+    }
 }

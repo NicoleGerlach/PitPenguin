@@ -55,6 +55,13 @@ canvas {
     background-attachment: fixed;
 }
 
+.start-container {
+    height: 60%;
+    width: 60%;
+    background-color: rgb(119, 193, 231, 0.8);
+    border-radius: 20px;
+}
+
 .directions {
     width: 700px;
     height: 450px;
@@ -69,7 +76,7 @@ canvas {
     width: 100%;
     display: flex;
     justify-content: center;
-    margin: 30px 0 45px 0;
+    margin: 50px 0;
 }
 
 .headline img {
@@ -93,7 +100,7 @@ h2 {
 .about-game {
     width: 90%;
     height: 80%;
-    overflow-y: scroll;
+    overflow-y: auto;
     margin-left: 40px;
     padding-right: 12px;
 }
@@ -154,7 +161,10 @@ td {
 }
 
 .impressum-information {
-    margin-top: 20px;
+    width: 90%;
+    height: 80%;
+    margin-left: 100px;
+    padding-right: 12px;
 }
 
 .d-none {
@@ -208,7 +218,7 @@ td {
 
 .game-buttons {
     position: absolute;
-    display: flex;
+    /* display: flex; */
     height: 50px;
     gap: 12px;
     top: 12px;
@@ -219,9 +229,7 @@ td {
     cursor: pointer;
 }
 
-.btns-container {
-    display: flex;
-    justify-content: space-between;
+.btns-container {    justify-content: space-between;
     /* Platz zwischen den beiden Button-Gruppen */
     position: absolute;
     bottom: 12px;
@@ -325,6 +333,10 @@ td {
 
     h1 {
         display: none;
+    }
+
+    .btns-container {
+        display: flex;
     }
 }
 

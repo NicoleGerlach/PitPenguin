@@ -31,17 +31,21 @@
 
 <!-- <body onload="showInfoBox()"> -->
 
-<body onload="startGame()">
+<body onload="showInfoBox()">
     <div id="rotateScreen" class="rotate-screen d-none"> Please rotate your screen. </div>
     <div id="fullscreen">
         <h1 id="headline" class="d-none">Pit Penguin</h1>
         <div id="gameScreen" class="game-screen">
-            <div class="game-buttons">
-                <img onclick="stopSound()" src="img/mute.png">
-                <img src="img/fullscreen.png">
-            </div>
+            <!-- <div id="gameButtons" class="game-buttons d-none">
+                <img onclick="showFullsrceen(), toggleFullscreenImg()" id="fullscreenImg" src="img/fullscreen.png">
+                <img onclick="toggleMuteImg()" id="mute" src="img/mute.png">
+            </div> -->
             <canvas id="canvas" width="720px" height="480px" class="d-none"></canvas>
-            <div class="btns-container">
+            <div id="gameButtons" class="game-buttons d-none">
+                <img onclick="showFullsrceen(), toggleFullscreenImg()" id="fullscreenImg" src="img/fullscreen.png">
+                <img onclick="toggleMuteImg(), stopSound()" id="mute" src="img/mute.png">
+            </div>
+            <div id="btnsContainer" class="btns-container d-none">
                 <div class="btns-left-side">
                     <img id="btnLeft" src="img/btn-left.png">
                     <img id="btnRight" src="img/btn-right.png">
@@ -53,18 +57,20 @@
             </div>
         </div>
         <div id="startScreen" class="start-screen">
-            <div class="headline">
-                <div>
-                    <img src="img/backwards.png" onclick="backToMainScreen()" id="arrow_back" class="d-none">
+            <div class="start-container">
+                <div class="headline">
+                    <div>
+                        <img src="img/backwards.png" onclick="backToMainScreen()" id="arrow_back" class="d-none">
+                    </div>
+                    <div>
+                        <h2>Pit Penguin</h2>
+                    </div>
                 </div>
-                <div>
-                    <h2>Pit Penguin</h2>
+                <div id="instructionsBox" class="instructions-box">
                 </div>
+                <div></div>
+                <div></div>
             </div>
-            <div id="instructionsBox" class="instructions-box">
-            </div>
-            <div></div>
-            <div></div>
         </div>
 </body>
 
