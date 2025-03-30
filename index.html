@@ -32,9 +32,7 @@
 <!-- <body onload="showInfoBox()"> -->
 
 <body onload="startGame()">
-    <div id="rotateScreen" class="rotate-screen d-none">
-        Please rotate your screen.
-    </div>
+    <div id="rotateScreen" class="rotate-screen d-none"> Please rotate your screen. </div>
     <div id="fullscreen">
         <h1 id="headline" class="d-none">Pit Penguin</h1>
         <div id="gameScreen" class="game-screen">
@@ -42,19 +40,17 @@
                 <img onclick="stopSound()" src="img/mute.png">
                 <img src="img/fullscreen.png">
             </div>
-
-                <div class="btns-left-side d-none">
+            <canvas id="canvas" width="720px" height="480px" class="d-none"></canvas>
+            <div class="btns-container">
+                <div class="btns-left-side">
                     <img id="btnLeft" src="img/btn-left.png">
                     <img id="btnRight" src="img/btn-right.png">
                 </div>
                 <div class="btns-right-side">
-                    <div class="btns-right-side d-none">
-                        <img id="btnJump" src="img/btn-jump.png">
-                        <img id="btnPoison" src="img/btn-poison.png">
-                    </div>
+                    <img id="btnJump" src="img/btn-jump.png">
+                    <img id="btnPoison" src="img/btn-poison.png">
                 </div>
-
-            <canvas id="canvas" width="720px" height="480px" class="d-none"></canvas>
+            </div>
         </div>
         <div id="startScreen" class="start-screen">
             <div class="headline">

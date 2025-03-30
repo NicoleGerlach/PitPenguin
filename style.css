@@ -16,7 +16,6 @@ body {
     align-items: center;
     margin: 0;
     font-family: 'Delius';
-    /* color: #355A77; */
 }
 
 .rotate-screen {
@@ -203,6 +202,8 @@ td {
 
 .game-screen {
     position: relative;
+    display: flex;
+    flex-direction: column;
 }
 
 .game-buttons {
@@ -216,6 +217,19 @@ td {
 
 .game-buttons img:hover {
     cursor: pointer;
+}
+
+.btns-container {
+    display: flex;
+    justify-content: space-between;
+    /* Platz zwischen den beiden Button-Gruppen */
+    position: absolute;
+    bottom: 12px;
+    /* Abstand vom unteren Rand */
+    left: 15px;
+    /* Abstand vom linken Rand */
+    right: 15px;
+    /* Abstand vom rechten Rand */
 }
 
 .play-again img {
@@ -232,25 +246,17 @@ td {
     display: flex;
 }
 
-.btns-left-side {
-    top: 410px;
-    position: absolute;
-    left: 20px;
-    gap: 15px;
-}
-
+.btns-left-side,
 .btns-right-side {
-    top: 205px;
-    position: absolute;
-    left: 290px;
+    display: flex;
     gap: 15px;
+    /* Abstand zwischen den Buttons */
 }
 
 .btns-left-side:hover,
 .btns-right-side:hover {
     cursor: pointer;
 }
-
 
 .btns-left-side img,
 .btns-right-side img {
@@ -260,10 +266,8 @@ td {
 
 .heart {
     width: 50px;
-    /* Größe der Herzen anpassen */
     height: auto;
     margin-right: 5px;
-    /* Abstand zwischen den Herzen */
 }
 
 ::-webkit-scrollbar {
@@ -322,4 +326,31 @@ td {
     h1 {
         display: none;
     }
+}
+
+@media screen and (max-width: 600px) {
+
+    .btns-left-side img,
+    .btns-right-side img {
+        width: 35px;
+        height: 35px;
+    }
+
+    .game-buttons {
+        height: 35px;
+        top: 8px;
+        right: 8px;
+        gap: 8px;
+    }
+
+    .btns-container {
+        bottom: 8px;
+        left: 8px;
+        right: 8px;
+    }
+
+    .btns-left-side,
+    .btns-right-side {
+        gap: 8px;
+   }
 }
