@@ -90,10 +90,10 @@ class Penguin extends MovableObject {
         'img/Penguin/Character09/Dead/AllCharacters-Character09-Dead_44.png'
     ];
 
-    walking_sound = new Audio('audio/walking.mp3');
-    jumping_sound = new Audio('audio/jump.mp3');
-    hurt_sound = new Audio ('audio/ouch.mp3');
-    lose_sound = new Audio ('audio/lose-sound.mp3');
+    // walking_sound = new Audio('audio/walking.mp3');
+    // jumping_sound = new Audio('audio/jump.mp3');
+    // hurt_sound = new Audio ('audio/ouch.mp3');
+    // lose_sound = new Audio ('audio/lose-sound.mp3');
     world;
 
     offset = {
@@ -116,12 +116,12 @@ class Penguin extends MovableObject {
     animate() {
         let movementPenguin = setInterval(() => {
             if (this.isAboveGround()) {
-                this.walking_sound.pause();
+                gameSounds.stopWalkingPenguinSound();
             } else {
                 if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
-                    this.walking_sound.play();
+                    gameSounds.playWalkingPenguinSound();
                 } else {
-                    this.walking_sound.pause();
+                    gameSounds.stopWalkingPenguinSound();
                 }
             }
             if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
@@ -134,7 +134,7 @@ class Penguin extends MovableObject {
             }
             if (this.world.keyboard.SPACE && !this.isAboveGround()) {
                 this.jump();
-                this.jumping_sound.play();
+                gameSounds.playJumpingPenguinSound();
             }
             this.world.camera_x = -this.x + 50;
         }, 1000 / 60);
@@ -148,7 +148,7 @@ class Penguin extends MovableObject {
             } else if (this.isHurt()) {
                 this.playAnimation(this.IMAGES_HURT);
                 if (!hasCollidedWithEnemy) {
-                    this.hurt_sound.play(); // Spiele den Sound ab
+                    gameSounds.playHurtPenguinSound(); // Spiele den Sound ab
                     hasCollidedWithEnemy = true; // Setze die Flag auf true
                 }
             } else {
@@ -178,7 +178,7 @@ class Penguin extends MovableObject {
         gameIntervals.push(deadAnimationPenguinInterval);
         setTimeout(() => {
             showEndScreen(isWin);
-            this.lose_sound.play();
+            gameSounds.playLoseSound();
           }, 600);
     }
 

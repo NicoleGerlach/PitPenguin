@@ -2,8 +2,9 @@
 let canvas;
 let world;
 let keyboard = new Keyboard();
-background_sound = new Audio('audio/background.mp3')
-background_sound.loop = true; // Setze die Loop-Eigenschaft auf true
+let gameSounds = new GameSounds();
+// background_sound = new Audio('audio/background.mp3')
+// background_sound.loop = true; // Setze die Loop-Eigenschaft auf true
 
 let gameIntervals = [];
 let isMute = false;
@@ -21,6 +22,7 @@ function init() {
 
 function stopGame() {
     gameIntervals.forEach(intervalId => clearInterval(intervalId)); // Stoppe alle Intervalle
+    stopSound();
 }
 
 function showEndScreen(isWin) {
@@ -33,7 +35,7 @@ function showEndScreen(isWin) {
     }
     // Blende den Container ein oder aus
     endScreenContainer.classList.add('active'); // Zeige den Endscreen an
-    }
+}
 
 function showMobileButtons() {
     let btnsContainer = document.getElementById('btnsContainer');
@@ -159,7 +161,7 @@ function startGame() {
     init();
     showMobileButtons();
     showGameButtons();
-    playSound();
+    gameSounds.playBackgroundSound();
 }
 
 // function playAgain() {
@@ -242,9 +244,7 @@ function toggleFullscreenImg() {
 // Event Listener für Änderungen des Vollbildmodus
 document.addEventListener('fullscreenchange', () => {
     isFullscreen = !!document.fullscreenElement; // Aktualisiere den Status basierend auf dem aktuellen Zustand
-
     let fullscreenImg = document.getElementById('fullscreenImg');
-
     if (isFullscreen) {
         fullscreenImg.src = 'img/exit-fullscreen.png'; // Bild auf "Exit Fullscreen" ändern
     } else {
@@ -254,26 +254,26 @@ document.addEventListener('fullscreenchange', () => {
 
 function playSound() {
     if (isMute == false) {
-        this.background_sound.play();
-        this.background_sound.currentTime = 0;
+        gameSounds.playBackgroundSound();
+        gameSounds.playBackgroundSound.currentTime = 0;
     }
 }
 
 function stopSound() {
-    this.background_sound.pause();
+    gameSounds.stopBackgroundSound();
+    gameSounds.stopWalkingPenguinSound();
+    gameSounds.stopJumpingPenguinSound();
+    gameSounds.stopHurtPenguinSound();
+    gameSounds.stopHurtEndbossSound();
 }
 
 function toggleMuteImg() {
-    let mute = document.getElementById('mute');
-    if (isMute === false) {
-        // Wenn der Sound nicht stummgeschaltet ist
-        mute.src = 'img/mute.png'; // Bild auf "Mute" ändern
-        stopSound(); // Stoppe den Sound
-        isMute = true; // Setze den Status auf stumm
+    let muteButton = document.getElementById('mute');
+    gameSounds.toggleMuteSound();
+    if (gameSounds.isMute) {
+        muteButton.src = 'img/mute.png'; // Bild auf "Mute" ändern
     } else {
-        // Wenn der Sound stummgeschaltet ist
-        mute.src = 'img/unmute.png'; // Bild auf "Unmute" ändern
-        isMute = false; // Setze den Status auf unmuted
-        playSound(); // Spiele den Sound ab, wenn er nicht stummgeschaltet ist
+        muteButton.src = 'img/unmute.png'; // Bild auf "Unmute" ändern
     }
 }
+
