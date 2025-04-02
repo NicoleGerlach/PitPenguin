@@ -29,21 +29,15 @@
     <script src="js/game.js"></script>
 </head>
 
-<!-- <body onload="showInfoBox()"> -->
-
 <body onload="showInfoBox()">
     <div id="rotateScreen" class="rotate-screen d-none"> Please rotate your screen. </div>
     <div id="fullscreen">
         <h1 id="headline" class="d-none">Pit Penguin</h1>
         <div id="gameScreen" class="game-screen">
-            <!-- <div id="gameButtons" class="game-buttons d-none">
-                <img onclick="showFullsrceen(), toggleFullscreenImg()" id="fullscreenImg" src="img/fullscreen.png">
-                <img onclick="toggleMuteImg()" id="mute" src="img/mute.png">
-            </div> -->
             <canvas id="canvas" width="720px" height="480px" class="d-none"></canvas>
             <div id="gameButtons" class="game-buttons d-none">
                 <img onclick="showFullsrceen(), toggleFullscreenImg()" id="fullscreenImg" src="img/fullscreen.png">
-                <img onclick="toggleMuteImg(), stopSound()" id="mute" src="img/mute.png">
+                <img onclick="toggleMuteImg()" id="mute" src="img/unmute.png">
             </div>
             <div id="btnsContainer" class="btns-container d-none">
                 <div class="btns-left-side">
@@ -59,12 +53,8 @@
         <div id="startScreen" class="start-screen">
             <div class="start-container">
                 <div class="headline">
-                    <div>
-                        <img src="img/backwards.png" onclick="backToMainScreen()" id="arrow_back" class="d-none">
-                    </div>
-                    <div>
-                        <h2>Pit Penguin</h2>
-                    </div>
+                    <img src="img/backwards.png" onclick="backToMainScreen()" id="arrow_back" class="d-none">
+                    <h2>Pit Penguin</h2>
                 </div>
                 <div id="instructionsBox" class="instructions-box">
                 </div>
@@ -72,6 +62,7 @@
                 <div></div>
             </div>
         </div>
+        <div id="endScreenContainer" class="end-screen-container"></div>
 </body>
 
 </html>

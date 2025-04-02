@@ -165,7 +165,7 @@ class Penguin extends MovableObject {
         gameIntervals.push(animationPenguinInterval);
     }
 
-    playDeadAnimation() {
+    playDeadAnimation(isWin) {
         let deadAnimationPenguinInterval = setInterval(() => {
             if (this.isDead) {
                 this.playAnimation(this.IMAGES_DEAD);
@@ -177,7 +177,7 @@ class Penguin extends MovableObject {
         }, 200);
         gameIntervals.push(deadAnimationPenguinInterval);
         setTimeout(() => {
-            showLoseScreen();
+            showEndScreen(isWin);
             this.lose_sound.play();
           }, 600);
     }

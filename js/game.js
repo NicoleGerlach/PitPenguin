@@ -2,7 +2,9 @@
 let canvas;
 let world;
 let keyboard = new Keyboard();
-background_sound = new Audio('audio/background.mp3');
+background_sound = new Audio('audio/background.mp3')
+background_sound.loop = true; // Setze die Loop-Eigenschaft auf true
+
 let gameIntervals = [];
 let isMute = false;
 let isFullscreen = false;
@@ -21,19 +23,17 @@ function stopGame() {
     gameIntervals.forEach(intervalId => clearInterval(intervalId)); // Stoppe alle Intervalle
 }
 
-function showWinScreen() {
-    if (stopGame) {
-        document.body.innerHTML += generateWinScreenHtml();
-        stopSound();
+function showEndScreen(isWin) {
+    const endScreenContainer = document.getElementById('endScreenContainer');
+    // Setze den Inhalt basierend auf dem Ergebnis
+    if (isWin) {
+        endScreenContainer.innerHTML = generateWinScreenHtml(); // Generiere den Gewinnbildschirm
+    } else {
+        endScreenContainer.innerHTML = generateLoseSrceenHtml(); // Generiere den Verlustbildschirm
     }
-}
-
-function showLoseScreen() {
-    if (stopGame) {
-        document.body.innerHTML += generateLoseSrceenHtml();
-        stopSound();
+    // Blende den Container ein oder aus
+    endScreenContainer.classList.add('active'); // Zeige den Endscreen an
     }
-}
 
 function showMobileButtons() {
     let btnsContainer = document.getElementById('btnsContainer');
@@ -129,7 +129,7 @@ function mobileButtonsNotTouched() {
 
 function checkScreen() {
     const screen = document.getElementById('rotateScreen')
-    if (window.innerWidth <= 915) {
+    if (window.innerWidth < window.innerHeight && window.innerWidth <= 915) {
         screen.classList.remove('d-none');
     } else {
         screen.classList.add('d-none');
@@ -162,12 +162,21 @@ function startGame() {
     playSound();
 }
 
+// function playAgain() {
+//     const winScreen = document.getElementById('winContainer');
+//     const loseScreen = document.getElementById('loseContainer');
+//     winScreen.classList.add('d-none');
+//     loseScreen.classList.add('d-none');
+//     startGame();
+// }
+
 function playAgain() {
-    const winScreen = document.getElementById('winContainer');
-    const loseScreen = document.getElementById('loseContainer');
-    winScreen.classList.add('d-none');
-    loseScreen.classList.add('d-none');
-    startGame();
+    const endScreenContainer = document.getElementById('endScreenContainer');
+    // Blende den Endscreen-Container aus
+    endScreenContainer.classList.remove('active'); // Entferne die aktive Klasse
+    // Optional: Setze den Inhalt des Containers zurück
+    endScreenContainer.innerHTML = ''; // Leere den Container
+    startGame(); // Starte das Spiel erneut
 }
 
 function showContent(content) {
@@ -256,13 +265,15 @@ function stopSound() {
 
 function toggleMuteImg() {
     let mute = document.getElementById('mute');
-    if (isMute === false) { // Wenn der Sound nicht stummgeschaltet ist
+    if (isMute === false) {
+        // Wenn der Sound nicht stummgeschaltet ist
         mute.src = 'img/mute.png'; // Bild auf "Mute" ändern
         stopSound(); // Stoppe den Sound
         isMute = true; // Setze den Status auf stumm
-    } else { // Wenn der Sound stummgeschaltet ist
+    } else {
+        // Wenn der Sound stummgeschaltet ist
         mute.src = 'img/unmute.png'; // Bild auf "Unmute" ändern
-        playSound(); // Spiele den Sound ab, wenn er nicht stummgeschaltet ist
         isMute = false; // Setze den Status auf unmuted
+        playSound(); // Spiele den Sound ab, wenn er nicht stummgeschaltet ist
     }
 }

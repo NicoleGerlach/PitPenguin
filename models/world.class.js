@@ -150,7 +150,6 @@ class World {
         this.collectedCoins += 1;
         this.statusBarCoin.setPercentage(this.penguin.coin);
         this.removeCoin(coin);
-        console.log('Gesammelte Münzen:', this.collectedCoins);
     }
 
     checkCollectingHeart() {

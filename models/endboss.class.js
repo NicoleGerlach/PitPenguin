@@ -140,7 +140,7 @@ class Endboss extends MovableObject {
     }
   }
 
-  playDeadAnimation() {
+  playDeadAnimation(isWin) {
     let deadAnimationInterval = setInterval(() => {
       if (this.isDead) {
         this.playAnimation(this.IMAGES_DEAD);
@@ -152,7 +152,7 @@ class Endboss extends MovableObject {
     }, 200);
     gameIntervals.push(deadAnimationInterval);
     setTimeout(() => {
-      showWinScreen();
+      showEndScreen(isWin);
       this.win_sound.play();
     }, 600);
   }

@@ -29,6 +29,7 @@ body {
     background-color: #77C1E7;
     font-size: 36px;
     font-weight: 700;
+    z-index: 1;
 }
 
 h1 {
@@ -56,6 +57,7 @@ canvas {
 }
 
 .start-container {
+    position: relative;
     height: 60%;
     width: 60%;
     background-color: rgb(119, 193, 231, 0.8);
@@ -81,8 +83,7 @@ canvas {
 
 .headline img {
     position: absolute;
-    margin-left: -210px;
-    margin-right: auto;
+    left: 25px;
     height: 50px;
 }
 
@@ -171,6 +172,20 @@ td {
     display: none;
 }
 
+.end-screen-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    color: black;
+    visibility: hidden; /* Standardmäßig unsichtbar */
+}
+
+.end-screen-container.active {
+    visibility: visible; /* Sichtbar machen, wenn aktiv */
+}
+
 .win-container,
 .lose-container {
     width: 100%;
@@ -218,7 +233,6 @@ td {
 
 .game-buttons {
     position: absolute;
-    /* display: flex; */
     height: 50px;
     gap: 12px;
     top: 12px;
@@ -229,15 +243,12 @@ td {
     cursor: pointer;
 }
 
-.btns-container {    justify-content: space-between;
-    /* Platz zwischen den beiden Button-Gruppen */
+.btns-container {
+    justify-content: space-between;
     position: absolute;
     bottom: 12px;
-    /* Abstand vom unteren Rand */
     left: 15px;
-    /* Abstand vom linken Rand */
     right: 15px;
-    /* Abstand vom rechten Rand */
 }
 
 .play-again img {
@@ -258,7 +269,6 @@ td {
 .btns-right-side {
     display: flex;
     gap: 15px;
-    /* Abstand zwischen den Buttons */
 }
 
 .btns-left-side:hover,
@@ -364,5 +374,5 @@ td {
     .btns-left-side,
     .btns-right-side {
         gap: 8px;
-   }
+    }
 }
