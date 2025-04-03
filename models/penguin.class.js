@@ -90,6 +90,29 @@ class Penguin extends MovableObject {
         'img/Penguin/Character09/Dead/AllCharacters-Character09-Dead_44.png'
     ];
 
+    IMAGES_IDLE = [
+        'img/Penguin/Character09/Idle/AllCharacters-Character09-Idle_00.png',
+        'img/Penguin/Character09/Idle/AllCharacters-Character09-Idle_01.png',
+        'img/Penguin/Character09/Idle/AllCharacters-Character09-Idle_02.png',
+        'img/Penguin/Character09/Idle/AllCharacters-Character09-Idle_03.png',
+        'img/Penguin/Character09/Idle/AllCharacters-Character09-Idle_04.png',
+        'img/Penguin/Character09/Idle/AllCharacters-Character09-Idle_05.png',
+        'img/Penguin/Character09/Idle/AllCharacters-Character09-Idle_06.png',
+        'img/Penguin/Character09/Idle/AllCharacters-Character09-Idle_07.png',
+        'img/Penguin/Character09/Idle/AllCharacters-Character09-Idle_08.png',
+        'img/Penguin/Character09/Idle/AllCharacters-Character09-Idle_09.png',
+        'img/Penguin/Character09/Idle/AllCharacters-Character09-Idle_10.png',
+        'img/Penguin/Character09/Idle/AllCharacters-Character09-Idle_11.png',
+        'img/Penguin/Character09/Idle/AllCharacters-Character09-Idle_12.png',
+        'img/Penguin/Character09/Idle/AllCharacters-Character09-Idle_13.png',
+        'img/Penguin/Character09/Idle/AllCharacters-Character09-Idle_14.png',
+        'img/Penguin/Character09/Idle/AllCharacters-Character09-Idle_15.png',
+        'img/Penguin/Character09/Idle/AllCharacters-Character09-Idle_16.png',
+        'img/Penguin/Character09/Idle/AllCharacters-Character09-Idle_17.png',
+        'img/Penguin/Character09/Idle/AllCharacters-Character09-Idle_18.png',
+        'img/Penguin/Character09/Idle/AllCharacters-Character09-Idle_19.png'
+    ];
+
     // walking_sound = new Audio('audio/walking.mp3');
     // jumping_sound = new Audio('audio/jump.mp3');
     // hurt_sound = new Audio ('audio/ouch.mp3');
@@ -109,6 +132,7 @@ class Penguin extends MovableObject {
         this.loadImages(this.IMAGES_JUMPING);
         this.loadImages(this.IMAGES_HURT);
         this.loadImages(this.IMAGES_DEAD);
+        this.loadImages(this.IMAGES_IDLE);
         this.applyGravity();
         this.animate();
     }
@@ -142,6 +166,9 @@ class Penguin extends MovableObject {
     
         let hasCollidedWithEnemy = false; // Flag für Kollision mit Feind
         let animationPenguinInterval = setInterval(() => {
+            if (!this.world.keyboard.LEFT && !this.world.keyboard.RIGHT && !this.world.keyboard.SPACE && !this.world.keyboard.D) {
+                this.playAnimation(this.IMAGES_IDLE);
+            }
             if (this.isDead()) {
                 // this.playAnimation(this.IMAGES_DEAD);
                 this.playDeadAnimation();
