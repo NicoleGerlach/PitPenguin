@@ -21,6 +21,7 @@ function init() {
 function stopGame() {
     gameIntervals.forEach(intervalId => clearInterval(intervalId)); // Stoppe alle Intervalle
     stopSound();
+    gameSounds.hurt_penguin_sound.isSleeping = false;
 }
 
 function showEndScreen(isWin) {
@@ -160,19 +161,9 @@ function startGame() {
     gameSounds.playBackgroundSound();
 }
 
-// function playAgain() {
-//     const winScreen = document.getElementById('winContainer');
-//     const loseScreen = document.getElementById('loseContainer');
-//     winScreen.classList.add('d-none');
-//     loseScreen.classList.add('d-none');
-//     startGame();
-// }
-
 function playAgain() {
     const endScreenContainer = document.getElementById('endScreenContainer');
-    // Blende den Endscreen-Container aus
     endScreenContainer.classList.remove('active'); // Entferne die aktive Klasse
-    // Optional: Setze den Inhalt des Containers zurück
     endScreenContainer.innerHTML = ''; // Leere den Container
     startGame(); // Starte das Spiel erneut
 }
@@ -258,7 +249,7 @@ function stopSound() {
     gameSounds.stopWalkingPenguinSound();
     gameSounds.stopJumpingPenguinSound();
     gameSounds.stopHurtPenguinSound();
-    gameSounds.stopSnoringPenguinSound();
+    // gameSounds.stopSnoringPenguinSound();
     gameSounds.stopHurtEndbossSound();
 }
 

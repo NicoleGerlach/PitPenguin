@@ -1,3 +1,4 @@
+
 class GameSounds {
     constructor() {
         this.background_sound = new Audio('audio/background.mp3');
@@ -57,6 +58,7 @@ class GameSounds {
     playSnoringPenguinSound() {
         if (!this.isMute) {
             this.snoring_penguin_sound.play();
+            this.snoring_penguin_sound.currentTime = 0;
         }
     }
 
