@@ -3,8 +3,6 @@ let canvas;
 let world;
 let keyboard = new Keyboard();
 let gameSounds = new GameSounds();
-// background_sound = new Audio('audio/background.mp3')
-// background_sound.loop = true; // Setze die Loop-Eigenschaft auf true
 
 let gameIntervals = [];
 let isMute = false;
@@ -27,13 +25,11 @@ function stopGame() {
 
 function showEndScreen(isWin) {
     const endScreenContainer = document.getElementById('endScreenContainer');
-    // Setze den Inhalt basierend auf dem Ergebnis
     if (isWin) {
         endScreenContainer.innerHTML = generateWinScreenHtml(); // Generiere den Gewinnbildschirm
     } else {
         endScreenContainer.innerHTML = generateLoseSrceenHtml(); // Generiere den Verlustbildschirm
     }
-    // Blende den Container ein oder aus
     endScreenContainer.classList.add('active'); // Zeige den Endscreen an
 }
 
@@ -210,7 +206,6 @@ function backToMainScreen() {
     arrowBack.classList.add('d-none');
 }
 
-// Funktion zum Aktivieren des Vollbildmodus
 function showFullsrceen() {
     let elem = document.documentElement; // Das gesamte Dokument
     if (elem.requestFullscreen) {
@@ -222,7 +217,6 @@ function showFullsrceen() {
     }
 }
 
-// Funktion zum Verlassen des Vollbildmodus
 function exitFullscreen() {
     if (document.exitFullscreen) {
         document.exitFullscreen();
@@ -264,6 +258,7 @@ function stopSound() {
     gameSounds.stopWalkingPenguinSound();
     gameSounds.stopJumpingPenguinSound();
     gameSounds.stopHurtPenguinSound();
+    gameSounds.stopSnoringPenguinSound();
     gameSounds.stopHurtEndbossSound();
 }
 

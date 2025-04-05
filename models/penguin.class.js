@@ -5,6 +5,11 @@ class Penguin extends MovableObject {
     y = 130;
     x = 0;
     speed = 5;
+
+    // idleDuration = 2000; // Dauer bis zur Sleep-Animation in Millisekunden (5 Sekunden)
+    inactivityTimer; // Timer für Inaktivität
+    isSleeping = false; // Standardmäßig nicht schlafen
+
     IMAGES_WALKING = [
         'img/Penguin/Character09/Walk/AllCharacters-Character09-Walk_00.png',
         'img/Penguin/Character09/Walk/AllCharacters-Character09-Walk_02.png',
@@ -89,7 +94,6 @@ class Penguin extends MovableObject {
         'img/Penguin/Character09/Dead/AllCharacters-Character09-Dead_42.png',
         'img/Penguin/Character09/Dead/AllCharacters-Character09-Dead_44.png'
     ];
-
     IMAGES_IDLE = [
         'img/Penguin/Character09/Idle/AllCharacters-Character09-Idle_00.png',
         'img/Penguin/Character09/Idle/AllCharacters-Character09-Idle_01.png',
@@ -112,11 +116,11 @@ class Penguin extends MovableObject {
         'img/Penguin/Character09/Idle/AllCharacters-Character09-Idle_18.png',
         'img/Penguin/Character09/Idle/AllCharacters-Character09-Idle_19.png'
     ];
+    
+    IMAGES_SLEEP = [
+        'img/Penguin/Character09/Sleeping/AllCharacters-Character09-Sleep_00.png'
+    ];
 
-    // walking_sound = new Audio('audio/walking.mp3');
-    // jumping_sound = new Audio('audio/jump.mp3');
-    // hurt_sound = new Audio ('audio/ouch.mp3');
-    // lose_sound = new Audio ('audio/lose-sound.mp3');
     world;
 
     offset = {
@@ -133,6 +137,7 @@ class Penguin extends MovableObject {
         this.loadImages(this.IMAGES_HURT);
         this.loadImages(this.IMAGES_DEAD);
         this.loadImages(this.IMAGES_IDLE);
+        this.loadImages(this.IMAGES_SLEEP);
         this.applyGravity();
         this.animate();
     }
@@ -151,45 +156,73 @@ class Penguin extends MovableObject {
             if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
                 this.moveRight();
                 this.otherDirection = false;
+                this.resetInactivityTimer();
             }
             if (this.world.keyboard.LEFT && this.x > this.world.level.level_start_x) {
                 this.moveLeft();
                 this.otherDirection = true;
+                this.resetInactivityTimer();
             }
             if (this.world.keyboard.SPACE && !this.isAboveGround()) {
                 this.jump();
                 gameSounds.playJumpingPenguinSound();
+                this.resetInactivityTimer();
             }
             this.world.camera_x = -this.x + 50;
         }, 1000 / 60);
+    
         gameIntervals.push(movementPenguin);
     
-        let hasCollidedWithEnemy = false; // Flag für Kollision mit Feind
+        let hasCollidedWithEnemy = false;
         let animationPenguinInterval = setInterval(() => {
             if (!this.world.keyboard.LEFT && !this.world.keyboard.RIGHT && !this.world.keyboard.SPACE && !this.world.keyboard.D) {
-                this.playAnimation(this.IMAGES_IDLE);
-            }
-            if (this.isDead()) {
-                // this.playAnimation(this.IMAGES_DEAD);
-                this.playDeadAnimation();
-            } else if (this.isHurt()) {
-                this.playAnimation(this.IMAGES_HURT);
-                if (!hasCollidedWithEnemy) {
-                    gameSounds.playHurtPenguinSound(); // Spiele den Sound ab
-                    hasCollidedWithEnemy = true; // Setze die Flag auf true
-                }
-            } else {
-                hasCollidedWithEnemy = false;
-                if (this.isAboveGround()) {
-                    this.playAnimation(this.IMAGES_JUMPING);
-                } else { 
-                    if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
-                        this.playAnimation(this.IMAGES_WALKING);
+                if (!this.isSleeping) { 
+                    this.playAnimation(this.IMAGES_IDLE);
+                    if (!this.inactivityTimer) { 
+                        this.startInactivityTimer(); 
+                    }
+                } 
+            } else { 
+                this.resetInactivityTimer();
+                if (this.isDead()) {
+                    this.playDeadAnimation();
+                } else if (this.isHurt()) {
+                    this.playAnimation(this.IMAGES_HURT);
+                    if (!hasCollidedWithEnemy) {
+                        gameSounds.playHurtPenguinSound();
+                        hasCollidedWithEnemy = true;
+                    }
+                } else {
+                    hasCollidedWithEnemy = false;
+                    if (this.isAboveGround()) {
+                        this.playAnimation(this.IMAGES_JUMPING);
+                    } else {
+                        if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
+                            this.playAnimation(this.IMAGES_WALKING);
+                        }
                     }
                 }
             }
         }, 50);
         gameIntervals.push(animationPenguinInterval);
+    }
+
+    startInactivityTimer() {
+        clearTimeout(this.inactivityTimer); // Stoppe einen eventuell laufenden Timer
+        this.inactivityTimer = setTimeout(() => {
+            this.loadImage(this.IMAGES_SLEEP);
+            gameSounds.playSnoringPenguinSound();
+            this.isSleeping = true; // Setze den Status auf schlafen    
+        }, 2000); // Dauer in Millisekunden (z.B. 5000 für 5 Sekunden)
+    }
+
+    resetInactivityTimer() {
+        clearTimeout(this.inactivityTimer); // Stoppe den aktuellen Timer   
+        if (this.isSleeping) { 
+            this.isSleeping = false; // Setze den Status auf nicht schlafen
+            gameSounds.stopSnoringPenguinSound();   
+        }
+        this.startInactivityTimer(); // Starte den Timer erneut
     }
 
     playDeadAnimation(isWin) {
@@ -206,7 +239,7 @@ class Penguin extends MovableObject {
         setTimeout(() => {
             showEndScreen(isWin);
             gameSounds.playLoseSound();
-          }, 600);
+        }, 600);
     }
 
     drawFrame(ctx) {

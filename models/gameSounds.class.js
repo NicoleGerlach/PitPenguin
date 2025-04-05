@@ -5,6 +5,8 @@ class GameSounds {
         this.walking_penguin_sound = new Audio('audio/walking.mp3');
         this.jumping_penguin_sound = new Audio('audio/jump.mp3');
         this.hurt_penguin_sound = new Audio ('audio/ouch.mp3');
+        this.snoring_penguin_sound = new Audio ('audio/snoring.mp3');
+        this.snoring_penguin_sound.loop = true;
         this.hurt_endboss_sound = new Audio('audio/orc-grunt.mp3');
         this.win_sound = new Audio('audio/win-sound.mp3');
         this.lose_sound = new Audio ('audio/lose-sound.mp3');
@@ -52,6 +54,16 @@ class GameSounds {
         this.walking_penguin_sound.pause();
     }
 
+    playSnoringPenguinSound() {
+        if (!this.isMute) {
+            this.snoring_penguin_sound.play();
+        }
+    }
+
+    stopSnoringPenguinSound() {
+        this.snoring_penguin_sound.pause();
+    }
+
     playHurtEndbossSound() {
         if (!this.isMute) {
             this.hurt_endboss_sound.play();
@@ -78,8 +90,10 @@ class GameSounds {
         this.isMute = !this.isMute;
         if (this.isMute) {
             this.stopBackgroundSound();
+            this.stopSnoringPenguinSound();
         } else {
             this.playBackgroundSound();
+            this.playSnoringPenguinSound();
         }
     }
 

@@ -12,9 +12,6 @@ class Endboss extends MovableObject {
   isDead = false;
   endbossIsHurt = false;
 
-  // win_sound = new Audio('audio/win-sound.mp3');
-  // roar_sound = new Audio('audio/orc-grunt.mp3');
-
   IMAGES_Walking = [
     'img/Enemy/Walking/0_Elementals_Walking_000.png',
     'img/Enemy/Walking/0_Elementals_Walking_001.png',
