@@ -17,6 +17,7 @@ class World {
     statusBarPoison = new StatusBarPoison();
     statusBarEndboss = new StatusBarEndboss();
     throwableObjects = [];
+    activeThrownBottles = [];
     collectedCoins = 0;
 
     constructor(canvas, keyboard) {
@@ -61,14 +62,6 @@ class World {
         }
     }
 
-    // bottleLanded(bottle) {
-    //     const index = this.activeThrownBottles.indexOf(bottle);
-    //     if (index > -1) {
-    //         this.activeThrownBottles.splice(index, 1);
-    //         console.log('Flasche ist gelandet und entfernt:', bottle);
-    //     }
-    // }
-
     checkCollisions() {
         this.level.enemies.forEach((enemy) => {
             if (this.penguin.isJumpOnEnemy(enemy) && this.penguin.isColliding(enemy) && this.penguin.isAboveGround()) {
@@ -102,9 +95,14 @@ class World {
 
     checkEndbossCollisionWithPoison() {
         if (this.throwableObjects.length === 0) return;
+    
         this.throwableObjects.forEach((poison) => {
-            if (this.endboss.isCollidingWithPoison(poison)) {
+            if (this.endboss.isCollidingWithPoison(poison)) {   
                 this.endboss.hit();
+                if (this.endboss.energy <= 0 && !this.endboss.isDead) {
+                    this.endboss.isDead = true;
+                    this.endboss.playDeadAnimation();
+                }
             }
         });
     }

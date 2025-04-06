@@ -7,6 +7,7 @@ let gameSounds = new GameSounds();
 let gameIntervals = [];
 let isMute = false;
 let isFullscreen = false;
+let isGameover = false;
 
 
 function init() {
@@ -19,9 +20,9 @@ function init() {
 }
 
 function stopGame() {
+    isGameover = true;
     gameIntervals.forEach(intervalId => clearInterval(intervalId)); // Stoppe alle Intervalle
     stopSound();
-    gameSounds.hurt_penguin_sound.isSleeping = false;
 }
 
 function showEndScreen(isWin) {
@@ -128,7 +129,7 @@ function mobileButtonsNotTouched() {
 
 function checkScreen() {
     const screen = document.getElementById('rotateScreen')
-    if (window.innerWidth < window.innerHeight && window.innerWidth <= 915) {
+    if (window.innerWidth < window.innerHeight && window.innerWidth < 1000) {
         screen.classList.remove('d-none');
     } else {
         screen.classList.add('d-none');
@@ -249,7 +250,7 @@ function stopSound() {
     gameSounds.stopWalkingPenguinSound();
     gameSounds.stopJumpingPenguinSound();
     gameSounds.stopHurtPenguinSound();
-    // gameSounds.stopSnoringPenguinSound();
+    gameSounds.stopSnoringPenguinSound();
     gameSounds.stopHurtEndbossSound();
 }
 

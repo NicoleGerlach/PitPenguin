@@ -11,6 +11,7 @@ class Endboss extends MovableObject {
   energy = 4;
   isDead = false;
   endbossIsHurt = false;
+  playedDeath = false;
 
   IMAGES_Walking = [
     'img/Enemy/Walking/0_Elementals_Walking_000.png',
@@ -69,24 +70,11 @@ class Endboss extends MovableObject {
     'img/Enemy/Dying/0_Elementals_Dying_013.png',
     'img/Enemy/Dying/0_Elementals_Dying_014.png'
   ];
-  IMAGES_DeadSprite = [
-    'img/Enemy/DeadSprite/DeadFx_00.png',
-    'img/Enemy/DeadSprite/DeadFx_02.png',
-    'img/Enemy/DeadSprite/DeadFx_04.png',
-    'img/Enemy/DeadSprite/DeadFx_06.png',
-    'img/Enemy/DeadSprite/DeadFx_08.png',
-    'img/Enemy/DeadSprite/DeadFx_10.png',
-    'img/Enemy/DeadSprite/DeadFx_12.png',
-    'img/Enemy/DeadSprite/DeadFx_14.png',
-    'img/Enemy/DeadSprite/DeadFx_16.png',
-    'img/Enemy/DeadSprite/DeadFx_18.png',
-    'img/Enemy/DeadSprite/DeadFx_19.png'
-  ]
 
   offset = {
     top: 45,
     left: 120,
-    right: 300,
+    right: 120,
     bottom: 10
   }
 
@@ -137,19 +125,17 @@ class Endboss extends MovableObject {
     }
   }
 
-  playDeadAnimation(isWin) {
+  playDeadAnimation() {
     let deadAnimationInterval = setInterval(() => {
       if (this.isDead) {
         this.playAnimation(this.IMAGES_DEAD);
         this.speed = 0;
       }
     }, 2200 / 60);
-    setTimeout(() => {
-      stopGame();
-    }, 200);
+    setTimeout(() => { stopGame(); }, 200);
     gameIntervals.push(deadAnimationInterval);
     setTimeout(() => {
-      showEndScreen(isWin);
+      showEndScreen(true); // Zeige den Gewinnbildschirm
       gameSounds.playWinSound();
     }, 600);
   }

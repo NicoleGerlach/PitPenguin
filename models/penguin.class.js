@@ -5,8 +5,6 @@ class Penguin extends MovableObject {
     y = 130;
     x = 0;
     speed = 5;
-
-    // idleDuration = 2000; // Dauer bis zur Sleep-Animation in Millisekunden (5 Sekunden)
     inactivityTimer; // Timer für Inaktivität
     isSleeping = false; // Standardmäßig nicht schlafen
 
@@ -116,7 +114,7 @@ class Penguin extends MovableObject {
         'img/Penguin/Character09/Idle/AllCharacters-Character09-Idle_18.png',
         'img/Penguin/Character09/Idle/AllCharacters-Character09-Idle_19.png'
     ];
-    
+
     IMAGES_SLEEP = [
         'img/Penguin/Character09/Sleeping/AllCharacters-Character09-Sleep_00.png'
     ];
@@ -170,22 +168,22 @@ class Penguin extends MovableObject {
             }
             this.world.camera_x = -this.x + 50;
         }, 1000 / 60);
-    
+
         gameIntervals.push(movementPenguin);
-    
+
         let hasCollidedWithEnemy = false;
         let animationPenguinInterval = setInterval(() => {
             if (!this.world.keyboard.LEFT && !this.world.keyboard.RIGHT && !this.world.keyboard.SPACE && !this.world.keyboard.D) {
-                if (!this.isSleeping) { 
+                if (!this.isSleeping) {
                     this.playAnimation(this.IMAGES_IDLE);
-                    if (!this.inactivityTimer) { 
-                        this.startInactivityTimer(); 
+                    if (!this.inactivityTimer) {
+                        this.startInactivityTimer();
                     }
-                } 
-            } else { 
+                }
+            } else {
                 this.resetInactivityTimer();
                 if (this.isDead()) {
-                    this.playDeadAnimation();
+                    this.playDeadAnimation(false);
                 } else if (this.isHurt()) {
                     this.playAnimation(this.IMAGES_HURT);
                     if (!hasCollidedWithEnemy) {
@@ -210,34 +208,43 @@ class Penguin extends MovableObject {
     startInactivityTimer() {
         clearTimeout(this.inactivityTimer); // Stoppe einen eventuell laufenden Timer
         this.inactivityTimer = setTimeout(() => {
+            if (isGameover) return;
             this.loadImage(this.IMAGES_SLEEP);
             gameSounds.playSnoringPenguinSound();
             this.isSleeping = true; // Setze den Status auf schlafen    
-        }, 2000); // Dauer in Millisekunden (z.B. 5000 für 5 Sekunden)
+        }, 8000); // Dauer in Millisekunden (z.B. 5000 für 5 Sekunden)
     }
 
     resetInactivityTimer() {
+        if (isGameover) return;
         clearTimeout(this.inactivityTimer); // Stoppe den aktuellen Timer   
-        if (this.isSleeping) { 
+        if (this.isSleeping) {
             this.isSleeping = false; // Setze den Status auf nicht schlafen
-            gameSounds.stopSnoringPenguinSound();   
+            gameSounds.stopSnoringPenguinSound();
         }
         this.startInactivityTimer(); // Starte den Timer erneut
     }
 
-    playDeadAnimation(isWin) {
+    checkPenguinHealth() {
+        if (this.penguin.energy <= 0 && !this.penguin.isDead) {
+            this.penguin.isDead = true; // Setze isDead auf true
+            this.penguin.playDeadAnimation(); // Spiele die Todesanimation des Pinguins
+        }
+    }
+
+    playDeadAnimation() {
         let deadAnimationPenguinInterval = setInterval(() => {
             if (this.isDead) {
                 this.playAnimation(this.IMAGES_DEAD);
                 this.speed = 0;
             }
         }, 2500 / 60);
-        setTimeout(() => {
-            stopGame();
-        }, 200);
+
+        setTimeout(() => { stopGame(); }, 200);
         gameIntervals.push(deadAnimationPenguinInterval);
+
         setTimeout(() => {
-            showEndScreen(isWin);
+            showEndScreen(false); // Zeige den Verlustbildschirm
             gameSounds.playLoseSound();
         }, 600);
     }
