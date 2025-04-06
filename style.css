@@ -57,11 +57,16 @@ canvas {
 }
 
 .start-container {
-    position: relative;
-    height: 70%;
+    position: fixed;
     width: 60%;
+    max-width: 800px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    overflow: hidden;
     background-color: rgb(119, 193, 231, 0.8);
     border-radius: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
 .directions {
@@ -99,9 +104,11 @@ h2 {
 }
 
 .about-game {
-    width: 90%;
+    width: 85%;
     height: 80%;
-    overflow-y: auto;
+    max-height: 300px;
+    max-width: 600px;
+    overflow-y: scroll;
     margin-left: 40px;
     padding-right: 12px;
 }
@@ -164,7 +171,7 @@ td {
 .impressum-information {
     width: 90%;
     height: 80%;
-    margin-left: 100px;
+    margin-left: 40px;
     padding-right: 12px;
 }
 
@@ -179,11 +186,13 @@ td {
     width: 100%;
     height: 100%;
     color: black;
-    visibility: hidden; /* Standardmäßig unsichtbar */
+    visibility: hidden;
+    /* Standardmäßig unsichtbar */
 }
 
 .end-screen-container.active {
-    visibility: visible; /* Sichtbar machen, wenn aktiv */
+    visibility: visible;
+    /* Sichtbar machen, wenn aktiv */
 }
 
 .win-container,
@@ -347,6 +356,10 @@ td {
 
     .btns-container {
         display: flex;
+    }
+
+    .about-game {
+        max-height: 300px;
     }
 }
 
