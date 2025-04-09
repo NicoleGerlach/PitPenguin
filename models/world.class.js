@@ -5,8 +5,8 @@ class World {
     endboss = level1.endboss;
     backgroundObjects = level1.backgroundObjects;
     poisonBottles = level1.poison;
-    coin = level1.coin
-    heart = level1.heart
+    coin = level1.coin;
+    heart = level1.heart;
     canvas;
     ctx;
     keyboard;
@@ -47,6 +47,9 @@ class World {
         gameIntervals.push(runInterval);
     }
 
+    /**
+     * This function check if the pangion can throw poison bottles. When the user push D and es sind poison bottles vorhanden, kann geworfen werden.
+     */
     checkThrowObjects() {
         if (this.keyboard.D && this.penguin.poison > 0) {
             this.throwBottle();
@@ -95,7 +98,6 @@ class World {
 
     checkEndbossCollisionWithPoison() {
         if (this.throwableObjects.length === 0) return;
-    
         this.throwableObjects.forEach((poison) => {
             if (this.endboss.isCollidingWithPoison(poison)) {   
                 this.endboss.hit();
@@ -181,6 +183,7 @@ class World {
         this.ctx.translate(this.camera_x, 0);
         this.addObjectsToMap(this.level.enemies);
         this.addObjectsToMap(this.poisonBottles);
+        this.addObjectsToMap(this.level.heart);
         this.addObjectsToMap(this.level.coin);
         this.addObjectsToMap(this.throwableObjects);
         this.addToMap(this.level.endboss);
@@ -221,6 +224,11 @@ class World {
         mo.x = mo.x * -1;
     }
 
+    /**
+     * This function remove the collected coin from the canvas and splice it out of the array.
+     * 
+     * @param {variable for a path} coin 
+     */
     removeCoin(coin) {
         const indexOfCoin = this.level.coin.indexOf(coin);
         if (indexOfCoin > -1) {
@@ -228,6 +236,11 @@ class World {
         }
     }
 
+    /**
+     * This function remove the collected heart from the canvas and splice it out of the array.
+     * 
+     * @param {variable for a path} heart 
+     */
     removeHeart(heart) {
         const indexOfHeart = this.level.heart.indexOf(heart);
         if (indexOfHeart > -1 && this.penguin.energy < 100) {
@@ -235,6 +248,11 @@ class World {
         }
     }
 
+    /**
+     * This function remove the killed enemy from the canvas and splice it out of the array.
+     * 
+     * @param {varable for a path} enemy 
+     */
     removeEnemy(enemy) {
         const indexOfEnemy = this.level.enemies.indexOf(enemy);
         if (indexOfEnemy > -1) {

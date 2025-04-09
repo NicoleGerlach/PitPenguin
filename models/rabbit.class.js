@@ -1,3 +1,4 @@
+
 class Rabbit extends MovableObject {
     y = 240;
     IMAGES_WALKING = [
@@ -31,11 +32,10 @@ class Rabbit extends MovableObject {
     }
 
     animate() {
-        let interval = setInterval(() => {
+        let animateRabbits = setInterval(() => {
             this.moveLeft();
             this.playAnimation(this.IMAGES_WALKING);
         }, 60);
-        console.log('Id vom Intervall rabbit ist:', interval);
     }
 
     drawFrame(ctx) {

@@ -2,9 +2,9 @@
 class ThrowableObject extends MovableObject {
 
     offset = {
-        top: 20,
-        left: 50,
-        right: 20,
+        top: 0,
+        left: 0,
+        right: 0,
         bottom: 0
     }
 

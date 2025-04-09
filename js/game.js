@@ -16,7 +16,7 @@ function init() {
     world = new World(canvas, keyboard);
     mobileButtonsTouched();
     mobileButtonsNotTouched();
-    showMobileButtons();
+    // showMobileButtons();
 }
 
 function stopGame() {
@@ -35,17 +35,17 @@ function showEndScreen(isWin) {
     endScreenContainer.classList.add('active'); // Zeige den Endscreen an
 }
 
-function showMobileButtons() {
+/* function showMobileButtons() {
     let btnsContainer = document.getElementById('btnsContainer');
     if (window.innerWidth < 915) {
         btnsContainer.classList.remove('d-none'); // Entferne die Klasse d-none
     } else {
         btnsContainer.classList.add('d-none'); // Füge die Klasse d-none hinzu
     }
-}
+} */
 
 // Event-Listener für Fenstergrößenänderungen
-window.addEventListener('resize', showMobileButtons);
+// window.addEventListener('resize', showMobileButtons);
 
 window.addEventListener("keydown", (e) => {
     if (e.keyCode == 39) {
@@ -127,14 +127,14 @@ function mobileButtonsNotTouched() {
     });
 }
 
-function checkScreen() {
+/* function checkScreen() {
     const screen = document.getElementById('rotateScreen')
     if (window.innerWidth < window.innerHeight && window.innerWidth < 1000) {
         screen.classList.remove('d-none');
     } else {
         screen.classList.add('d-none');
     }
-}
+} */
 
 function showInfoBox() {
     const instructionsBox = document.getElementById('instructionsBox');
@@ -144,10 +144,10 @@ function showInfoBox() {
 function showInfoBox() {
     const instructionsBox = document.getElementById('instructionsBox');
     instructionsBox.innerHTML += generateInfoBoxHtml();
-    checkScreen();
+    // checkScreen();
 }
 
-window.addEventListener("resize", checkScreen);
+// window.addEventListener("resize", checkScreen);
 
 function startGame() {
     const startScreen = document.getElementById('startScreen');
@@ -157,7 +157,7 @@ function startGame() {
     canvas.classList.remove('d-none');
     headline.classList.remove('d-none');
     init();
-    showMobileButtons();
+    // showMobileButtons();
     showGameButtons();
     gameSounds.playBackgroundSound();
 }
@@ -263,4 +263,3 @@ function toggleMuteImg() {
         muteButton.src = 'img/unmute.png'; // Bild auf "Unmute" ändern
     }
 }
-
