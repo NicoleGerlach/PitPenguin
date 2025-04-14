@@ -5,10 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pit Peguin</title>
-    <link rel="icon" type="image/x-icon" href="img/Penguin/Character09/Penguin.png">
-    <link rel="stylesheet" href="./css/font.css">
+    <link rel="icon" type="image/x-icon" href="./assets/img/Penguin/Character09/Penguin.png">
     <link rel="stylesheet" href="./css/style.css">
-    <link rel="stylesheet" href="./css/media-queries.css">
+    <link rel="stylesheet" href="./css/fonts.css">
+    <link rel="stylesheet" href="./css/media_queries.css">
+    <link rel="stylesheet" href="./css/reset_stylesheet.css">
     <script src="models/drawableObject.class.js"></script>
     <script src="models/movableObject.class.js"></script>
     <script src="js/templates.js"></script>
@@ -32,38 +33,40 @@
     <script src="js/game.js"></script>
 </head>
 
-<body onload="showInfoBox()">
-    <div id="rotateScreen" class="rotate-screen"> Please rotate your screen. </div>
+<body onload="init()">
     <div id="fullscreen" class="fullscreen">
-        <h1 id="headline" class="d-none">Pit Penguin</h1>
-        <div id="gameScreen" class="game-screen">
-            <canvas id="canvas" width="720px" height="480px" class="d-none"></canvas>
+        <div id="endScreen" class="end-screen"></div>
+        <h1 class="headline">Pit Penguin</h1>
+        <div class="game-screen">
+            <canvas id="canvas" width="720" height="480" class="d-none"></canvas>
             <div id="gameButtons" class="game-buttons d-none">
-                <img onclick="showFullsrceen(), toggleFullscreenImg()" id="fullscreenImg" src="img/fullscreen.png" height="50">
-                <img onclick="toggleMuteImg()" id="mute" src="img/unmute.png" height="50">
+                <img onclick="handleFullscreenToggle()" id="fullscreenImg" src="./assets/img/fullscreen.png"
+                    height="50">
+                <img onclick="toggleMuteImg()" id="mute" src="./assets/img/unmute.png" height="50">
             </div>
             <div id="btnsContainer" class="btns-container d-none">
                 <div class="btns-left-side">
-                    <img id="btnLeft" src="img/btn-left.png">
-                    <img id="btnRight" src="img/btn-right.png">
+                    <img id="btnLeft" src="./assets/img/btn-left.png" width="60">
+                    <img id="btnJump" src="./assets/img/btn-jump.png" width="60">
                 </div>
                 <div class="btns-right-side">
-                    <img id="btnJump" src="img/btn-jump.png">
-                    <img id="btnPoison" src="img/btn-poison.png">
+                    <img id="btnPoison" src="./assets/img/btn-poison.png" width="60">
+                    <img id="btnRight" src="./assets/img/btn-right.png" width="60">
+                </div>
+            </div>
+            <div id="startScreen" class="start-screen">
+                <div class="start-container">
+                    <div id="h2_headline" class="headline">
+                        <img onclick="backToMainScreen()" id="arrow_back" src="./assets/img/backwards.png"
+                            class="d-none">
+                        <h2>Pit Penguin</h2>
+                    </div>
+                    <div id="instructionsBox" class="instructions-box"></div>
                 </div>
             </div>
         </div>
-        <div id="startScreen" class="start-screen">
-            <div class="start-container">
-                <div class="headline">
-                    <img src="img/backwards.png" onclick="backToMainScreen()" id="arrow_back" class="d-none">
-                    <h2>Pit Penguin</h2>
-                </div>
-                <div id="instructionsBox" class="instructions-box">
-                </div>
-            </div>
-        </div>
-        <div id="endScreenContainer" class="end-screen-container"></div>
+        <div class="rotate-screen"> Please rotate your device. </div>
+    </div>
 </body>
 
 </html>

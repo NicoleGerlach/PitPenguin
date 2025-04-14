@@ -5,12 +5,12 @@ class StatusBarHeart extends DrawableObject {
     height = 50;
     width = 190;
     IMAGES = [
-        'img/StatusBarHeart/0_ .png',
-        'img/StatusBarHeart/20__1.png',
-        'img/StatusBarHeart/40_ .png',
-        'img/StatusBarHeart/60_ .png',
-        'img/StatusBarHeart/80_ .png',
-        'img/StatusBarHeart/100_ .png' 
+        'assets/img/StatusBarHeart/0_ .png',
+        'assets/img/StatusBarHeart/20__1.png',
+        'assets/img/StatusBarHeart/40_ .png',
+        'assets/img/StatusBarHeart/60_ .png',
+        'assets/img/StatusBarHeart/80_ .png',
+        'assets/img/StatusBarHeart/100_ .png' 
     ]
 
     percentage = 50;

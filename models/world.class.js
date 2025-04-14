@@ -5,8 +5,8 @@ class World {
     endboss = level1.endboss;
     backgroundObjects = level1.backgroundObjects;
     poisonBottles = level1.poison;
-    coin = level1.coin
-    heart = level1.heart
+    coin = level1.coin;
+    heart = level1.heart;
     canvas;
     ctx;
     keyboard;
@@ -182,6 +182,7 @@ class World {
         this.addObjectsToMap(this.level.enemies);
         this.addObjectsToMap(this.poisonBottles);
         this.addObjectsToMap(this.level.coin);
+        this.addObjectsToMap(this.level.heart);
         this.addObjectsToMap(this.throwableObjects);
         this.addToMap(this.level.endboss);
         this.addToMap(this.penguin);

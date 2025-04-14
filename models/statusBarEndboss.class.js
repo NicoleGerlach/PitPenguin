@@ -5,12 +5,12 @@ class StatusBarEndboss extends DrawableObject {
     height = 50;
     width = 50;
     IMAGES_HEART = [
-        'img/Enemy/heartEndboss.png',
-        'img/Enemy/heartEndboss.png',
-        'img/Enemy/heartEndboss.png',
-        'img/Enemy/heartEndboss.png'
+        'assets/img/Enemy/heartEndboss.png',
+        'assets/img/Enemy/heartEndboss.png',
+        'assets/img/Enemy/heartEndboss.png',
+        'assets/img/Enemy/heartEndboss.png'
     ];
-    IMAGE_BROKENHEART = 'img/Enemy/heartEndbossLost.png';
+    IMAGE_BROKENHEART = 'assets/img/Enemy/heartEndbossLost.png';
     heartStatus = [true, true, true, true];
 
     constructor() {

@@ -14,61 +14,61 @@ class Endboss extends MovableObject {
   playedDeath = false;
 
   IMAGES_Walking = [
-    'img/Enemy/Walking/0_Elementals_Walking_000.png',
-    'img/Enemy/Walking/0_Elementals_Walking_001.png',
-    'img/Enemy/Walking/0_Elementals_Walking_002.png',
-    'img/Enemy/Walking/0_Elementals_Walking_003.png',
-    'img/Enemy/Walking/0_Elementals_Walking_004.png',
-    'img/Enemy/Walking/0_Elementals_Walking_005.png',
-    'img/Enemy/Walking/0_Elementals_Walking_006.png',
-    'img/Enemy/Walking/0_Elementals_Walking_007.png',
-    'img/Enemy/Walking/0_Elementals_Walking_008.png',
-    'img/Enemy/Walking/0_Elementals_Walking_009.png',
-    'img/Enemy/Walking/0_Elementals_Walking_010.png',
-    'img/Enemy/Walking/0_Elementals_Walking_011.png',
-    'img/Enemy/Walking/0_Elementals_Walking_012.png',
-    'img/Enemy/Walking/0_Elementals_Walking_013.png',
-    'img/Enemy/Walking/0_Elementals_Walking_014.png',
-    'img/Enemy/Walking/0_Elementals_Walking_015.png',
-    'img/Enemy/Walking/0_Elementals_Walking_016.png',
-    'img/Enemy/Walking/0_Elementals_Walking_017.png',
-    'img/Enemy/Walking/0_Elementals_Walking_018.png',
-    'img/Enemy/Walking/0_Elementals_Walking_019.png',
-    'img/Enemy/Walking/0_Elementals_Walking_020.png',
-    'img/Enemy/Walking/0_Elementals_Walking_021.png',
-    'img/Enemy/Walking/0_Elementals_Walking_022.png',
-    'img/Enemy/Walking/0_Elementals_Walking_023.png'
+    'assets/img/Enemy/Walking/0_Elementals_Walking_000.png',
+    'assets/img/Enemy/Walking/0_Elementals_Walking_001.png',
+    'assets/img/Enemy/Walking/0_Elementals_Walking_002.png',
+    'assets/img/Enemy/Walking/0_Elementals_Walking_003.png',
+    'assets/img/Enemy/Walking/0_Elementals_Walking_004.png',
+    'assets/img/Enemy/Walking/0_Elementals_Walking_005.png',
+    'assets/img/Enemy/Walking/0_Elementals_Walking_006.png',
+    'assets/img/Enemy/Walking/0_Elementals_Walking_007.png',
+    'assets/img/Enemy/Walking/0_Elementals_Walking_008.png',
+    'assets/img/Enemy/Walking/0_Elementals_Walking_009.png',
+    'assets/img/Enemy/Walking/0_Elementals_Walking_010.png',
+    'assets/img/Enemy/Walking/0_Elementals_Walking_011.png',
+    'assets/img/Enemy/Walking/0_Elementals_Walking_012.png',
+    'assets/img/Enemy/Walking/0_Elementals_Walking_013.png',
+    'assets/img/Enemy/Walking/0_Elementals_Walking_014.png',
+    'assets/img/Enemy/Walking/0_Elementals_Walking_015.png',
+    'assets/img/Enemy/Walking/0_Elementals_Walking_016.png',
+    'assets/img/Enemy/Walking/0_Elementals_Walking_017.png',
+    'assets/img/Enemy/Walking/0_Elementals_Walking_018.png',
+    'assets/img/Enemy/Walking/0_Elementals_Walking_019.png',
+    'assets/img/Enemy/Walking/0_Elementals_Walking_020.png',
+    'assets/img/Enemy/Walking/0_Elementals_Walking_021.png',
+    'assets/img/Enemy/Walking/0_Elementals_Walking_022.png',
+    'assets/img/Enemy/Walking/0_Elementals_Walking_023.png'
   ];
   IMAGES_HURT = [
-    'img/Enemy/Hurt/0_Elementals_Hurt_000.png',
-    'img/Enemy/Hurt/0_Elementals_Hurt_001.png',
-    'img/Enemy/Hurt/0_Elementals_Hurt_002.png',
-    'img/Enemy/Hurt/0_Elementals_Hurt_003.png',
-    'img/Enemy/Hurt/0_Elementals_Hurt_004.png',
-    'img/Enemy/Hurt/0_Elementals_Hurt_005.png',
-    'img/Enemy/Hurt/0_Elementals_Hurt_006.png',
-    'img/Enemy/Hurt/0_Elementals_Hurt_007.png',
-    'img/Enemy/Hurt/0_Elementals_Hurt_008.png',
-    'img/Enemy/Hurt/0_Elementals_Hurt_009.png',
-    'img/Enemy/Hurt/0_Elementals_Hurt_010.png',
-    'img/Enemy/Hurt/0_Elementals_Hurt_011.png'
+    'assets/img/Enemy/Hurt/0_Elementals_Hurt_000.png',
+    'assets/img/Enemy/Hurt/0_Elementals_Hurt_001.png',
+    'assets/img/Enemy/Hurt/0_Elementals_Hurt_002.png',
+    'assets/img/Enemy/Hurt/0_Elementals_Hurt_003.png',
+    'assets/img/Enemy/Hurt/0_Elementals_Hurt_004.png',
+    'assets/img/Enemy/Hurt/0_Elementals_Hurt_005.png',
+    'assets/img/Enemy/Hurt/0_Elementals_Hurt_006.png',
+    'assets/img/Enemy/Hurt/0_Elementals_Hurt_007.png',
+    'assets/img/Enemy/Hurt/0_Elementals_Hurt_008.png',
+    'assets/img/Enemy/Hurt/0_Elementals_Hurt_009.png',
+    'assets/img/Enemy/Hurt/0_Elementals_Hurt_010.png',
+    'assets/img/Enemy/Hurt/0_Elementals_Hurt_011.png'
   ];
   IMAGES_DEAD = [
-    'img/Enemy/Dying/0_Elementals_Dying_000.png',
-    'img/Enemy/Dying/0_Elementals_Dying_001.png',
-    'img/Enemy/Dying/0_Elementals_Dying_002.png',
-    'img/Enemy/Dying/0_Elementals_Dying_003.png',
-    'img/Enemy/Dying/0_Elementals_Dying_004.png',
-    'img/Enemy/Dying/0_Elementals_Dying_005.png',
-    'img/Enemy/Dying/0_Elementals_Dying_006.png',
-    'img/Enemy/Dying/0_Elementals_Dying_007.png',
-    'img/Enemy/Dying/0_Elementals_Dying_008.png',
-    'img/Enemy/Dying/0_Elementals_Dying_009.png',
-    'img/Enemy/Dying/0_Elementals_Dying_010.png',
-    'img/Enemy/Dying/0_Elementals_Dying_011.png',
-    'img/Enemy/Dying/0_Elementals_Dying_012.png',
-    'img/Enemy/Dying/0_Elementals_Dying_013.png',
-    'img/Enemy/Dying/0_Elementals_Dying_014.png'
+    'assets/img/Enemy/Dying/0_Elementals_Dying_000.png',
+    'assets/img/Enemy/Dying/0_Elementals_Dying_001.png',
+    'assets/img/Enemy/Dying/0_Elementals_Dying_002.png',
+    'assets/img/Enemy/Dying/0_Elementals_Dying_003.png',
+    'assets/img/Enemy/Dying/0_Elementals_Dying_004.png',
+    'assets/img/Enemy/Dying/0_Elementals_Dying_005.png',
+    'assets/img/Enemy/Dying/0_Elementals_Dying_006.png',
+    'assets/img/Enemy/Dying/0_Elementals_Dying_007.png',
+    'assets/img/Enemy/Dying/0_Elementals_Dying_008.png',
+    'assets/img/Enemy/Dying/0_Elementals_Dying_009.png',
+    'assets/img/Enemy/Dying/0_Elementals_Dying_010.png',
+    'assets/img/Enemy/Dying/0_Elementals_Dying_011.png',
+    'assets/img/Enemy/Dying/0_Elementals_Dying_012.png',
+    'assets/img/Enemy/Dying/0_Elementals_Dying_013.png',
+    'assets/img/Enemy/Dying/0_Elementals_Dying_014.png'
   ];
 
   offset = {
@@ -79,7 +79,7 @@ class Endboss extends MovableObject {
   }
 
   constructor() {
-    super().loadImage('img/Enemy/Walking/0_Elementals_Walking_000.png');
+    super().loadImage('assets/img/Enemy/Walking/0_Elementals_Walking_000.png');
     this.loadImages(this.IMAGES_Walking);
     this.loadImages(this.IMAGES_HURT);
     this.loadImages(this.IMAGES_DEAD);
@@ -140,11 +140,11 @@ class Endboss extends MovableObject {
     }, 600);
   }
 
-  drawFrame(ctx) {
-    ctx.beginPath();
-    ctx.lineWidth = "5";
-    ctx.strokeStyle = "blue";
-    ctx.rect(this.x + 150, this.y + 115, this.width - 305, this.height - 200);
-    ctx.stroke();
-  }
+  // drawFrame(ctx) {
+  //   ctx.beginPath();
+  //   ctx.lineWidth = "5";
+  //   ctx.strokeStyle = "blue";
+  //   ctx.rect(this.x + 150, this.y + 115, this.width - 305, this.height - 200);
+  //   ctx.stroke();
+  // }
 }

@@ -1,0 +1,26 @@
+@media (orientation: portrait) {
+  .rotate-screen {
+    display: flex !important;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .game-screen,
+  .start-screen,
+  .end-screen-container,
+  .game-buttons,
+  .btns-container,
+  canvas {
+    display: none !important;
+  }
+}
+
+@media (min-width: 64em) {
+  .game-started h1.headline {
+    display: block;
+  }
+
+  .mobile-buttons-active {
+    display: none;
+  }
+}

@@ -6,12 +6,12 @@ class StatusBarPoison extends DrawableObject {
     width = 190;
 
     IMAGES = [
-        'img/StatusBarBottle/0_.png',
-        'img/StatusBarBottle/20_.png',
-        'img/StatusBarBottle/40_.png',
-        'img/StatusBarBottle/60_.png',
-        'img/StatusBarBottle/80_.png',
-        'img/StatusBarBottle/100_.png'
+        'assets/img/StatusBarBottle/0_.png',
+        'assets/img/StatusBarBottle/20_.png',
+        'assets/img/StatusBarBottle/40_.png',
+        'assets/img/StatusBarBottle/60_.png',
+        'assets/img/StatusBarBottle/80_.png',
+        'assets/img/StatusBarBottle/100_.png'
     ]
 
     percentage = 0;

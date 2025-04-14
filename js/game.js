@@ -3,30 +3,111 @@ let canvas;
 let world;
 let keyboard = new Keyboard();
 let gameSounds = new GameSounds();
-
 let gameIntervals = [];
 let isMute = false;
 let isFullscreen = false;
-let isGameover = false;
-
+let isGameActive = false;
 
 function init() {
     canvas = document.getElementById('canvas');
     setLevel();
     world = new World(canvas, keyboard);
-    mobileButtonsTouched();
-    mobileButtonsNotTouched();
+    showInfoBox();
+}
+
+function showInfoBox() {
+    const instructionsBox = document.getElementById('instructionsBox');
+    instructionsBox.innerHTML += generateInfoBoxHtml();
+}
+
+function handleFullscreenToggle() {
+    showFullscreen();
+    toggleFullscreenImg();
+}
+
+function showFullscreen() {
+    const elem = document.documentElement;
+    (elem.requestFullscreen || elem.webkitRequestFullscreen).call(elem);
+}
+
+function showHeadlineInDesktopMode() {
+    document.querySelector('.fullscreen').classList.add('game-started');
+}
+
+function startGame() {
+    const startScreen = document.getElementById('startScreen');
+    const canvas = document.getElementById('canvas');
+    startScreen.classList.add('d-none');
+    canvas.classList.remove('d-none');
+    showHeadlineInDesktopMode();
+    init();
     showMobileButtons();
+    showGameButtons();
+    gameSounds.playBackgroundSound();
+    isGameActive = true;
+}
+
+function showContent(content) {
+    const arrowBack = document.getElementById('arrow_back');
+    const instructionsBox = document.getElementById('instructionsBox');
+    const h2Headline = document.getElementById('h2_headline');
+    instructionsBox.innerHTML = '';
+    if (content === 'startGame') {
+        startGame();
+    } else if (content === 'howToPlay') {
+        instructionsBox.innerHTML = generateAboutGameHtml();
+        h2Headline.classList.add('active');
+        arrowBack.classList.remove('d-none');
+    } else if (content === 'imprint') {
+        instructionsBox.innerHTML = generateImprintHtml();
+        h2Headline.classList.add('active');
+        arrowBack.classList.remove('d-none');
+    }
+}
+
+function backToMainScreen() {
+    const arrowBack = document.getElementById('arrow_back');
+    const instructionsBox = document.getElementById('instructionsBox');
+    const h2Headline = document.getElementById('h2_headline');
+    instructionsBox.innerHTML = '';
+    showInfoBox();
+    h2Headline.classList.remove('active');
+    arrowBack.classList.add('d-none');
+}
+
+function showGameButtons() {
+    const gameButtons = document.getElementById('gameButtons');
+    gameButtons.classList.remove('d-none');
+    gameButtons.classList.add('game-buttons-active');
+}
+
+function hideGameButtons() {
+    const gameButtons = document.getElementById('gameButtons');
+    gameButtons.classList.add('d-none');
+    gameButtons.classList.remove('game-buttons-active');
+}
+
+function showMobileButtons() {
+    const container = document.getElementById('btnsContainer');
+    container.classList.remove('d-none');
+    container.classList.add('mobile-buttons-active');
+}
+
+function hideMobileButtons() {
+    const container = document.getElementById('btnsContainer');
+    container.classList.remove('mobile-buttons-active');
+    container.classList.add('d-none');
 }
 
 function stopGame() {
-    isGameover = true;
+    isGameActive = false;
     gameIntervals.forEach(intervalId => clearInterval(intervalId)); // Stoppe alle Intervalle
     stopSound();
 }
 
 function showEndScreen(isWin) {
-    const endScreenContainer = document.getElementById('endScreenContainer');
+    hideGameButtons();
+    const endScreenContainer = document.getElementById('endScreen');
     if (isWin) {
         endScreenContainer.innerHTML = generateWinScreenHtml(); // Generiere den Gewinnbildschirm
     } else {
@@ -35,17 +116,67 @@ function showEndScreen(isWin) {
     endScreenContainer.classList.add('active'); // Zeige den Endscreen an
 }
 
-/* function showMobileButtons() {
-    let btnsContainer = document.getElementById('btnsContainer');
-    if (window.innerWidth < 915) {
-        btnsContainer.classList.remove('d-none'); // Entferne die Klasse d-none
-    } else {
-        btnsContainer.classList.add('d-none'); // Füge die Klasse d-none hinzu
-    }
-} */
+function playAgain() {
+    const endScreenContainer = document.getElementById('endScreen');
+    endScreenContainer.classList.remove('active'); // Entferne die aktive Klasse
+    endScreenContainer.innerHTML = ''; // Leere den Container
+    startGame(); // Starte das Spiel erneut
+}
 
-// Event-Listener für Fenstergrößenänderungen
-// window.addEventListener('resize', showMobileButtons);
+function exitFullscreen() {
+    if (document.exitFullscreen) {
+        document.exitFullscreen();
+    } else if (document.webkitExitFullscreen) {
+        document.webkitExitFullscreen();
+    }
+}
+
+function toggleFullscreenImg() {
+    let fullscreenImg = document.getElementById('fullscreenImg');
+    if (isFullscreen === false) { // Wenn wir nicht im Vollbild sind
+        fullscreenImg.src = './assets/img/exit-fullscreen.png'; // Bild auf "Exit Fullscreen" ändern
+        showFullscreen(); // Vollbildmodus aktivieren
+    } else { // Wenn wir im Vollbild sind
+        exitFullscreen(); // Verlasse den Vollbildmodus
+    }
+}
+
+// Event Listener für Änderungen des Vollbildmodus
+document.addEventListener('fullscreenchange', () => {
+    isFullscreen = !!document.fullscreenElement; // Aktualisiere den Status basierend auf dem aktuellen Zustand
+    let fullscreenImg = document.getElementById('fullscreenImg');
+    if (isFullscreen) {
+        fullscreenImg.src = './assets/img/exit-fullscreen.png'; // Bild auf "Exit Fullscreen" ändern
+    } else {
+        fullscreenImg.src = './assets/img/fullscreen.png'; // Bild auf "Vollbild" ändern
+    }
+});
+
+function playSound() {
+    if (isMute == false) {
+        gameSounds.playBackgroundSound();
+        gameSounds.playBackgroundSound.currentTime = 0;
+    }
+}
+
+function stopSound() {
+    gameSounds.stopBackgroundSound();
+    gameSounds.stopWalkingPenguinSound();
+    gameSounds.stopJumpingPenguinSound();
+    gameSounds.stopHurtPenguinSound();
+    gameSounds.stopSnoringPenguinSound();
+    gameSounds.stopHurtEndbossSound();
+}
+
+function toggleMuteImg() {
+    let muteButton = document.getElementById('mute');
+    gameSounds.toggleMuteSound();
+    if (gameSounds.isMute) {
+        muteButton.src = './assets/img/mute.png'; // Bild auf "Mute" ändern
+    } else {
+        muteButton.src = './assets/img/unmute.png'; // Bild auf "Unmute" ändern
+    }
+}
 
 window.addEventListener("keydown", (e) => {
     if (e.keyCode == 39) {
@@ -126,141 +257,3 @@ function mobileButtonsNotTouched() {
         keyboard.D = false;
     });
 }
-
-/* function checkScreen() {
-    const screen = document.getElementById('rotateScreen')
-    if (window.innerWidth < window.innerHeight && window.innerWidth < 1000) {
-        screen.classList.remove('d-none');
-    } else {
-        screen.classList.add('d-none');
-    }
-} */
-
-function showInfoBox() {
-    const instructionsBox = document.getElementById('instructionsBox');
-    instructionsBox.innerHTML += generateInfoBoxHtml();
-}
-
-function showInfoBox() {
-    const instructionsBox = document.getElementById('instructionsBox');
-    instructionsBox.innerHTML += generateInfoBoxHtml();
-    // checkScreen();
-}
-
-// window.addEventListener("resize", checkScreen);
-
-function startGame() {
-    const startScreen = document.getElementById('startScreen');
-    const canvas = document.getElementById('canvas');
-    const headline = document.getElementById('headline');
-    startScreen.classList.add('d-none');
-    canvas.classList.remove('d-none');
-    headline.classList.remove('d-none');
-    init();
-    showMobileButtons();
-    showGameButtons();
-    gameSounds.playBackgroundSound();
-}
-
-function playAgain() {
-    const endScreenContainer = document.getElementById('endScreenContainer');
-    endScreenContainer.classList.remove('active'); // Entferne die aktive Klasse
-    endScreenContainer.innerHTML = ''; // Leere den Container
-    startGame(); // Starte das Spiel erneut
-}
-
-function showContent(content) {
-    const arrowBack = document.getElementById('arrow_back');
-    const instructionsBox = document.getElementById('instructionsBox');
-    instructionsBox.innerHTML = '';
-    if (content === 'startGame') {
-        startGame();
-    } else if (content === 'howToPlay') {
-        instructionsBox.innerHTML = generateAboutGameHtml();
-        arrowBack.classList.remove('d-none');
-    } else if (content === 'imprint') {
-        instructionsBox.innerHTML = generateImprintHtml();
-        arrowBack.classList.remove('d-none');
-    }
-}
-
-function showGameButtons() {
-    let gameButtons = document.getElementById('gameButtons');
-    gameButtons.classList.remove('d-none');
-    gameButtons.style.display = 'flex';
-}
-
-function backToMainScreen() {
-    const arrowBack = document.getElementById('arrow_back');
-    const instructionsBox = document.getElementById('instructionsBox');
-    instructionsBox.innerHTML = '';
-    showInfoBox();
-    arrowBack.classList.add('d-none');
-}
-
-function showFullsrceen() {
-    let elem = document.documentElement; // Das gesamte Dokument
-    if (elem.requestFullscreen) {
-        elem.requestFullscreen();
-    } else if (elem.webkitRequestFullscreen) { // Safari
-        elem.webkitRequestFullscreen();
-    } else if (elem.msRequestFullscreen) { // IE/Edge
-        elem.msRequestFullscreen();
-    }
-}
-
-function exitFullscreen() {
-    if (document.exitFullscreen) {
-        document.exitFullscreen();
-    } else if (document.webkitExitFullscreen) {
-        document.webkitExitFullscreen();
-    }
-}
-
-function toggleFullscreenImg() {
-    let fullscreenImg = document.getElementById('fullscreenImg');
-    if (isFullscreen === false) { // Wenn wir nicht im Vollbild sind
-        fullscreenImg.src = 'img/exit-fullscreen.png'; // Bild auf "Exit Fullscreen" ändern
-        showFullsrceen(); // Vollbildmodus aktivieren
-    } else { // Wenn wir im Vollbild sind
-        exitFullscreen(); // Verlasse den Vollbildmodus
-    }
-}
-
-// Event Listener für Änderungen des Vollbildmodus
-document.addEventListener('fullscreenchange', () => {
-    isFullscreen = !!document.fullscreenElement; // Aktualisiere den Status basierend auf dem aktuellen Zustand
-    let fullscreenImg = document.getElementById('fullscreenImg');
-    if (isFullscreen) {
-        fullscreenImg.src = 'img/exit-fullscreen.png'; // Bild auf "Exit Fullscreen" ändern
-    } else {
-        fullscreenImg.src = 'img/fullscreen.png'; // Bild auf "Vollbild" ändern
-    }
-});
-
-function playSound() {
-    if (isMute == false) {
-        gameSounds.playBackgroundSound();
-        gameSounds.playBackgroundSound.currentTime = 0;
-    }
-}
-
-function stopSound() {
-    gameSounds.stopBackgroundSound();
-    gameSounds.stopWalkingPenguinSound();
-    gameSounds.stopJumpingPenguinSound();
-    gameSounds.stopHurtPenguinSound();
-    gameSounds.stopSnoringPenguinSound();
-    gameSounds.stopHurtEndbossSound();
-}
-
-function toggleMuteImg() {
-    let muteButton = document.getElementById('mute');
-    gameSounds.toggleMuteSound();
-    if (gameSounds.isMute) {
-        muteButton.src = 'img/mute.png'; // Bild auf "Mute" ändern
-    } else {
-        muteButton.src = 'img/unmute.png'; // Bild auf "Unmute" ändern
-    }
-}
-

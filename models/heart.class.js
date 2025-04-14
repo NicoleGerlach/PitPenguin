@@ -15,10 +15,10 @@ class Heart extends MovableObject {
         this.y = y;
     }
 
-        drawFrame(ctx) {
-        ctx.beginPath();
-        ctx.lineWidth = "5";
-        ctx.rect(this.x, this.y, this.width, this.height);
-        ctx.stroke();
-    }
+    //     drawFrame(ctx) {
+    //     ctx.beginPath();
+    //     ctx.lineWidth = "5";
+    //     ctx.rect(this.x, this.y, this.width, this.height);
+    //     ctx.stroke();
+    // }
 }

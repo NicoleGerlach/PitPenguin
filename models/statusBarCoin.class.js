@@ -4,12 +4,12 @@ class StatusBarCoin extends DrawableObject {
     height = 50;
     width = 190;
     IMAGES = [
-        'img/StatusBarCoin/0_ _1.png',
-        'img/StatusBarCoin/20_ .png',
-        'img/StatusBarCoin/40_ _1.png',
-        'img/StatusBarCoin/60_ _1.png',
-        'img/StatusBarCoin/80_ _1.png',
-        'img/StatusBarCoin/100__1.png'
+        'assets/img/StatusBarCoin/0_ _1.png',
+        'assets/img/StatusBarCoin/20_ .png',
+        'assets/img/StatusBarCoin/40_ _1.png',
+        'assets/img/StatusBarCoin/60_ _1.png',
+        'assets/img/StatusBarCoin/80_ _1.png',
+        'assets/img/StatusBarCoin/100__1.png'
     ]
 
     percentage = 20;
