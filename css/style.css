@@ -267,6 +267,7 @@ th {
 }
 
 .coin-box {
+  width: 125px;
   display: grid;
   grid-template-rows: 50px 100px 50px;
   align-items: center;
@@ -274,7 +275,7 @@ th {
 }
 
 .play-again {
-  width: 100px;
+  width: 125px;
   display: grid;
   grid-template-rows: 50px 1fr;
   align-items: center;
