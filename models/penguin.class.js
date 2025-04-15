@@ -278,6 +278,7 @@ class Penguin extends MovableObject {
         }, 600);
     }
 
+    
     // drawFrame(ctx) {
     //     ctx.beginPath();
     //     ctx.lineWidth = "5";

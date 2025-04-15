@@ -1,0 +1,26 @@
+@media (orientation: portrait) {
+  .rotate-screen {
+    display: flex !important;
+    justify-content: center;
+    align-items: center;
+  }
+
+  #gameScreen,
+  #startScreen,
+  #endScreenContainer,
+  #gameButtons,
+  /* #btnsContainer, */
+  canvas {
+    display: none !important;
+  }
+}
+
+@media (min-width: 1000px) {
+  .btns-container {
+    justify-content: space-between;
+    position: absolute;
+    bottom: 12px;
+    left: 15px;
+    right: 15px;
+  }
+}
