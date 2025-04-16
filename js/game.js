@@ -1,4 +1,3 @@
-
 let canvas;
 let world;
 let keyboard = new Keyboard();
@@ -8,6 +7,9 @@ let isMute = false;
 let isFullscreen = false;
 let isGameActive = false;
 
+/**
+ * Initializes the game to start playing.
+ */
 function init() {
     canvas = document.getElementById('canvas');
     setLevel();
@@ -15,16 +17,25 @@ function init() {
     showInfoBox();
 }
 
+/**
+ * Displays the info box by updating the html content.
+ */
 function showInfoBox() {
     const instructionsBox = document.getElementById('instructionsBox');
     instructionsBox.innerHTML += generateInfoBoxHtml();
 }
 
+/**
+ * Toggles the fullscreen mode.
+ */
 function handleFullscreenToggle() {
     showFullscreen();
     toggleFullscreenImg();
 }
 
+/**
+ * Opens fullscreen mode for the entire document.
+ */
 function showFullscreen() {
     const elem = document.documentElement;
     (elem.requestFullscreen || elem.webkitRequestFullscreen).call(elem);

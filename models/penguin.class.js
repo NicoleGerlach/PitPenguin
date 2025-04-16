@@ -152,8 +152,8 @@ class Penguin extends MovableObject {
     }
 
     movePenguin() {
-        this.checkPlayWalkingSound();
-        if (this.canMoveRight())
+        this.checkPlayWalkingSound(); 
+        if (this.canMoveRight()) 
             this.penguinMoveRight();
         if (this.canMoveLeft())
             this.penguinMoveLeft();
@@ -205,26 +205,84 @@ class Penguin extends MovableObject {
     }
 
     animatePenguin() {
-        let hasCollidedWithEnemy = false;
-        if (!this.world.keyboard.LEFT && !this.world.keyboard.RIGHT && !this.world.keyboard.SPACE && !this.world.keyboard.D) {
-            if (!this.isSleeping) {
-                this.playAnimation(this.IMAGES_IDLE);
-                if (!this.inactivityTimer) {
-                    this.startInactivityTimer();
-                }
+        if (this.isHurt()) { // Überprüfe zuerst, ob der Pinguin verletzt ist
+            this.isSleeping = false; // Setze den Schlafzustand zurück
+            this.playAnimation(this.IMAGES_HURT); // Spiele die Verletzungsanimation ab
+            gameSounds.stopSnoringPenguinSound();
+            gameSounds.playHurtPenguinSound();
+            if (this.energy <= 0) {
+                this.playDeadAnimation(); // Rufe die Methode auf, um den Pinguin sterben zu lassen
+                return; // Beende die Methode hier
             }
-        } else {
-            this.resetInactivityTimer();
-            if (this.isDead()) {
+            return; // Beende die Methode hier
+        }
+        if (this.canSleep())
+            this.penguinSleep();
+        else { this.resetInactivityTimer();
+            if (this.isDead()) 
                 this.playDeadAnimation(false);
-            } else if (this.isHurt()) {
+            else if (this.isHurt()) {
+                // this.isSleeping = false;
                 this.playAnimation(this.IMAGES_HURT);
-                if (!hasCollidedWithEnemy) {
-                    gameSounds.playHurtPenguinSound();
-                    hasCollidedWithEnemy = true;
-                }
+                this.penguinHurt();
             } else {
-                hasCollidedWithEnemy = false;
+                this.movingAnimation();
+            }
+        }
+    }
+
+    
+    // animatePenguin() {
+    //     this.checkCondition();
+    //     if (this.canSleep())
+    //         this.penguinSleep();
+    //     else { this.resetInactivityTimer();
+    //         if (this.isDead()) 
+    //             this.playDeadAnimation(false);
+    //         else if (this.isHurt()) {
+    //             this.playAnimation(this.IMAGES_HURT);
+    //             this.penguinHurt();
+    //         } else 
+    //             this.movingAnimation();
+    //     }
+    // }
+
+    // checkCondition() {
+    //     if (this.isHurt()) { // Überprüfe zuerst, ob der Pinguin verletzt ist
+    //         this.isSleeping = false; // Setze den Schlafzustand zurück
+    //         this.playAnimation(this.IMAGES_HURT); // Spiele die Verletzungsanimation ab
+    //         gameSounds.stopSnoringPenguinSound();
+    //         gameSounds.playHurtPenguinSound();
+    //         if (this.energy <= 0) {
+    //             this.playDeadAnimation(); // Rufe die Methode auf, um den Pinguin sterben zu lassen
+    //             return; // Beende die Methode hier
+    //         }
+    //         return; // Beende die Methode hier
+    //     }
+    // }
+
+    canSleep() {
+        return !this.world.keyboard.LEFT && !this.world.keyboard.RIGHT && !this.world.keyboard.SPACE && !this.world.keyboard.D;
+    }
+
+    penguinSleep() {
+        if (!this.isSleeping) {
+            this.playAnimation(this.IMAGES_IDLE);
+            if (!this.inactivityTimer) {
+                this.startInactivityTimer();
+            }
+        }
+    }
+
+    penguinHurt() {
+        let hasCollidedWithEnemy = false;
+        if (!hasCollidedWithEnemy) {
+            gameSounds.playHurtPenguinSound();
+            hasCollidedWithEnemy = true;
+        }
+    }
+
+    movingAnimation() {
                 if (this.isAboveGround()) {
                     this.playAnimation(this.IMAGES_JUMPING);
                 } else {
@@ -232,8 +290,6 @@ class Penguin extends MovableObject {
                         this.playAnimation(this.IMAGES_WALKING);
                     }
                 }
-            }
-        }
     }
 
     startInactivityTimer() {
@@ -256,12 +312,13 @@ class Penguin extends MovableObject {
         this.startInactivityTimer(); // Starte den Timer erneut
     }
 
-    checkPenguinHealth() {
-        if (this.penguin.energy <= 0 && !this.penguin.isDead) {
-            this.penguin.isDead = true; // Setze isDead auf true
-            this.penguin.playDeadAnimation(); // Spiele die Todesanimation des Pinguins
-        }
-    }
+    // checkPenguinHealth() {
+    //     console.log("Energie:", this.energy);
+    //     if (this.penguin.energy <= 0 && !this.penguin.isDead) {
+    //         this.penguin.isDead = true; // Setze isDead auf true
+    //         this.penguin.playDeadAnimation(); // Spiele die Todesanimation des Pinguins
+    //     }
+    // }
 
     playDeadAnimation() {
         let deadAnimationPenguinInterval = setInterval(() => {
