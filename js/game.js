@@ -166,6 +166,8 @@ function startGame() {
   showGameButtons();
   gameSounds.playBackgroundSound();
   isGameActive = true;
+  mobileButtonsTouched();
+  mobileButtonsNotTouched();
 }
 
 /**

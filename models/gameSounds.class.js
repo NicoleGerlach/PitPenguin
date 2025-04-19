@@ -9,16 +9,16 @@ class GameSounds {
    * Variable to indicate whether the sounds ar muted or not.
    */
   constructor() {
-    this.background_sound = new Audio('../assets/audio/background.mp3');
+    this.background_sound = new Audio('./assets/audio/background.mp3');
     this.background_sound.loop = true;
-    this.walking_penguin_sound = new Audio('../assets/audio/walking.mp3');
-    this.jumping_penguin_sound = new Audio('../assets/audio/jump.mp3');
-    this.hurt_penguin_sound = new Audio('../assets/audio/ouch.mp3');
-    this.snoring_penguin_sound = new Audio('../assets/audio/snoring.mp3');
+    this.walking_penguin_sound = new Audio('./assets/audio/walking.mp3');
+    this.jumping_penguin_sound = new Audio('./assets/audio/jump.mp3');
+    this.hurt_penguin_sound = new Audio('./assets/audio/ouch.mp3');
+    this.snoring_penguin_sound = new Audio('./assets/audio/snoring.mp3');
     this.snoring_penguin_sound.loop = true;
-    this.hurt_endboss_sound = new Audio('../assets/audio/orc-grunt.mp3');
-    this.win_sound = new Audio('../assets/audio/win-sound.mp3');
-    this.lose_sound = new Audio('../assets/audio/lose-sound.mp3');
+    this.hurt_endboss_sound = new Audio('./assets/audio/orc-grunt.mp3');
+    this.win_sound = new Audio('./assets/audio/win-sound.mp3');
+    this.lose_sound = new Audio('./assets/audio/lose-sound.mp3');
     this.isMute = false;
   }
 
