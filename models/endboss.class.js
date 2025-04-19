@@ -1,4 +1,7 @@
-
+/**
+ * Represents the final boss enemy in the game.
+ * Handles movement, animations, damage logic and death behavior.
+ */
 class Endboss extends MovableObject {
   height = 500;
   width = 500;
@@ -13,138 +16,83 @@ class Endboss extends MovableObject {
   endbossIsHurt = false;
   playedDeath = false;
 
-  IMAGES_Walking = [
-    'assets/img/Enemy/Walking/0_Elementals_Walking_000.png',
-    'assets/img/Enemy/Walking/0_Elementals_Walking_001.png',
-    'assets/img/Enemy/Walking/0_Elementals_Walking_002.png',
-    'assets/img/Enemy/Walking/0_Elementals_Walking_003.png',
-    'assets/img/Enemy/Walking/0_Elementals_Walking_004.png',
-    'assets/img/Enemy/Walking/0_Elementals_Walking_005.png',
-    'assets/img/Enemy/Walking/0_Elementals_Walking_006.png',
-    'assets/img/Enemy/Walking/0_Elementals_Walking_007.png',
-    'assets/img/Enemy/Walking/0_Elementals_Walking_008.png',
-    'assets/img/Enemy/Walking/0_Elementals_Walking_009.png',
-    'assets/img/Enemy/Walking/0_Elementals_Walking_010.png',
-    'assets/img/Enemy/Walking/0_Elementals_Walking_011.png',
-    'assets/img/Enemy/Walking/0_Elementals_Walking_012.png',
-    'assets/img/Enemy/Walking/0_Elementals_Walking_013.png',
-    'assets/img/Enemy/Walking/0_Elementals_Walking_014.png',
-    'assets/img/Enemy/Walking/0_Elementals_Walking_015.png',
-    'assets/img/Enemy/Walking/0_Elementals_Walking_016.png',
-    'assets/img/Enemy/Walking/0_Elementals_Walking_017.png',
-    'assets/img/Enemy/Walking/0_Elementals_Walking_018.png',
-    'assets/img/Enemy/Walking/0_Elementals_Walking_019.png',
-    'assets/img/Enemy/Walking/0_Elementals_Walking_020.png',
-    'assets/img/Enemy/Walking/0_Elementals_Walking_021.png',
-    'assets/img/Enemy/Walking/0_Elementals_Walking_022.png',
-    'assets/img/Enemy/Walking/0_Elementals_Walking_023.png'
-  ];
-  IMAGES_HURT = [
-    'assets/img/Enemy/Hurt/0_Elementals_Hurt_000.png',
-    'assets/img/Enemy/Hurt/0_Elementals_Hurt_001.png',
-    'assets/img/Enemy/Hurt/0_Elementals_Hurt_002.png',
-    'assets/img/Enemy/Hurt/0_Elementals_Hurt_003.png',
-    'assets/img/Enemy/Hurt/0_Elementals_Hurt_004.png',
-    'assets/img/Enemy/Hurt/0_Elementals_Hurt_005.png',
-    'assets/img/Enemy/Hurt/0_Elementals_Hurt_006.png',
-    'assets/img/Enemy/Hurt/0_Elementals_Hurt_007.png',
-    'assets/img/Enemy/Hurt/0_Elementals_Hurt_008.png',
-    'assets/img/Enemy/Hurt/0_Elementals_Hurt_009.png',
-    'assets/img/Enemy/Hurt/0_Elementals_Hurt_010.png',
-    'assets/img/Enemy/Hurt/0_Elementals_Hurt_011.png'
-  ];
-  IMAGES_DEAD = [
-    'assets/img/Enemy/Dying/0_Elementals_Dying_000.png',
-    'assets/img/Enemy/Dying/0_Elementals_Dying_001.png',
-    'assets/img/Enemy/Dying/0_Elementals_Dying_002.png',
-    'assets/img/Enemy/Dying/0_Elementals_Dying_003.png',
-    'assets/img/Enemy/Dying/0_Elementals_Dying_004.png',
-    'assets/img/Enemy/Dying/0_Elementals_Dying_005.png',
-    'assets/img/Enemy/Dying/0_Elementals_Dying_006.png',
-    'assets/img/Enemy/Dying/0_Elementals_Dying_007.png',
-    'assets/img/Enemy/Dying/0_Elementals_Dying_008.png',
-    'assets/img/Enemy/Dying/0_Elementals_Dying_009.png',
-    'assets/img/Enemy/Dying/0_Elementals_Dying_010.png',
-    'assets/img/Enemy/Dying/0_Elementals_Dying_011.png',
-    'assets/img/Enemy/Dying/0_Elementals_Dying_012.png',
-    'assets/img/Enemy/Dying/0_Elementals_Dying_013.png',
-    'assets/img/Enemy/Dying/0_Elementals_Dying_014.png'
-  ];
-
   offset = {
     top: 45,
     left: 120,
     right: 120,
-    bottom: 10
-  }
+    bottom: 10,
+  };
 
+  /**
+   * Initializes the endboss with images and starts animation.
+   */
   constructor() {
-    super().loadImage('assets/img/Enemy/Walking/0_Elementals_Walking_000.png');
-    this.loadImages(this.IMAGES_Walking);
-    this.loadImages(this.IMAGES_HURT);
-    this.loadImages(this.IMAGES_DEAD);
+    super();
+    this.loadImage(LOADED_IMAGES.endboss.walk[0]);
+    this.addToImageCache('walk', LOADED_IMAGES.endboss.walk);
+    this.addToImageCache('hurt', LOADED_IMAGES.endboss.hurt);
+    this.addToImageCache('dead', LOADED_IMAGES.endboss.dead);
     this.animate();
   }
 
+  /**
+   * Controls movement and animation of the endboss.
+   */
   animate() {
     let movementInterval = setInterval(() => {
-      if (this.isDead) {
-        return;
-      }
+      if (this.isDead) return;
       this.x += this.speed * this.direction;
       if (this.x <= this.leftBoundary || this.x >= this.rightBoundary) {
         this.direction *= -1;
         this.otherDirection = this.direction === 1;
       }
       if (this.endbossIsHurt) {
-        this.playAnimation(this.IMAGES_HURT);
+        this.playAnimation(LOADED_IMAGES.endboss.hurt);
         gameSounds.playHurtEndbossSound();
       } else {
-        this.playAnimation(this.IMAGES_Walking);
+        this.playAnimation(LOADED_IMAGES.endboss.walk);
       }
     }, 2000 / 60);
     gameIntervals.push(movementInterval);
   }
 
+  /**
+   * Reduces energy and triggers hurt/death logic.
+   */
   hit() {
-    if (!this.isDead && !this.endbossIsHurt) { // Nur Schaden annehmen, wenn er nicht tot und nicht verletzt ist
-      this.energy--; // Reduziere die Energie bei Schaden
+    if (!this.isDead && !this.endbossIsHurt) {
+      this.energy--;
       if (this.energy <= 0) {
         this.statusBarEndboss.updateHearts();
-        this.isDead = true; // Setze den Zustand auf tot
-        this.playDeadAnimation(); // Spiele die Todesanimation ab
+        this.isDead = true;
+        this.playDeadAnimation();
       } else {
-        this.endbossIsHurt = true; // Setze den Zustand auf verletzt
+        this.endbossIsHurt = true;
         this.statusBarEndboss.updateHearts();
         this.speed = 0;
         setTimeout(() => {
-          this.endbossIsHurt = false; // Setze den Zustand zurück nach 800ms
-          this.speed = 5; // Stelle die Geschwindigkeit wieder her
-        }, 800); // Nach einer kurzen Zeit wieder heilen
+          this.endbossIsHurt = false;
+          this.speed = 5;
+        }, 800);
       }
     }
   }
 
+  /**
+   * Plays the death animation and shows the win screen.
+   */
   playDeadAnimation() {
     let deadAnimationInterval = setInterval(() => {
       if (this.isDead) {
-        this.playAnimation(this.IMAGES_DEAD);
+        this.playAnimation(LOADED_IMAGES.endboss.dead);
         this.speed = 0;
       }
     }, 2200 / 60);
-    setTimeout(() => { stopGame(); }, 200);
+    setTimeout(() => stopGame(), 200);
     gameIntervals.push(deadAnimationInterval);
     setTimeout(() => {
-      showEndScreen(true); // Zeige den Gewinnbildschirm
+      showEndScreen(true);
       gameSounds.playWinSound();
     }, 600);
   }
-
-  // drawFrame(ctx) {
-  //   ctx.beginPath();
-  //   ctx.lineWidth = "5";
-  //   ctx.strokeStyle = "blue";
-  //   ctx.rect(this.x + 150, this.y + 115, this.width - 305, this.height - 200);
-  //   ctx.stroke();
-  // }
 }

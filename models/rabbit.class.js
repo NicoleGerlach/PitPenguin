@@ -1,47 +1,38 @@
+/**
+ * Represents a rabbit enemy that walks from right to left.
+ * Inherits from {@link MovableObject}.
+ */
 class Rabbit extends MovableObject {
-    y = 240;
-    IMAGES_WALKING = [
-        'assets/img/Rabbit/Monster5/Moving/Moving_00.png',
-        'assets/img/Rabbit/Monster5/Moving/Moving_02.png',
-        'assets/img/Rabbit/Monster5/Moving/Moving_04.png',
-        'assets/img/Rabbit/Monster5/Moving/Moving_06.png',
-        'assets/img/Rabbit/Monster5/Moving/Moving_08.png',
-        'assets/img/Rabbit/Monster5/Moving/Moving_10.png',
-        'assets/img/Rabbit/Monster5/Moving/Moving_12.png',
-        'assets/img/Rabbit/Monster5/Moving/Moving_14.png',
-        'assets/img/Rabbit/Monster5/Moving/Moving_16.png',
-        'assets/img/Rabbit/Monster5/Moving/Moving_18.png',
-        'assets/img/Rabbit/Monster5/Moving/Moving_19.png'
-    ];
+  y = 240;
 
     offset = {
-        top: 45,
-        left: 60,
-        right: 40,
-        bottom: 10
-    }
-
+      top: 45,
+      left: 60,
+      right: 40,
+      bottom: 10,
+    };
+  
+    /**
+     * Creates a new Rabbit instance with randomized position and speed.
+     * Initializes its walk animation.
+     */
     constructor() {
-        super().loadImage('assets/img/Rabbit/Monster5/Moving/Moving_00.png');
-        this.loadImages(this.IMAGES_WALKING);
-        this.animate();
-        this.x = 400 + Math.random() * 1900;
-        this.speed = 0.85 + Math.random() * 0.25;
-        this.moveLeft();
+      super();
+      this.loadImage(LOADED_IMAGES.rabbits.walk[0]);
+      this.addToImageCache('walk', LOADED_IMAGES.rabbits.walk);
+      this.animate();
+      this.x = 400 + Math.random() * 1900;
+      this.speed = 0.85 + Math.random() * 0.25;
+      this.moveLeft();
     }
-
+  
+    /**
+     * Animates the rabbit's walking movement and updates its image frames.
+     */
     animate() {
-        let interval = setInterval(() => {
-            this.moveLeft();
-            this.playAnimation(this.IMAGES_WALKING);
-        }, 60);
+      let interval = setInterval(() => {
+        this.moveLeft();
+        this.playAnimation(LOADED_IMAGES.rabbits.walk);
+      }, 60);
     }
-
-    // drawFrame(ctx) {
-    //     ctx.beginPath();
-    //     ctx.lineWidth = "5";
-    //     ctx.strokeStyle = "blue";
-    //     ctx.rect(this.x + 25, this.y + 45, this.width - 50, this.height - 55);
-    //     ctx.stroke();
-    // }
-}
+  }

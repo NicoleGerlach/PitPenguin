@@ -26,6 +26,19 @@ body {
   cursor: pointer;
 }
 
+.loading-message {
+  position: fixed;
+  inset: 0;
+  background-color: #1e3a8a; 
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32px;
+  font-weight: bold;
+  z-index: 9999;
+}
+
 .fullscreen {
   width: 100%;
   height: 100%;
@@ -34,7 +47,8 @@ body {
   grid-template-areas:
     'headline'
     'game-screen';
-  background: url('../assets/img/background/01/layers/l1-background-twisted.png') no-repeat center/cover;
+  background: url('../assets/img/background/01/layers/l1-background-twisted.png')
+    no-repeat center/cover;
   position: relative;
   color: white;
 }
@@ -56,12 +70,12 @@ h1.headline {
   /* border: green 2px solid; */
 }
 
-.headline.active>img {
+.headline.active > img {
   margin: 0 auto 0.3em 0;
   height: 50px;
 }
 
-.headline.active>h2 {
+.headline.active > h2 {
   margin: 0 auto 0.3em 0;
 }
 
@@ -105,7 +119,7 @@ h2 {
   align-items: center;
   justify-content: space-evenly;
   overflow: hidden;
-  background-color: rgb(119, 193, 231, 0.8);
+  background-color: lch(74.72% 29.07 243.61 / 0.8);
   border-radius: 20px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
   border: limegreen 2px solid;
@@ -162,7 +176,7 @@ h2 {
   /* border: purple 2px solid; */
 }
 
-.imprint-wrapper>p {
+.imprint-wrapper > p {
   padding: 0.5em 1.5em;
   width: fit-content;
   font-weight: 600;
@@ -290,6 +304,14 @@ th {
 
 .play-again img {
   height: 100px;
+}
+
+.info-box:hover,
+.imprint:hover,
+.play-again:hover {
+    cursor: pointer;
+    filter: brightness(80%);
+    color: #F2F2F2;
 }
 
 .rotate-screen {

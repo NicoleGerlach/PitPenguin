@@ -1,346 +1,252 @@
-
+/**
+ * Represents the main character "Pit Penguin" with movement, animation,
+ * sleep behavior and interaction logic.
+ * Inherits from {@link MovableObject}.
+ */
 class Penguin extends MovableObject {
     height = 300;
     width = 400;
     y = 130;
     x = 0;
     speed = 5;
-    inactivityTimer; // Timer für Inaktivität
-    isSleeping = false; // Standardmäßig nicht schlafen
-
-    IMAGES_WALKING = [
-        'assets/img/Penguin/Character09/Walk/AllCharacters-Character09-Walk_00.png',
-        'assets/img/Penguin/Character09/Walk/AllCharacters-Character09-Walk_02.png',
-        'assets/img/Penguin/Character09/Walk/AllCharacters-Character09-Walk_04.png',
-        'assets/img/Penguin/Character09/Walk/AllCharacters-Character09-Walk_06.png',
-        'assets/img/Penguin/Character09/Walk/AllCharacters-Character09-Walk_08.png',
-        'assets/img/Penguin/Character09/Walk/AllCharacters-Character09-Walk_10.png',
-        'assets/img/Penguin/Character09/Walk/AllCharacters-Character09-Walk_12.png',
-        'assets/img/Penguin/Character09/Walk/AllCharacters-Character09-Walk_14.png',
-        'assets/img/Penguin/Character09/Walk/AllCharacters-Character09-Walk_16.png',
-        'assets/img/Penguin/Character09/Walk/AllCharacters-Character09-Walk_18.png',
-        'assets/img/Penguin/Character09/Walk/AllCharacters-Character09-Walk_20.png',
-        'assets/img/Penguin/Character09/Walk/AllCharacters-Character09-Walk_22.png',
-        'assets/img/Penguin/Character09/Walk/AllCharacters-Character09-Walk_24.png',
-        'assets/img/Penguin/Character09/Walk/AllCharacters-Character09-Walk_26.png',
-        'assets/img/Penguin/Character09/Walk/AllCharacters-Character09-Walk_28.png',
-        'assets/img/Penguin/Character09/Walk/AllCharacters-Character09-Walk_29.png',
-    ];
-    IMAGES_JUMPING = [
-        'assets/img/Penguin/Character09/Jump/AllCharacters-Character09-Jump_00.png',
-        'assets/img/Penguin/Character09/Jump/AllCharacters-Character09-Jump_01.png',
-        'assets/img/Penguin/Character09/Jump/AllCharacters-Character09-Jump_02.png',
-        'assets/img/Penguin/Character09/Jump/AllCharacters-Character09-Jump_03.png',
-        'assets/img/Penguin/Character09/Jump/AllCharacters-Character09-Jump_04.png',
-        'assets/img/Penguin/Character09/Jump/AllCharacters-Character09-Jump_05.png',
-        'assets/img/Penguin/Character09/Jump/AllCharacters-Character09-Jump_06.png',
-        'assets/img/Penguin/Character09/Jump/AllCharacters-Character09-Jump_07.png',
-        'assets/img/Penguin/Character09/Jump/AllCharacters-Character09-Jump_08.png',
-        'assets/img/Penguin/Character09/Jump/AllCharacters-Character09-Jump_09.png',
-        'assets/img/Penguin/Character09/Jump/AllCharacters-Character09-Jump_10.png',
-        'assets/img/Penguin/Character09/Jump/AllCharacters-Character09-Jump_11.png',
-        'assets/img/Penguin/Character09/Jump/AllCharacters-Character09-Jump_12.png',
-        'assets/img/Penguin/Character09/Jump/AllCharacters-Character09-Jump_13.png',
-        'assets/img/Penguin/Character09/Jump/AllCharacters-Character09-Jump_14.png',
-        'assets/img/Penguin/Character09/Jump/AllCharacters-Character09-Jump_15.png',
-        'assets/img/Penguin/Character09/Jump/AllCharacters-Character09-Jump_16.png',
-        'assets/img/Penguin/Character09/Jump/AllCharacters-Character09-Jump_17.png',
-        'assets/img/Penguin/Character09/Jump/AllCharacters-Character09-Jump_18.png',
-        'assets/img/Penguin/Character09/Jump/AllCharacters-Character09-Jump_19.png',
-        'assets/img/Penguin/Character09/Jump/AllCharacters-Character09-Jump_20.png',
-        'assets/img/Penguin/Character09/Jump/AllCharacters-Character09-Jump_21.png',
-        'assets/img/Penguin/Character09/Jump/AllCharacters-Character09-Jump_22.png',
-        'assets/img/Penguin/Character09/Jump/AllCharacters-Character09-Jump_23.png',
-        'assets/img/Penguin/Character09/Jump/AllCharacters-Character09-Jump_24.png'
-    ];
-    IMAGES_HURT = [
-        'assets/img/Penguin/Character09/Confused/All Characters-Character09-Confused_00.png',
-        'assets/img/Penguin/Character09/Confused/All Characters-Character09-Confused_02.png',
-        'assets/img/Penguin/Character09/Confused/All Characters-Character09-Confused_04.png',
-        'assets/img/Penguin/Character09/Confused/All Characters-Character09-Confused_06.png',
-        'assets/img/Penguin/Character09/Confused/All Characters-Character09-Confused_08.png',
-        'assets/img/Penguin/Character09/Confused/All Characters-Character09-Confused_10.png',
-        'assets/img/Penguin/Character09/Confused/All Characters-Character09-Confused_12.png',
-        'assets/img/Penguin/Character09/Confused/All Characters-Character09-Confused_14.png',
-        'assets/img/Penguin/Character09/Confused/All Characters-Character09-Confused_16.png',
-        'assets/img/Penguin/Character09/Confused/All Characters-Character09-Confused_18.png',
-        'assets/img/Penguin/Character09/Confused/All Characters-Character09-Confused_20.png',
-        'assets/img/Penguin/Character09/Confused/All Characters-Character09-Confused_22.png'
-    ]
-    IMAGES_DEAD = [
-        'assets/img/Penguin/Character09/Dead/AllCharacters-Character09-Dead_00.png',
-        'assets/img/Penguin/Character09/Dead/AllCharacters-Character09-Dead_02.png',
-        'assets/img/Penguin/Character09/Dead/AllCharacters-Character09-Dead_04.png',
-        'assets/img/Penguin/Character09/Dead/AllCharacters-Character09-Dead_06.png',
-        'assets/img/Penguin/Character09/Dead/AllCharacters-Character09-Dead_08.png',
-        'assets/img/Penguin/Character09/Dead/AllCharacters-Character09-Dead_10.png',
-        'assets/img/Penguin/Character09/Dead/AllCharacters-Character09-Dead_12.png',
-        'assets/img/Penguin/Character09/Dead/AllCharacters-Character09-Dead_14.png',
-        'assets/img/Penguin/Character09/Dead/AllCharacters-Character09-Dead_16.png',
-        'assets/img/Penguin/Character09/Dead/AllCharacters-Character09-Dead_18.png',
-        'assets/img/Penguin/Character09/Dead/AllCharacters-Character09-Dead_20.png',
-        'assets/img/Penguin/Character09/Dead/AllCharacters-Character09-Dead_22.png',
-        'assets/img/Penguin/Character09/Dead/AllCharacters-Character09-Dead_24.png',
-        'assets/img/Penguin/Character09/Dead/AllCharacters-Character09-Dead_26.png',
-        'assets/img/Penguin/Character09/Dead/AllCharacters-Character09-Dead_28.png',
-        'assets/img/Penguin/Character09/Dead/AllCharacters-Character09-Dead_30.png',
-        'assets/img/Penguin/Character09/Dead/AllCharacters-Character09-Dead_32.png',
-        'assets/img/Penguin/Character09/Dead/AllCharacters-Character09-Dead_34.png',
-        'assets/img/Penguin/Character09/Dead/AllCharacters-Character09-Dead_36.png',
-        'assets/img/Penguin/Character09/Dead/AllCharacters-Character09-Dead_38.png',
-        'assets/img/Penguin/Character09/Dead/AllCharacters-Character09-Dead_40.png',
-        'assets/img/Penguin/Character09/Dead/AllCharacters-Character09-Dead_42.png',
-        'assets/img/Penguin/Character09/Dead/AllCharacters-Character09-Dead_44.png'
-    ];
-    IMAGES_IDLE = [
-        'assets/img/Penguin/Character09/Idle/AllCharacters-Character09-Idle_00.png',
-        'assets/img/Penguin/Character09/Idle/AllCharacters-Character09-Idle_01.png',
-        'assets/img/Penguin/Character09/Idle/AllCharacters-Character09-Idle_02.png',
-        'assets/img/Penguin/Character09/Idle/AllCharacters-Character09-Idle_03.png',
-        'assets/img/Penguin/Character09/Idle/AllCharacters-Character09-Idle_04.png',
-        'assets/img/Penguin/Character09/Idle/AllCharacters-Character09-Idle_05.png',
-        'assets/img/Penguin/Character09/Idle/AllCharacters-Character09-Idle_06.png',
-        'assets/img/Penguin/Character09/Idle/AllCharacters-Character09-Idle_07.png',
-        'assets/img/Penguin/Character09/Idle/AllCharacters-Character09-Idle_08.png',
-        'assets/img/Penguin/Character09/Idle/AllCharacters-Character09-Idle_09.png',
-        'assets/img/Penguin/Character09/Idle/AllCharacters-Character09-Idle_10.png',
-        'assets/img/Penguin/Character09/Idle/AllCharacters-Character09-Idle_11.png',
-        'assets/img/Penguin/Character09/Idle/AllCharacters-Character09-Idle_12.png',
-        'assets/img/Penguin/Character09/Idle/AllCharacters-Character09-Idle_13.png',
-        'assets/img/Penguin/Character09/Idle/AllCharacters-Character09-Idle_14.png',
-        'assets/img/Penguin/Character09/Idle/AllCharacters-Character09-Idle_15.png',
-        'assets/img/Penguin/Character09/Idle/AllCharacters-Character09-Idle_16.png',
-        'assets/img/Penguin/Character09/Idle/AllCharacters-Character09-Idle_17.png',
-        'assets/img/Penguin/Character09/Idle/AllCharacters-Character09-Idle_18.png',
-        'assets/img/Penguin/Character09/Idle/AllCharacters-Character09-Idle_19.png'
-    ];
-
-    IMAGES_SLEEP = [
-        'assets/img/Penguin/Character09/Sleeping/AllCharacters-Character09-Sleep_00.png'
-    ];
-
+    inactivityTimer;
+    isSleeping = false;
     world;
-
+  
     offset = {
-        top: 50,
-        left: 160,
-        right: 130,
-        bottom: 20
-    }
-
+      top: 50,
+      left: 160,
+      right: 130,
+      bottom: 20,
+    };
+  
+    /**
+     * Initializes the penguin, loads images, applies gravity, and starts animations.
+     */
     constructor() {
-        super().loadImage('assets/img/Penguin/Character09/Walk/AllCharacters-Character09-Walk_00.png');
-        this.loadImages(this.IMAGES_WALKING);
-        this.loadImages(this.IMAGES_JUMPING);
-        this.loadImages(this.IMAGES_HURT);
-        this.loadImages(this.IMAGES_DEAD);
-        this.loadImages(this.IMAGES_IDLE);
-        this.loadImages(this.IMAGES_SLEEP);
-        this.applyGravity();
-        this.animate();
+      super();
+      this.loadImage(LOADED_IMAGES.penguin.walk[0]);
+      this.addToImageCache('walk', LOADED_IMAGES.penguin.walk);
+      this.addToImageCache('jump', LOADED_IMAGES.penguin.jump);
+      this.addToImageCache('hurt', LOADED_IMAGES.penguin.hurt);
+      this.addToImageCache('dead', LOADED_IMAGES.penguin.dead);
+      this.addToImageCache('idle', LOADED_IMAGES.penguin.idle);
+      this.imageCache['sleep'] = LOADED_IMAGES.penguin.sleep;
+      this.applyGravity();
+      this.animate();
     }
-
+  
+    /**
+     * Starts movement and animation intervals for the penguin.
+     */
     animate() {
-        let movementPenguin = setInterval(() => {
-            this.movePenguin();
-        }, 1000 / 60);
-        gameIntervals.push(movementPenguin);
-        let animationPenguinInterval = setInterval(() => {
-            this.animatePenguin();
-        }, 50);
-        gameIntervals.push(animationPenguinInterval);
+      let movementPenguin = setInterval(() => {
+        this.movePenguin();
+      }, 1000 / 60);
+      gameIntervals.push(movementPenguin);
+      let animationPenguinInterval = setInterval(() => {
+        this.animatePenguin();
+      }, 50);
+      gameIntervals.push(animationPenguinInterval);
     }
-
+  
+    /**
+     * Handles movement logic and camera tracking.
+     */
     movePenguin() {
-        this.checkPlayWalkingSound(); 
-        if (this.canMoveRight()) 
-            this.penguinMoveRight();
-        if (this.canMoveLeft())
-            this.penguinMoveLeft();
-        if (this.canJump())
-            this.penguinJump();
-        this.world.camera_x = -this.x + 50;
+      this.checkPlayWalkingSound();
+      if (this.canMoveRight()) this.penguinMoveRight();
+      if (this.canMoveLeft()) this.penguinMoveLeft();
+      if (this.canJump()) this.penguinJump();
+      this.world.camera_x = -this.x + 50;
     }
-
+  
+    /**
+     * Checks whether movement to the right is possible.
+     * @returns {boolean}
+     */
     canMoveRight() {
-        return this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x;
+      return this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x;
     }
-
+  
+    /**
+     * Moves the penguin right and resets sleep timer.
+     */
     penguinMoveRight() {
-        super.moveRight();
-        this.otherDirection = false;
-        this.resetInactivityTimer();
+      super.moveRight();
+      this.otherDirection = false;
+      this.resetInactivityTimer();
     }
-
+  
+    /**
+     * Checks whether movement to the left is possible.
+     * @returns {boolean}
+     */
     canMoveLeft() {
-        return this.world.keyboard.LEFT && this.x > this.world.level.level_start_x;
+      return this.world.keyboard.LEFT && this.x > this.world.level.level_start_x;
     }
-
+  
+    /**
+     * Moves the penguin left and resets sleep timer.
+     */
     penguinMoveLeft() {
-        super.moveLeft();
-        this.otherDirection = true;
-        this.resetInactivityTimer();
+      super.moveLeft();
+      this.otherDirection = true;
+      this.resetInactivityTimer();
     }
-
+  
+    /**
+     * Checks whether jumping is allowed.
+     * @returns {boolean}
+     */
     canJump() {
-        return this.world.keyboard.SPACE && !this.isAboveGround();
+      return this.world.keyboard.SPACE && !this.isAboveGround();
     }
-
+  
+    /**
+     * Makes the penguin jump and plays jump sound.
+     */
     penguinJump() {
-        super.jump();
-        gameSounds.playJumpingPenguinSound();
-        this.resetInactivityTimer();
+      super.jump();
+      gameSounds.playJumpingPenguinSound();
+      this.resetInactivityTimer();
     }
-
+  
+    /**
+     * Plays or stops the walking sound based on movement and air state.
+     */
     checkPlayWalkingSound() {
-        if (this.isAboveGround()) {
-            gameSounds.stopWalkingPenguinSound();
+      if (this.isAboveGround()) {
+        gameSounds.stopWalkingPenguinSound();
+      } else {
+        if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
+          gameSounds.playWalkingPenguinSound();
         } else {
-            if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
-                gameSounds.playWalkingPenguinSound();
-            } else {
-                gameSounds.stopWalkingPenguinSound();
-            }
+          gameSounds.stopWalkingPenguinSound();
         }
+      }
     }
-
+  
+    /**
+     * Manages penguin animations depending on state (hurt, sleep, walk, jump).
+     */
     animatePenguin() {
-        if (this.isHurt()) { // Überprüfe zuerst, ob der Pinguin verletzt ist
-            this.isSleeping = false; // Setze den Schlafzustand zurück
-            this.playAnimation(this.IMAGES_HURT); // Spiele die Verletzungsanimation ab
-            gameSounds.stopSnoringPenguinSound();
-            gameSounds.playHurtPenguinSound();
-            if (this.energy <= 0) {
-                this.playDeadAnimation(); // Rufe die Methode auf, um den Pinguin sterben zu lassen
-                return; // Beende die Methode hier
-            }
-            return; // Beende die Methode hier
+      if (this.isHurt()) {
+        this.isSleeping = false;
+        this.playAnimation(LOADED_IMAGES.penguin.hurt);
+        gameSounds.stopSnoringPenguinSound();
+        gameSounds.playHurtPenguinSound();
+        if (this.energy <= 0) {
+          this.playDeadAnimation();
+          return;
         }
-        if (this.canSleep())
-            this.penguinSleep();
-        else { this.resetInactivityTimer();
-            if (this.isDead()) 
-                this.playDeadAnimation(false);
-            else if (this.isHurt()) {
-                // this.isSleeping = false;
-                this.playAnimation(this.IMAGES_HURT);
-                this.penguinHurt();
-            } else {
-                this.movingAnimation();
-            }
+        return;
+      }
+      if (this.canSleep()) this.penguinSleep();
+      else {
+        this.resetInactivityTimer();
+        if (this.isDead()) this.playDeadAnimation(false);
+        else if (this.isHurt()) {
+          this.playAnimation(LOADED_IMAGES.penguin.hurt);
+          this.penguinHurt();
+        } else {
+          this.movingAnimation();
         }
+      }
     }
-
-    
-    // animatePenguin() {
-    //     this.checkCondition();
-    //     if (this.canSleep())
-    //         this.penguinSleep();
-    //     else { this.resetInactivityTimer();
-    //         if (this.isDead()) 
-    //             this.playDeadAnimation(false);
-    //         else if (this.isHurt()) {
-    //             this.playAnimation(this.IMAGES_HURT);
-    //             this.penguinHurt();
-    //         } else 
-    //             this.movingAnimation();
-    //     }
-    // }
-
-    // checkCondition() {
-    //     if (this.isHurt()) { // Überprüfe zuerst, ob der Pinguin verletzt ist
-    //         this.isSleeping = false; // Setze den Schlafzustand zurück
-    //         this.playAnimation(this.IMAGES_HURT); // Spiele die Verletzungsanimation ab
-    //         gameSounds.stopSnoringPenguinSound();
-    //         gameSounds.playHurtPenguinSound();
-    //         if (this.energy <= 0) {
-    //             this.playDeadAnimation(); // Rufe die Methode auf, um den Pinguin sterben zu lassen
-    //             return; // Beende die Methode hier
-    //         }
-    //         return; // Beende die Methode hier
-    //     }
-    // }
-
+  
+    /**
+     * Returns true if no input is active (used to trigger idle/sleep).
+     * @returns {boolean}
+     */
     canSleep() {
-        return !this.world.keyboard.LEFT && !this.world.keyboard.RIGHT && !this.world.keyboard.SPACE && !this.world.keyboard.D;
+      return (
+        !this.world.keyboard.LEFT &&
+        !this.world.keyboard.RIGHT &&
+        !this.world.keyboard.SPACE &&
+        !this.world.keyboard.D
+      );
     }
-
+  
+    /**
+     * Handles idle animation and sleep timer setup.
+     */
     penguinSleep() {
-        if (!this.isSleeping) {
-            this.playAnimation(this.IMAGES_IDLE);
-            if (!this.inactivityTimer) {
-                this.startInactivityTimer();
-            }
+      if (!this.isSleeping) {
+        this.playAnimation(LOADED_IMAGES.penguin.idle);
+        if (!this.inactivityTimer) {
+          this.startInactivityTimer();
         }
+      }
     }
-
+  
+    /**
+     * Plays hurt sound once when penguin takes damage.
+     */
     penguinHurt() {
-        let hasCollidedWithEnemy = false;
-        if (!hasCollidedWithEnemy) {
-            gameSounds.playHurtPenguinSound();
-            hasCollidedWithEnemy = true;
-        }
+      let hasCollidedWithEnemy = false;
+      if (!hasCollidedWithEnemy) {
+        gameSounds.playHurtPenguinSound();
+        hasCollidedWithEnemy = true;
+      }
     }
-
+  
+    /**
+     * Chooses between walk and jump animations while moving.
+     */
     movingAnimation() {
-                if (this.isAboveGround()) {
-                    this.playAnimation(this.IMAGES_JUMPING);
-                } else {
-                    if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
-                        this.playAnimation(this.IMAGES_WALKING);
-                    }
-                }
-    }
-
-    startInactivityTimer() {
-        clearTimeout(this.inactivityTimer); // Stoppe einen eventuell laufenden Timer
-        this.inactivityTimer = setTimeout(() => {
-            if (!isGameActive) return;
-            this.loadImage(this.IMAGES_SLEEP);
-            gameSounds.playSnoringPenguinSound();
-            this.isSleeping = true; // Setze den Status auf schlafen    
-        }, 8000); // Dauer in Millisekunden (z.B. 5000 für 5 Sekunden)
-    }
-
-    resetInactivityTimer() {
-        if (!isGameActive) return;
-        clearTimeout(this.inactivityTimer); // Stoppe den aktuellen Timer   
-        if (this.isSleeping) {
-            this.isSleeping = false; // Setze den Status auf nicht schlafen
-            gameSounds.stopSnoringPenguinSound();
+      if (this.isAboveGround()) {
+        this.playAnimation(LOADED_IMAGES.penguin.jump);
+      } else {
+        if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
+          this.playAnimation(LOADED_IMAGES.penguin.walk);
         }
-        this.startInactivityTimer(); // Starte den Timer erneut
+      }
     }
-
-    // checkPenguinHealth() {
-    //     console.log("Energie:", this.energy);
-    //     if (this.penguin.energy <= 0 && !this.penguin.isDead) {
-    //         this.penguin.isDead = true; // Setze isDead auf true
-    //         this.penguin.playDeadAnimation(); // Spiele die Todesanimation des Pinguins
-    //     }
-    // }
-
+  
+    /**
+     * Starts a timer that puts the penguin to sleep after inactivity.
+     */
+    startInactivityTimer() {
+      clearTimeout(this.inactivityTimer);
+      this.inactivityTimer = setTimeout(() => {
+        if (!isGameActive) return;
+        this.loadImage(LOADED_IMAGES.penguin.sleep);
+        gameSounds.playSnoringPenguinSound();
+        this.isSleeping = true;
+      }, 8000);
+    }
+  
+    /**
+     * Resets inactivity timer and wakes the penguin if sleeping.
+     */
+    resetInactivityTimer() {
+      if (!isGameActive) return;
+      clearTimeout(this.inactivityTimer);
+      if (this.isSleeping) {
+        this.isSleeping = false;
+        gameSounds.stopSnoringPenguinSound();
+      }
+      this.startInactivityTimer();
+    }
+  
+    /**
+     * Triggers the death animation and ends the game.
+     */
     playDeadAnimation() {
-        let deadAnimationPenguinInterval = setInterval(() => {
-            if (this.isDead) {
-                this.playAnimation(this.IMAGES_DEAD);
-                this.speed = 0;
-            }
-        }, 2500 / 60);
-        setTimeout(() => { stopGame(); }, 200);
-        gameIntervals.push(deadAnimationPenguinInterval);
-        setTimeout(() => {
-            showEndScreen(false); // Zeige den Verlustbildschirm
-            gameSounds.playLoseSound();
-        }, 600);
+      let deadAnimationPenguinInterval = setInterval(() => {
+        if (this.isDead) {
+          this.playAnimation(LOADED_IMAGES.penguin.dead);
+          this.speed = 0;
+        }
+      }, 2500 / 60);
+      setTimeout(() => {
+        stopGame();
+      }, 200);
+      gameIntervals.push(deadAnimationPenguinInterval);
+      setTimeout(() => {
+        showEndScreen(false);
+        gameSounds.playLoseSound();
+      }, 600);
     }
-
-    
-    // drawFrame(ctx) {
-    //     ctx.beginPath();
-    //     ctx.lineWidth = "5";
-    //     ctx.strokeStyle = "red";
-    //     ctx.rect(this.x + 140, this.y + 105, this.width - 290, this.height - 150);
-    //     ctx.stroke();
-    // }
-}
+  }

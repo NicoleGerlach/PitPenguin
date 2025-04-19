@@ -1,3 +1,7 @@
+/**
+ * Tracks the current state of user input from the keyboard.
+ * Each property represents whether a specific key is currently pressed.
+ */
 class Keyboard {
     LEFT = false;
     RIGHT = false;
@@ -5,4 +9,4 @@ class Keyboard {
     DOWN = false;
     SPACE = false;
     D = false;
-}
+  }

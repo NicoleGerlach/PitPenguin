@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,29 +9,29 @@
     <link rel="stylesheet" href="./css/fonts.css">
     <link rel="stylesheet" href="./css/style.css">
     <link rel="stylesheet" href="./css/media_queries.css">
-    <script src="models/drawableObject.class.js"></script>
-    <script src="models/movableObject.class.js"></script>
-    <script src="js/templates.js"></script>
-    <script src="models/gameSounds.class.js"></script>
-    <script src="models/penguin.class.js"></script>
-    <script src="models/rabbit.class.js"></script>
-    <script src="models/statusBarHeart.class.js"></script>
-    <script src="models/statusBarCoin.class.js"></script>
-    <script src="models/statusBarPoison.class.js"></script>
-    <script src="models/statusBarEndboss.class.js"></script>
-    <script src="models/throwableObject.class.js"></script>
-    <script src="models/world.class.js"></script>
-    <script src="models/background.class.js"></script>
-    <script src="models/keyboard.class.js"></script>
-    <script src="models/level.class.js"></script>
-    <script src="models/endboss.class.js"></script>
-    <script src="models/poison.class.js"></script>
-    <script src="models/coin.class.js"></script>
-    <script src="models/heart.class.js"></script>
-    <script src="levels/level1.js"></script>
-    <script src="js/game.js"></script>
+    <script src="./js/image-data.js"></script>
+    <script src="./models/drawableObject.class.js"></script>
+    <script src="./models/movableObject.class.js"></script>
+    <script src="./js/templates.js"></script>
+    <script src="./models/gameSounds.class.js"></script>
+    <script src="./models/penguin.class.js"></script>
+    <script src="./models/rabbit.class.js"></script>
+    <script src="./models/statusBarHeart.class.js"></script>
+    <script src="./models/statusBarCoin.class.js"></script>
+    <script src="./models/statusBarPoison.class.js"></script>
+    <script src="./models/statusBarEndboss.class.js"></script>
+    <script src="./models/throwableObject.class.js"></script>
+    <script src="./models/world.class.js"></script>
+    <script src="./models/background.class.js"></script>
+    <script src="./models/keyboard.class.js"></script>
+    <script src="./models/level.class.js"></script>
+    <script src="./models/endboss.class.js"></script>
+    <script src="./models/poison.class.js"></script>
+    <script src="./models/coin.class.js"></script>
+    <script src="./models/heart.class.js"></script>
+    <script src="./levels/level1.js"></script>
+    <script src="./js/game.js"></script>
 </head>
-
 <body onload="init()">
     <div id="fullscreen" class="fullscreen">
         <div id="endScreen" class="end-screen"></div>
@@ -66,7 +65,7 @@
             </div>
         </div>
         <div class="rotate-screen"> Please rotate your device. </div>
+        <div id="loadingMessage" class="loading-message d-none">Loading ...</div>
     </div>
 </body>
-
 </html>
