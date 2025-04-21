@@ -2,7 +2,7 @@
   .rotate-screen {
     display: flex !important;
     justify-content: center;
-    align-items: center;
+    align-items: center; 
   }
 
   .game-screen,
@@ -15,12 +15,16 @@
   }
 }
 
-@media (min-width: 64em) {
+@media (min-width: 1400px) {
   .game-started h1.headline {
     display: block;
   }
 
   .mobile-buttons-active {
     display: none;
+  }
+
+  .fullscreen-img {
+    display:none;
   }
 }

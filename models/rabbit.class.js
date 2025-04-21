@@ -2,11 +2,12 @@
  * Represents a rabbit enemy that walks from right to left.
  * Inherits from {@link MovableObject}.
  */
+
 class Rabbit extends MovableObject {
   y = 240;
 
     offset = {
-      top: 45,
+      top: 0,
       left: 60,
       right: 40,
       bottom: 10,

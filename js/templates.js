@@ -36,21 +36,6 @@ function generateAboutGameHtml() {
     return /*html*/ `
               <div class="game-rules-wrapper">
                 <div id="aboutGame" class="about-game">
-                      <p>
-                          Pit Penguin is a friendly guy and he likes to walk with you through antarctic landscape.
-                          He likes to collect fish coins on the go. 
-                      </p>
-                      <p>
-                          But be warned, he is not alone and the rabbits want to hurt him. You can prevent this by jumping on the rabbits or throwing the small poison bottles you can
-                          collect at them.
-                      </p>
-                      <p>
-                          At the end of his journey Pit will face a cruel and aggressive troll.
-                          You can defeat him if you throw at least four poison bottles at him.
-                      </p>
-                      <p>
-                          Good luck and have fun with Pit Penguin!
-                      </p>
                 <div class="keyboard-instructions" >
                     <table>
                       <thead>
@@ -76,6 +61,21 @@ function generateAboutGameHtml() {
                         </tr>
                     </table>
                 </div>
+                <p>
+                          Pit Penguin is a friendly guy and he likes to walk with you through antarctic landscape.
+                          He likes to collect fish coins on the go. 
+                      </p>
+                      <p>
+                          But be warned, he is not alone and the rabbits want to hurt him. You can prevent this by jumping on the rabbits or throwing the small poison bottles you can
+                          collect at them.
+                      </p>
+                      <p>
+                          At the end of his journey Pit will face a cruel and aggressive troll.
+                          You can defeat him if you throw at least four poison bottles at him.
+                      </p>
+                      <p>
+                          Good luck and have fun with Pit Penguin!
+                      </p>
               </div>
             `;
 }

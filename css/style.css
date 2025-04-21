@@ -67,7 +67,6 @@ h1.headline {
   width: 100%;
   display: flex;
   align-items: center;
-  /* border: green 2px solid; */
 }
 
 .headline.active > img {
@@ -101,7 +100,6 @@ h2 {
   justify-content: center;
   flex-direction: column;
   align-items: center;
-  /* border: red 2px solid; */
 }
 
 .start-container {
@@ -122,7 +120,7 @@ h2 {
   background-color: lch(74.72% 29.07 243.61 / 0.8);
   border-radius: 20px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-  border: limegreen 2px solid;
+  border: white 2px solid;
 }
 
 .instructions-box {
@@ -137,7 +135,6 @@ h2 {
   flex-direction: column;
   align-items: center;
   justify-content: space-evenly;
-  /* border: red 2px solid; */
   font-size: clamp(0.9rem, 1rem + 0.5vw, 1.5rem);
 }
 
@@ -147,12 +144,10 @@ h2 {
   display: flex;
   align-items: center;
   justify-content: space-evenly;
-  /* border: black 2px solid; */
 }
 
 .info-box {
   height: 100%;
-  /* border: orange 2px solid; */
   text-align: center;
   font-weight: 600;
   display: flex;
@@ -173,18 +168,17 @@ h2 {
   display: flex;
   align-items: center;
   justify-content: center;
-  /* border: purple 2px solid; */
 }
 
 .imprint-wrapper > p {
   padding: 0.5em 1.5em;
   width: fit-content;
   font-weight: 600;
-  /* border: green 2px solid; */
 }
 
 canvas {
   height: 95%;
+  max-height: 480px;
   position: absolute;
   top: 50%;
   left: 50%;
@@ -214,7 +208,6 @@ canvas {
   display: flex;
   justify-content: space-between;
   padding: 10px;
-  /* border: red 2px solid; */
 }
 
 .game-rules-wrapper,
@@ -222,7 +215,6 @@ canvas {
   padding: 1em;
   flex: 1;
   overflow-y: auto;
-  /* border: royalblue 2px solid; */
 }
 
 .game-rules-wrapper p,
@@ -237,9 +229,8 @@ address {
 }
 
 table {
-  margin: 1em 0 0;
+  margin: 0 0 1em;
   width: 100%;
-  /* border: red 2px solid; */
 }
 
 th,
