@@ -106,10 +106,27 @@ class World {
     /**
      * Checks for collisions between characters and enemies.
      */
+
+    // checkCollisions() {
+    //   this.level.enemies.forEach((enemy) => {
+    //     if (this.penguin.isJumpOnEnemy(enemy) && this.penguin.isColliding(enemy) && this.penguin.isAboveGround()) { 
+    //       this.removeEnemy(enemy);
+    //       this.penguin.speedY = 15;
+    //     } else if (this.penguin.isColliding(enemy)) {
+    //       this.penguin.hit();
+    //       this.statusBarHeart.setPercentage(this.penguin.energy);
+    //     }
+    //   });
+    //   if (this.penguin.isColliding(this.endboss)) {
+    //     this.penguin.hit();
+    //     this.statusBarHeart.setPercentage(this.penguin.energy);
+    //   }
+    // }
+
     checkCollisions() {
       this.level.enemies.forEach((enemy) => {
-        if (this.penguin.isJumpOnEnemy(enemy) && this.penguin.isColliding(enemy) && this.penguin.isAboveGround()
-        ) { this.removeEnemy(enemy);
+        if (this.penguin.isJumpOnEnemy(enemy)) { 
+          this.removeEnemy(enemy);
           this.penguin.speedY = 15;
         } else if (this.penguin.isColliding(enemy)) {
           this.penguin.hit();

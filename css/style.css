@@ -210,11 +210,10 @@ canvas {
   padding: 10px;
 }
 
-.game-rules-wrapper,
-.imprint-wrapper {
-  padding: 1em;
+.game-rules-wrapper {
   flex: 1;
   overflow-y: auto;
+  padding: 0 12px 0 16px;
 }
 
 .game-rules-wrapper p,
@@ -237,6 +236,10 @@ th,
 td {
   padding-block: 0.3em;
   font-size: clamp(0.9rem, 1rem + 0.5vw, 1.5rem);
+}
+
+thead th {
+  text-align: left;
 }
 
 th {

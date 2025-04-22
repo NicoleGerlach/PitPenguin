@@ -2,6 +2,7 @@
  * Represents an object that can move and interact within the game world.
  * Inherits from {@link DrawableObject}.
  */
+
 class MovableObject extends DrawableObject {
   speed = 0.15;
   otherDirection = false;
@@ -30,6 +31,7 @@ class MovableObject extends DrawableObject {
    * Checks if the object is currently above the ground.
    * @returns {boolean} True if above ground.
    */
+
   isAboveGround() {
     if (this instanceof ThrowableObject) {
       return true;
@@ -64,11 +66,27 @@ class MovableObject extends DrawableObject {
    * @param {MovableObject} enemy - The enemy to check against.
    * @returns {boolean} True if jump-on collision.
    */
+
+  // isJumpOnEnemy(rabbit) {
+  //   return (
+  //     this.y + this.height - this.offset.bottom>
+  //     rabbit.y + rabbit.offset.top
+  //   );
+  // }
+
   isJumpOnEnemy(enemy) {
-    return (
-      this.y + this.height - this.offset.bottom - 30 >
-      enemy.y + enemy.offset.top
-    );
+    const bottomPenguin = this.y + this.height;
+    const topEnemy = enemy.y + enemy.offset.top;
+  
+    const isAtTopContact = bottomPenguin >= topEnemy && bottomPenguin <= topEnemy + 5;
+  
+    console.log('bottomPenguin:', bottomPenguin);
+    console.log('topEnemy:', topEnemy);
+    console.log('isAtTopContact:', isAtTopContact);
+    console.log('speedY:', this.speedY);
+    console.log('Treffer:', isAtTopContact && this.speedY > 0); // oder <0
+  
+    return isAtTopContact && this.speedY > 0; // je nach Richtung
   }
 
   /**
