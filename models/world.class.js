@@ -2,6 +2,7 @@
  * Manages the game world, including character movement, collisions,
  * object rendering, and game state.
  */
+
 class World {
     /**
      * Initializes the game world with canvas, keyboard input, and level data.
@@ -9,6 +10,7 @@ class World {
      * @param {Keyboard} keyboard - The keyboard input handler.
      * @param {Level} level - The current game level.
      */
+
     constructor(canvas, keyboard, level) {
       this.canvas = canvas;
       this.ctx = canvas.getContext('2d');
@@ -20,6 +22,9 @@ class World {
       this.setWorld();
       this.run();
       this.draw();
+
+      // this.animationFrameId = null; // Variable zum Speichern der ID
+      // this.startGameLoop();
     }
   
     /**
@@ -66,6 +71,7 @@ class World {
     /**
      * Runs repeated checks for collisions and item collection.
      */
+
     run() {
       let runInterval = setInterval(() => {
         this.checkCollisions();
@@ -75,9 +81,27 @@ class World {
         this.checkCollectingHeart();
         this.checkCollisionWithPoison();
         this.checkEndbossCollisionWithPoison();
-      }, 200);
+      }, 50);
       gameIntervals.push(runInterval);
     }
+
+    // startGameLoop() {
+    //   const gameLoop = () => {
+    //     this.checkCollisions();
+    //     this.checkThrowObjects();
+    //     this.checkCollectingPoison();
+    //     this.checkCollectingCoin();
+    //     this.checkCollectingHeart();
+    //     this.checkCollisionWithPoison();
+    //     this.checkEndbossCollisionWithPoison();
+    //     this.animationFrameId = requestAnimationFrame(gameLoop);
+    //   };
+    //   this.animationFrameId = requestAnimationFrame(gameLoop);
+    // }
+
+    // stopGameLoop() {
+    //   cancelAnimationFrame(this.animationFrameId);
+    // }
   
     /**
      * Checks and handles throwing poison bottles.
@@ -107,22 +131,6 @@ class World {
      * Checks for collisions between characters and enemies.
      */
 
-    // checkCollisions() {
-    //   this.level.enemies.forEach((enemy) => {
-    //     if (this.penguin.isJumpOnEnemy(enemy) && this.penguin.isColliding(enemy) && this.penguin.isAboveGround()) { 
-    //       this.removeEnemy(enemy);
-    //       this.penguin.speedY = 15;
-    //     } else if (this.penguin.isColliding(enemy)) {
-    //       this.penguin.hit();
-    //       this.statusBarHeart.setPercentage(this.penguin.energy);
-    //     }
-    //   });
-    //   if (this.penguin.isColliding(this.endboss)) {
-    //     this.penguin.hit();
-    //     this.statusBarHeart.setPercentage(this.penguin.energy);
-    //   }
-    // }
-
     checkCollisions() {
       this.level.enemies.forEach((enemy) => {
         if (this.penguin.isJumpOnEnemy(enemy)) { 
@@ -131,7 +139,7 @@ class World {
         } else if (this.penguin.isColliding(enemy)) {
           this.penguin.hit();
           this.statusBarHeart.setPercentage(this.penguin.energy);
-        }
+         }
       });
       if (this.penguin.isColliding(this.endboss)) {
         this.penguin.hit();
@@ -306,6 +314,12 @@ class World {
         this.flipImage(mo);
       }
       mo.draw(this.ctx);
+
+    // 💡 Optional: Kollisionrahmen (nur wenn Debug aktiviert)
+    if (mo.drawFrame) {
+      mo.drawFrame(this.ctx);
+    }
+
       if (mo.otherDirection) {
         this.flipImageBack(mo);
       }

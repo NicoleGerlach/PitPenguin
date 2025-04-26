@@ -14,10 +14,10 @@ class Penguin extends MovableObject {
     world;
   
     offset = {
-      top: 50,
-      left: 160,
-      right: 130,
-      bottom: 20,
+      top: 110,
+      left: 150,
+      right: 150,
+      bottom: 46,
     };
   
     /**
@@ -248,5 +248,19 @@ class Penguin extends MovableObject {
         showEndScreen(false);
         gameSounds.playLoseSound();
       }, 600);
+    }
+
+    drawFrame(ctx, color = 'blue') {
+      ctx.beginPath();
+      ctx.lineWidth = 2;
+      ctx.strokeStyle = color;
+  
+      const x = this.x + this.offset.left;
+      const y = this.y + this.offset.top;
+      const width = this.width - this.offset.left - this.offset.right;
+      const height = this.height - this.offset.top - this.offset.bottom;
+  
+      ctx.rect(x, y, width, height);
+      ctx.stroke();
     }
   }

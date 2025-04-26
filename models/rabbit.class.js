@@ -7,9 +7,9 @@ class Rabbit extends MovableObject {
   y = 240;
 
     offset = {
-      top: 0,
-      left: 60,
-      right: 40,
+      top: 80,
+      left: 50,
+      right: 50,
       bottom: 10,
     };
   
@@ -35,5 +35,19 @@ class Rabbit extends MovableObject {
         this.moveLeft();
         this.playAnimation(LOADED_IMAGES.rabbits.walk);
       }, 60);
+    }
+
+    drawFrame(ctx, color = 'red') {
+      ctx.beginPath();
+      ctx.lineWidth = 2;
+      ctx.strokeStyle = color;
+  
+      const x = this.x + this.offset.left;
+      const y = this.y + this.offset.top;
+      const width = this.width - this.offset.left - this.offset.right;
+      const height = this.height - this.offset.top - this.offset.bottom;
+  
+      ctx.rect(x, y, width, height);
+      ctx.stroke();
     }
   }

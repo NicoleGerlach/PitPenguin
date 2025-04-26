@@ -1,3 +1,4 @@
+
 let canvas;
 let world;
 let keyboard = new Keyboard();
@@ -154,6 +155,7 @@ function showHeadlineInDesktopMode() {
  * Starts the game by hiding the start screen, showing the canvas,
  * initializing the game world and enabling UI elements and sounds.
  */
+
 function startGame() {
   const startScreen = document.getElementById('startScreen');
   const canvas = document.getElementById('canvas');
@@ -247,10 +249,12 @@ function hideMobileButtons() {
 /**
  * Stops the game by clearing all intervals and stopping all sounds.
  */
+
 function stopGame() {
   isGameActive = false;
   gameIntervals.forEach((intervalId) => clearInterval(intervalId)); // Stoppe alle Intervalle
   stopSound();
+  world.stopGameLoop();
 }
 
 /**
@@ -272,10 +276,12 @@ function showEndScreen(isWin) {
 /**
  * Resets the end screen and restarts the game.
  */
+
 function playAgain() {
   const endScreenContainer = document.getElementById('endScreen');
   endScreenContainer.classList.remove('active'); // Entferne die aktive Klasse
   endScreenContainer.innerHTML = ''; // Leere den Container
+  stopGameLoop();
   startGame(); // Starte das Spiel erneut
 }
 

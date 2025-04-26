@@ -13,6 +13,7 @@ class MovableObject extends DrawableObject {
   poison = 0;
   coin = 0;
   heart = 0;
+  canBeHit = true; // Neue Variable
 
   /**
    * Applies gravity to the object, affecting its vertical position over time.
@@ -45,19 +46,13 @@ class MovableObject extends DrawableObject {
    * @param {MovableObject} mo - The object to check collision with.
    * @returns {boolean} True if colliding.
    */
-  // isColliding(mo) {
-  //   return (
-  //     this.x + this.width - this.offset.right > mo.x + mo.offset.left &&
-  //     this.x + this.offset.left < mo.x + mo.width - mo.offset.right &&
-  //     this.y + this.height - this.offset.bottom > mo.y + mo.offset.top &&
-  //     this.y + this.offset.top < mo.y + mo.height - mo.offset.bottom
-  //   );
-  // }
-
+  
   isColliding(mo) {
     return (
       this.x + this.width - this.offset.right > mo.x + mo.offset.left &&
-      this.x + this.offset.left < mo.x + mo.width - mo.offset.right
+      this.x + this.offset.left < mo.x + mo.width - mo.offset.right &&
+      this.y + this.height - this.offset.bottom > mo.y + mo.offset.top &&
+      this.y + this.offset.top < mo.y + mo.height - mo.offset.bottom
     );
   }
 
@@ -66,27 +61,8 @@ class MovableObject extends DrawableObject {
    * @param {MovableObject} enemy - The enemy to check against.
    * @returns {boolean} True if jump-on collision.
    */
-
-  // isJumpOnEnemy(rabbit) {
-  //   return (
-  //     this.y + this.height - this.offset.bottom>
-  //     rabbit.y + rabbit.offset.top
-  //   );
-  // }
-
   isJumpOnEnemy(enemy) {
-    const bottomPenguin = this.y + this.height;
-    const topEnemy = enemy.y + enemy.offset.top;
-  
-    const isAtTopContact = bottomPenguin >= topEnemy && bottomPenguin <= topEnemy + 5;
-  
-    console.log('bottomPenguin:', bottomPenguin);
-    console.log('topEnemy:', topEnemy);
-    console.log('isAtTopContact:', isAtTopContact);
-    console.log('speedY:', this.speedY);
-    console.log('Treffer:', isAtTopContact && this.speedY > 0); // oder <0
-  
-    return isAtTopContact && this.speedY > 0; // je nach Richtung
+    return this.isColliding(enemy) && this.isAboveGround() && this.speedY < 0;
   }
 
   /**
@@ -109,11 +85,16 @@ class MovableObject extends DrawableObject {
    * Reduces energy when hit and records the time of impact.
    */
   hit() {
-    this.energy -= 8;
-    if (this.energy < 0) {
-      this.energy = 0;
-    } else {
+    if (this.canBeHit) {
+      this.energy -= 8;
+      if (this.energy < 0) {
+        this.energy = 0;
+      }
       this.lastHit = new Date().getTime();
+      this.canBeHit = false;
+      setTimeout(() => {
+        this.canBeHit = true;
+      }, 400);
     }
   }
 
@@ -121,6 +102,7 @@ class MovableObject extends DrawableObject {
    * Determines if the object is currently in a "hurt" state.
    * @returns {boolean} True if recently hit.
    */
+
   isHurt() {
     let timepassed = new Date().getTime() - this.lastHit;
     timepassed = timepassed / 1000;
