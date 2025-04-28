@@ -9,4 +9,5 @@ class Keyboard {
     DOWN = false;
     SPACE = false;
     D = false;
+    D_canThrow = true;
   }

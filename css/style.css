@@ -29,7 +29,7 @@ body {
 .loading-message {
   position: fixed;
   inset: 0;
-  background-color: #1e3a8a; 
+  background-color: #1e3a8a;
   color: white;
   display: flex;
   align-items: center;
@@ -47,8 +47,7 @@ body {
   grid-template-areas:
     'headline'
     'game-screen';
-  background: url('../assets/img/background/01/layers/l1-background-twisted.png')
-    no-repeat center/cover;
+  background: url('../assets/img/background/01/layers/l1-background-twisted.png') no-repeat center/cover;
   position: relative;
   color: white;
 }
@@ -69,12 +68,12 @@ h1.headline {
   align-items: center;
 }
 
-.headline.active > img {
+.headline.active>img {
   margin: 0 auto 0.3em 0;
   height: 50px;
 }
 
-.headline.active > h2 {
+.headline.active>h2 {
   margin: 0 auto 0.3em 0;
 }
 
@@ -170,7 +169,7 @@ h2 {
   justify-content: center;
 }
 
-.imprint-wrapper > p {
+.imprint-wrapper>p {
   padding: 0.5em 1.5em;
   width: fit-content;
   font-weight: 600;
@@ -282,7 +281,7 @@ th {
 }
 
 .coin-box {
-  width: 130px;
+  width: 135px;
   display: grid;
   grid-template-rows: 50px 100px 50px;
   align-items: center;
@@ -290,7 +289,7 @@ th {
 }
 
 .play-again {
-  width: 130px;
+  width: 135px;
   display: grid;
   grid-template-rows: 50px 1fr;
   align-items: center;
@@ -300,12 +299,25 @@ th {
   height: 100px;
 }
 
+.back-to-menu {
+  width: 135px;
+  display: grid;
+  grid-template-rows: 150px 1fr;
+  align-items: center;
+  justify-items: center;
+}
+
+.back-to-menu img {
+  width: 100px;
+}
+
 .info-box:hover,
 .imprint:hover,
-.play-again:hover {
-    cursor: pointer;
-    filter: brightness(80%);
-    color: #F2F2F2;
+.play-again:hover,
+.back-to-menu:hover {
+  cursor: pointer;
+  filter: brightness(80%);
+  color: #F2F2F2;
 }
 
 .rotate-screen {
@@ -317,6 +329,16 @@ th {
   font-size: 2rem;
   text-align: center;
   padding: 2rem;
+}
+
+.confetti-canvas {
+  position: absolute;
+  height: 100vh;
+  width: 100vw;
+  pointer-events: none;
+  z-index: 5;
+  background: transparent;
+  max-height: 100vh;
 }
 
 .d-none {

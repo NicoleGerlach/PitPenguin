@@ -1,4 +1,3 @@
-
 let canvas;
 let world;
 let keyboard = new Keyboard();
@@ -7,11 +6,11 @@ let gameIntervals = [];
 let isMute = false;
 let isFullscreen = false;
 let isGameActive = false;
+let confettiInstance = null;
 
 /**
  * Initializes the game to start playing.
  */
-
 function init() {
   canvas = document.getElementById('canvas');
   preloadImages();
@@ -143,7 +142,6 @@ function showFullscreen() {
 
 /**
  * Activates the headline for desktop view by adding a CSS class to the main container.
- *
  * This class (`game-started`) is typically used to change styles such as visibility,
  * positioning, or transitions when the game has started on larger screens.
  */
@@ -155,7 +153,6 @@ function showHeadlineInDesktopMode() {
  * Starts the game by hiding the start screen, showing the canvas,
  * initializing the game world and enabling UI elements and sounds.
  */
-
 function startGame() {
   const startScreen = document.getElementById('startScreen');
   const canvas = document.getElementById('canvas');
@@ -178,7 +175,6 @@ function startGame() {
  *
  * @param {string} content - The content type to display ('startGame', 'howToPlay' or 'imprint')
  */
-
 function showContent(content) {
   const arrowBack = document.getElementById('arrow_back');
   const instructionsBox = document.getElementById('instructionsBox');
@@ -249,40 +245,56 @@ function hideMobileButtons() {
 /**
  * Stops the game by clearing all intervals and stopping all sounds.
  */
-
 function stopGame() {
   isGameActive = false;
   gameIntervals.forEach((intervalId) => clearInterval(intervalId)); // Stoppe alle Intervalle
   stopSound();
-  world.stopGameLoop();
 }
 
 /**
  * Displays the win or lose end screen based on the game result.
  * @param {boolean} isWin - True if the player won, false if lost.
  */
-
 function showEndScreen(isWin) {
   hideGameButtons();
   const endScreenContainer = document.getElementById('endScreen');
   if (isWin) {
-    endScreenContainer.innerHTML = generateWinScreenHtml(); // Generiere den Gewinnbildschirm
+    endScreenContainer.innerHTML = generateWinScreenHtml();
+    if (!confettiInstance) {
+      confettiInstance = new Confetti('confettiCanvas', 150);
+      confettiInstance.createParticles();
+    }
   } else {
-    endScreenContainer.innerHTML = generateLoseSrceenHtml(); // Generiere den Verlustbildschirm
+    endScreenContainer.innerHTML = generateLoseSrceenHtml();
   }
-  endScreenContainer.classList.add('active'); // Zeige den Endscreen an
+  endScreenContainer.classList.add('active');
 }
 
 /**
  * Resets the end screen and restarts the game.
  */
-
 function playAgain() {
   const endScreenContainer = document.getElementById('endScreen');
   endScreenContainer.classList.remove('active'); // Entferne die aktive Klasse
   endScreenContainer.innerHTML = ''; // Leere den Container
-  stopGameLoop();
+  world.penguin.resetInactivityTimer();
   startGame(); // Starte das Spiel erneut
+}
+
+/**
+ * Resets the end screen, canvas and navigates to the main menu.
+ */
+function backToMenu() {
+  stopGame();
+  const endScreenContainer = document.getElementById('endScreen');
+  const canvas = document.getElementById('canvas');
+  const startScreen = document.getElementById('startScreen');
+  endScreenContainer.classList.remove('active');
+  endScreenContainer.innerHTML = '';
+  canvas.classList.add('d-none');
+  startScreen.classList.remove('d-none');
+  hideMobileButtons();
+  showInfoBox();
 }
 
 /**
@@ -360,7 +372,6 @@ function toggleMuteImg() {
 
 /**
  * Listens for keydown events and updates the keyboard input state accordingly.
- *
  * Arrow keys, spacebar, and "D" are used to control the game character.
  */
 window.addEventListener('keydown', (e) => {
@@ -386,7 +397,6 @@ window.addEventListener('keydown', (e) => {
 
 /**
  * Listens for keyup events and resets the corresponding keyboard input state.
- *
  * This stops character movement or actions when keys are released.
  */
 window.addEventListener('keyup', (e) => {
@@ -407,12 +417,12 @@ window.addEventListener('keyup', (e) => {
   }
   if (e.keyCode == 68) {
     keyboard.D = false;
+    keyboard.D_canThrow = true;
   }
 });
 
 /**
  * Attaches touchstart event listeners to mobile control buttons.
- *
  * Updates the keyboard state when virtual buttons are touched,
  * allowing mobile users to control the game character.
  */
@@ -437,7 +447,6 @@ function mobileButtonsTouched() {
 
 /**
  * Attaches touchend event listeners to mobile control buttons.
- *
  * Resets the keyboard state when virtual buttons are released,
  * ensuring that movement or actions stop correctly on mobile devices.
  */

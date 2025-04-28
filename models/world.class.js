@@ -23,8 +23,7 @@ class World {
       this.run();
       this.draw();
 
-      // this.animationFrameId = null; // Variable zum Speichern der ID
-      // this.startGameLoop();
+      this.animationFrameId = null; // Variable zum Speichern der ID
     }
   
     /**
@@ -84,31 +83,17 @@ class World {
       }, 50);
       gameIntervals.push(runInterval);
     }
-
-    // startGameLoop() {
-    //   const gameLoop = () => {
-    //     this.checkCollisions();
-    //     this.checkThrowObjects();
-    //     this.checkCollectingPoison();
-    //     this.checkCollectingCoin();
-    //     this.checkCollectingHeart();
-    //     this.checkCollisionWithPoison();
-    //     this.checkEndbossCollisionWithPoison();
-    //     this.animationFrameId = requestAnimationFrame(gameLoop);
-    //   };
-    //   this.animationFrameId = requestAnimationFrame(gameLoop);
-    // }
-
-    // stopGameLoop() {
-    //   cancelAnimationFrame(this.animationFrameId);
-    // }
   
     /**
      * Checks and handles throwing poison bottles.
      */
     checkThrowObjects() {
-      if (this.keyboard.D && this.penguin.poison > 0) {
+      if (this.keyboard.D && this.keyboard.D_canThrow && this.penguin.poison >0) {
         this.throwBottle();
+        this.keyboard.D_canThrow= false; 
+      } else if (!this.keyboard.D && !this.keyboard.D_canThrow) {
+        // Taste losgelassen -> wieder werfen erlauben
+        this.keyboard.D_canThrow= true;
       }
     }
   
@@ -282,15 +267,15 @@ class World {
       this.addToMap(this.statusBarEndboss);
       this.ctx.translate(this.camera_x, 0);
       this.addObjectsToMap(this.level.enemies);
+      this.addToMap(this.level.endboss);
       this.addObjectsToMap(this.poisonBottles);
       this.addObjectsToMap(this.level.coin);
       this.addObjectsToMap(this.level.heart);
       this.addObjectsToMap(this.throwableObjects);
-      this.addToMap(this.level.endboss);
       this.addToMap(this.penguin);
       this.ctx.translate(-this.camera_x, 0);
       let self = this;
-      requestAnimationFrame(function () {
+      this.animationFrameId = requestAnimationFrame(function () {
         self.draw();
       });
     }

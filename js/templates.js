@@ -4,6 +4,7 @@
  *
  * @returns {string} HTML string representing the info box UI.
  */
+
 function generateInfoBoxHtml() {
     return /*html*/ `
           <div id="directionsContainer" class="directions-container">
@@ -112,11 +113,11 @@ function generateImprintHtml() {
  *
  * @returns {string} HTML markup for the win screen.
  */
-
 function generateWinScreenHtml() {
     return /*html*/ `
             <div id="winContainer" class="win-container">
                 <div class="win">You win, great!</div>
+                <canvas id="confettiCanvas" class="confetti-canvas"></canvas>
                 <div class="win-box">
                     <div class="coin-box">
                         <p>You collected</p>
@@ -125,6 +126,10 @@ function generateWinScreenHtml() {
                     </div>
                     <div onclick="playAgain()" class="play-again">Play again
                         <img src="./assets/img/reload.png">
+                    </div>
+                    <div onclick=" backToMenu()" class="back-to-menu">
+                        <img src="assets/img/Penguin/Character09/Penguin.png">
+                        Back To Menu
                     </div>
                 </div>
             </div>
@@ -142,14 +147,18 @@ function generateLoseSrceenHtml() {
             <div id="loseContainer" class="lose-container">
                 <div class="lose">Sorry, you lose</div>
                 <div class="lose-box">
+                <div class="coin-box">
+                        <p>You collected</p>
+                        <img src="./assets/img/Coins/1.png">
+                        <div>${world.collectedCoins} of 10 coins</div>
+                    </div>
                     <div onclick="playAgain()" class="play-again">
                         <p>Try again</p>
                         <img src="./assets/img/reload.png">
                     </div>
-                    <div class="coin-box">
-                        <p>You collected</p>
-                        <img src="./assets/img/Coins/1.png">
-                        <div>${world.collectedCoins} of 10 coins</div>
+                    <div onclick=" backToMenu()" class="back-to-menu">
+                        <img src="assets/img/Penguin/Character09/Penguin.png">
+                        Back To Menu
                     </div>
                 </div>
             </div>

@@ -31,10 +31,11 @@ class Rabbit extends MovableObject {
      * Animates the rabbit's walking movement and updates its image frames.
      */
     animate() {
-      let interval = setInterval(() => {
+      let animateRabbitInterval = setInterval(() => {
         this.moveLeft();
         this.playAnimation(LOADED_IMAGES.rabbits.walk);
       }, 60);
+      gameIntervals.push(animateRabbitInterval);
     }
 
     drawFrame(ctx, color = 'red') {
