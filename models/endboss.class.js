@@ -17,10 +17,10 @@ class Endboss extends MovableObject {
   playedDeath = false;
 
   offset = {
-    top: 45,
-    left: 120,
-    right: 120,
-    bottom: 10,
+    top: 110,
+    left: 150,
+    right: 190,
+    bottom: 80,
   };
 
   /**
@@ -79,20 +79,31 @@ class Endboss extends MovableObject {
   }
 
   /**
-   * Plays the death animation and shows the win screen.
+   * Plays the death animation, stop the game and show the endscreen.
    */
   playDeadAnimation() {
-    let deadAnimationInterval = setInterval(() => {
-      if (this.isDead) {
-        this.playAnimation(LOADED_IMAGES.endboss.dead);
-        this.speed = 0;
-      }
-    }, 2200 / 60);
-    setTimeout(() => stopGame(), 200);
-    gameIntervals.push(deadAnimationInterval);
+    const images = LOADED_IMAGES.endboss.dead;
+    this.animateEndbossDeath(images);
     setTimeout(() => {
+      stopGame();
       showEndScreen(true);
       gameSounds.playWinSound();
-    }, 600);
+    }, images.length * 100 + 100);
+  }
+  
+  /**
+   * Animates the death frames.
+   * 
+   * @param {array} images - Array of images.
+   * @param {number} index - Current index in the array.
+   */
+  animateEndbossDeath(images, index = 0) {
+    if (index < images.length) {
+      this.playAnimation([images[index]]);
+      setTimeout(() => this.animateEndbossDeath(images, index + 1), 30);
+    } else {
+      this.speed = 0;
+      this.isDead = true;
+    }
   }
 }

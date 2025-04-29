@@ -2,7 +2,6 @@
  * Represents a rabbit enemy that walks from right to left.
  * Inherits from {@link MovableObject}.
  */
-
 class Rabbit extends MovableObject {
   y = 240;
 
@@ -36,19 +35,5 @@ class Rabbit extends MovableObject {
         this.playAnimation(LOADED_IMAGES.rabbits.walk);
       }, 60);
       gameIntervals.push(animateRabbitInterval);
-    }
-
-    drawFrame(ctx, color = 'red') {
-      ctx.beginPath();
-      ctx.lineWidth = 2;
-      ctx.strokeStyle = color;
-  
-      const x = this.x + this.offset.left;
-      const y = this.y + this.offset.top;
-      const width = this.width - this.offset.left - this.offset.right;
-      const height = this.height - this.offset.top - this.offset.bottom;
-  
-      ctx.rect(x, y, width, height);
-      ctx.stroke();
     }
   }

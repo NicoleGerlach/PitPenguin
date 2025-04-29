@@ -2,13 +2,12 @@
  * Represents an object that can move and interact within the game world.
  * Inherits from {@link DrawableObject}.
  */
-
 class MovableObject extends DrawableObject {
   speed = 0.15;
   otherDirection = false;
   speedY = 0;
   acceleration = 2.5;
-  energy = 100;
+  energy = 100; // wieder auf 100 setzen
   lastHit = 0;
   poison = 0;
   coin = 0;
@@ -32,7 +31,6 @@ class MovableObject extends DrawableObject {
    * Checks if the object is currently above the ground.
    * @returns {boolean} True if above ground.
    */
-
   isAboveGround() {
     if (this instanceof ThrowableObject) {
       return true;
@@ -46,7 +44,6 @@ class MovableObject extends DrawableObject {
    * @param {MovableObject} mo - The object to check collision with.
    * @returns {boolean} True if colliding.
    */
-  
   isColliding(mo) {
     return (
       this.x + this.width - this.offset.right > mo.x + mo.offset.left &&
@@ -102,7 +99,6 @@ class MovableObject extends DrawableObject {
    * Determines if the object is currently in a "hurt" state.
    * @returns {boolean} True if recently hit.
    */
-
   isHurt() {
     let timepassed = new Date().getTime() - this.lastHit;
     timepassed = timepassed / 1000;
@@ -114,7 +110,8 @@ class MovableObject extends DrawableObject {
    * @returns {boolean} True if energy is 0.
    */
   isDead() {
-    return this.energy == 0;
+    console.log('isDead() aufgerufen, Ergebnis:', this._isDead);
+    return this._isDead;
   }
 
   /**

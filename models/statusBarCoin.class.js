@@ -9,6 +9,7 @@ class StatusBarCoin extends DrawableObject {
     height = 50;
     width = 190;
     percentage = 0;
+    
     /**
      * Creates a new StatusBarCoin instance and initializes its image based on the current percentage.
      */

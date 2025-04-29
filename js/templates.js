@@ -4,7 +4,6 @@
  *
  * @returns {string} HTML string representing the info box UI.
  */
-
 function generateInfoBoxHtml() {
     return /*html*/ `
           <div id="directionsContainer" class="directions-container">
