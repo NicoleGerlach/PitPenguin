@@ -7,7 +7,7 @@ class Level {
     poison;
     coin;
     heart;
-    level_end_x = 2400;
+    level_end_x = 2900;
     level_start_x = -1000;
   
     /**

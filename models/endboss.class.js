@@ -9,12 +9,13 @@ class Endboss extends MovableObject {
   y = -40;
   speed = 5;
   direction = -1;
-  leftBoundary = 2200;
+  leftBoundary = 1800;
   rightBoundary = 2650;
   energy = 4;
   isDead = false;
   endbossIsHurt = false;
   playedDeath = false;
+  targetX = this.x //neu
 
   offset = {
     top: 110,
@@ -32,28 +33,67 @@ class Endboss extends MovableObject {
     this.addToImageCache('walk', LOADED_IMAGES.endboss.walk);
     this.addToImageCache('hurt', LOADED_IMAGES.endboss.hurt);
     this.addToImageCache('dead', LOADED_IMAGES.endboss.dead);
+    this.setNewTarget(); //neu
     this.animate();
   }
 
   /**
    * Controls movement and animation of the endboss.
    */
+  // animate() {
+  //   let movementInterval = setInterval(() => {
+  //     if (this.isDead) return;
+  //     this.x += this.speed * this.direction;
+  //     if (this.x <= this.leftBoundary || this.x >= this.rightBoundary) {
+  //       this.direction *= -1;
+  //       this.otherDirection = this.direction === 1;
+  //     }
+  //     if (this.endbossIsHurt) {
+  //       this.playAnimation(LOADED_IMAGES.endboss.hurt);
+  //       gameSounds.playHurtEndbossSound();
+  //     } else {
+  //       this.playAnimation(LOADED_IMAGES.endboss.walk);
+  //     }
+  //   }, 2000 / 60);
+  //   gameIntervals.push(movementInterval);
+  // }
+
   animate() {
-    let movementInterval = setInterval(() => {
+    let intervalId = setInterval(() => {
       if (this.isDead) return;
-      this.x += this.speed * this.direction;
-      if (this.x <= this.leftBoundary || this.x >= this.rightBoundary) {
-        this.direction *= -1;
-        this.otherDirection = this.direction === 1;
+
+      // Wenn nahe am Ziel, neues Ziel setzen
+      if (Math.abs(this.targetX - this.x) < this.speed) {
+        this.setNewTarget();
       }
+
+      // Bewegung in Richtung Ziel
+      this.x += this.speed * this.direction;
+
+      // Grenze prüfen und Richtungswechsel bei Bedarf
+      if (this.x <= this.leftBoundary || this.x >= this.rightBoundary) {
+        // Begrenzung korrigieren
+        if (this.x <= this.leftBoundary) {
+          this.x = this.leftBoundary;
+        }
+        if (this.x >= this.rightBoundary) {
+          this.x = this.rightBoundary;
+        }
+        // Neues Ziel setzen und Richtung anpassen
+        this.setNewTarget();
+      }
+
+      // Animationen je nach Zustand
       if (this.endbossIsHurt) {
         this.playAnimation(LOADED_IMAGES.endboss.hurt);
         gameSounds.playHurtEndbossSound();
       } else {
         this.playAnimation(LOADED_IMAGES.endboss.walk);
       }
-    }, 2000 / 60);
-    gameIntervals.push(movementInterval);
+
+    }, 1800 / 60);
+
+    gameIntervals.push(intervalId);
   }
 
   /**
@@ -104,6 +144,21 @@ class Endboss extends MovableObject {
     } else {
       this.speed = 0;
       this.isDead = true;
+    }
+  }
+
+  setNewTarget() {
+    // Zufälliges Ziel innerhalb der Grenzen
+    this.targetX =
+      Math.random() * (this.rightBoundary - this.leftBoundary) + this.leftBoundary;
+
+    // Bestimme Richtung zum Ziel
+    if (this.targetX > this.x) {
+      this.direction = +1; // nach rechts
+      this.otherDirection = true; // z.B. Sprite nicht spiegeln
+    } else {
+      this.direction = -1; // nach links
+      this.otherDirection = false; // Sprite spiegeln
     }
   }
 }

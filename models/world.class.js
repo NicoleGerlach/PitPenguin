@@ -98,9 +98,11 @@ class World {
    */
   throwBottle() {
     if (this.penguin.poison > 0) {
+      const direction = this.penguin.otherDirection; // true für links, false für rechts
       let bottle = new ThrowableObject(
-        this.penguin.x + 190,
-        this.penguin.y + 130
+        this.penguin.x + 170,
+        this.penguin.y + 130,
+        direction
       );
       this.throwableObjects.push(bottle);
       this.penguin.poison--;
@@ -111,7 +113,6 @@ class World {
   /**
    * Checks for collisions between characters and enemies.
    */
-
   checkCollisions() {
     this.level.enemies.forEach((enemy) => {
       if (this.penguin.isJumpOnEnemy(enemy)) {
