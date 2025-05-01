@@ -3,6 +3,7 @@
  * object rendering, and game state.
  */
 class World {
+  
   /**
    * Initializes the game world with canvas, keyboard input, and level data.
    * @param {HTMLCanvasElement} canvas - The canvas element for rendering.

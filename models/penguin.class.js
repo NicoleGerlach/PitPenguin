@@ -161,13 +161,20 @@ class Penguin extends MovableObject {
       if (this.isDead) {
         this.playDeadAnimation();
       } else {
-        if (this.isAboveGround()) {
-          this.playAnimation(LOADED_IMAGES.penguin.jump);
-        } else {
-          if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
-            this.playAnimation(LOADED_IMAGES.penguin.walk);
-          }
-        }
+        this.handleJumpWalkAnimation();
+      }
+    }
+  }
+
+  /**
+   * Handles the jump and walk animation.
+   */
+  handleJumpWalkAnimation() {
+    if (this.isAboveGround()) {
+      this.playAnimation(LOADED_IMAGES.penguin.jump);
+    } else {
+      if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
+        this.playAnimation(LOADED_IMAGES.penguin.walk);
       }
     }
   }

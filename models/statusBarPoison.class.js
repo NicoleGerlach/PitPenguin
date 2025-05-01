@@ -33,18 +33,12 @@ class StatusBarPoison extends DrawableObject {
      * @returns {number} Index for the poison status image.
      */
     resolveImageIndex() {
-      if (this.percentage == 0) {
-        return 0;
-      } else if (this.percentage <= 20) {
-        return 1;
-      } else if (this.percentage <= 40) {
-        return 2;
-      } else if (this.percentage <= 60) {
-        return 3;
-      } else if (this.percentage <= 80) {
-        return 4;
-      } else {
-        return 5;
+      if (this.percentage == 0) { return 0;
+      } else if (this.percentage <= 20) { return 1;
+      } else if (this.percentage <= 40) { return 2;
+      } else if (this.percentage <= 60) { return 3;
+      } else if (this.percentage <= 80) { return 4;
+      } else { return 5;
       }
     }
   }

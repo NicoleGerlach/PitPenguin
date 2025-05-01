@@ -40,60 +40,44 @@ class Endboss extends MovableObject {
   /**
    * Controls movement and animation of the endboss.
    */
-  // animate() {
-  //   let movementInterval = setInterval(() => {
-  //     if (this.isDead) return;
-  //     this.x += this.speed * this.direction;
-  //     if (this.x <= this.leftBoundary || this.x >= this.rightBoundary) {
-  //       this.direction *= -1;
-  //       this.otherDirection = this.direction === 1;
-  //     }
-  //     if (this.endbossIsHurt) {
-  //       this.playAnimation(LOADED_IMAGES.endboss.hurt);
-  //       gameSounds.playHurtEndbossSound();
-  //     } else {
-  //       this.playAnimation(LOADED_IMAGES.endboss.walk);
-  //     }
-  //   }, 2000 / 60);
-  //   gameIntervals.push(movementInterval);
-  // }
-
   animate() {
     let intervalId = setInterval(() => {
       if (this.isDead) return;
-
-      // Wenn nahe am Ziel, neues Ziel setzen
       if (Math.abs(this.targetX - this.x) < this.speed) {
         this.setNewTarget();
       }
-
-      // Bewegung in Richtung Ziel
       this.x += this.speed * this.direction;
-
-      // Grenze prüfen und Richtungswechsel bei Bedarf
-      if (this.x <= this.leftBoundary || this.x >= this.rightBoundary) {
-        // Begrenzung korrigieren
-        if (this.x <= this.leftBoundary) {
-          this.x = this.leftBoundary;
-        }
-        if (this.x >= this.rightBoundary) {
-          this.x = this.rightBoundary;
-        }
-        // Neues Ziel setzen und Richtung anpassen
-        this.setNewTarget();
-      }
-
-      // Animationen je nach Zustand
-      if (this.endbossIsHurt) {
-        this.playAnimation(LOADED_IMAGES.endboss.hurt);
-        gameSounds.playHurtEndbossSound();
-      } else {
-        this.playAnimation(LOADED_IMAGES.endboss.walk);
-      }
-
+      this.randomMovement();
+      this.updateHurtWalkAnimation();
     }, 1800 / 60);
-
     gameIntervals.push(intervalId);
+  }
+
+  /**
+   * Handles random movement within defined boundaries.
+   */
+  randomMovement() {
+    if (this.x <= this.leftBoundary || this.x >= this.rightBoundary) {
+      if (this.x <= this.leftBoundary) {
+        this.x = this.leftBoundary;
+      }
+      if (this.x >= this.rightBoundary) {
+        this.x = this.rightBoundary;
+      }
+      this.setNewTarget();
+    }
+  }
+
+  /**
+   * Updates the endboss animation based on its current state.
+   */
+  updateHurtWalkAnimation() {
+    if (this.endbossIsHurt) {
+      this.playAnimation(LOADED_IMAGES.endboss.hurt);
+      gameSounds.playHurtEndbossSound();
+    } else {
+      this.playAnimation(LOADED_IMAGES.endboss.walk);
+    }
   }
 
   /**
@@ -103,19 +87,33 @@ class Endboss extends MovableObject {
     if (!this.isDead && !this.endbossIsHurt) {
       this.energy--;
       if (this.energy <= 0) {
-        this.statusBarEndboss.updateHearts();
-        this.isDead = true;
-        this.playDeadAnimation();
+        this.updateUponDeath();
       } else {
-        this.endbossIsHurt = true;
-        this.statusBarEndboss.updateHearts();
-        this.speed = 0;
+        this.updateUponHurt();
         setTimeout(() => {
           this.endbossIsHurt = false;
           this.speed = 5;
         }, 800);
       }
     }
+  }
+
+  /**
+   * Updates the endboss state upon death.
+   */
+  updateUponDeath() {
+    this.statusBarEndboss.updateHearts();
+    this.isDead = true;
+    this.playDeadAnimation();
+  }
+
+  /**
+   * Updates the endboss when it gets hurt.
+   */
+  updateUponHurt() {
+    this.endbossIsHurt = true;
+    this.statusBarEndboss.updateHearts();
+    this.speed = 0;
   }
 
   /**
@@ -147,18 +145,18 @@ class Endboss extends MovableObject {
     }
   }
 
+  /**
+   * Sets a new random target position within the defined boundaries.
+   */
   setNewTarget() {
-    // Zufälliges Ziel innerhalb der Grenzen
     this.targetX =
       Math.random() * (this.rightBoundary - this.leftBoundary) + this.leftBoundary;
-
-    // Bestimme Richtung zum Ziel
     if (this.targetX > this.x) {
-      this.direction = +1; // nach rechts
-      this.otherDirection = true; // z.B. Sprite nicht spiegeln
+      this.direction = +1;
+      this.otherDirection = true;
     } else {
-      this.direction = -1; // nach links
-      this.otherDirection = false; // Sprite spiegeln
+      this.direction = -1;
+      this.otherDirection = false;
     }
   }
 }
