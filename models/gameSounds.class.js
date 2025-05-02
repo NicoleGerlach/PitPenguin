@@ -145,6 +145,7 @@ class GameSounds {
    */
   toggleMuteSound() {
     this.isMute = !this.isMute;
+    this.saveMuteStatus(); // Status speichern
     if (this.isMute) {
       this.stopBackgroundSound();
       this.stopSnoringPenguinSound();
@@ -152,5 +153,22 @@ class GameSounds {
       this.playBackgroundSound();
       this.playSnoringPenguinSound();
     }
+  }
+
+  /**
+   * Loads the mute status from local storage.
+   */
+  loadMuteStatus() {
+    const storedMute = localStorage.getItem('soundMuted');
+    if (storedMute !== null) {
+      this.isMute = JSON.parse(storedMute);
+    }
+  }
+
+  /**
+   * Saves the current mute status to local storage.
+   */
+  saveMuteStatus() {
+    localStorage.setItem('soundMuted', JSON.stringify(this.isMute));
   }
 }
